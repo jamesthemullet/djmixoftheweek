@@ -27,11 +27,15 @@ div.page-container {
   display: flex;
   flex-direction: column;
   position: relative;
-  min-height: 100vh;
+  width: 100%;
 
   main {
     flex-grow: 1;
     margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: row;
   }
 }
 
@@ -87,4 +91,8 @@ ol {
     text-decoration: none;
     color: #333;
   }
+}
+
+img {
+  max-width: 100%;
 }
