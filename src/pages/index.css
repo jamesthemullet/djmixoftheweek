@@ -1,0 +1,44 @@
+ul {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  li {
+    flex-basis: 100%;
+    box-sizing: border-box;
+
+    @media (min-width: 768px) {
+      flex-basis: 50%;
+    }
+
+    @media (min-width: 1200px) {
+      flex-basis: 33.333%;
+    }
+
+    @media (min-width: 1800px) {
+      flex-basis: 25%;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 6/4;
+  }
+
+  h2 {
+    margin: 0;
+    text-align: center;
+    padding: 0 1rem 1rem;
+
+    a {
+      text-decoration: none;
+      color: var(--color-text);
+    }
+  }
+}

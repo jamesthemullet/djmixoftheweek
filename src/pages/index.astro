@@ -7,6 +7,8 @@ import MOST_RECENT_POST_QUERY from "../lib/queries/mostRecentPost";
 import OTHER_POSTS_AFTER_FIRST_QUERY from "../lib/queries/otherPostsAfterFirst";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
+import "./index.css";
+
 let recentPost;
 let recentPostCursor;
 
@@ -53,11 +55,6 @@ const posts = [recentPost, ...otherPosts];
     {
       posts.map((post, index) => (
         <li>
-          <h3>
-            <a href={post.slug} rel="noopener noreferrer">
-              <Fragment set:html={post.title} />
-            </a>
-          </h3>
           <a href={post.slug} rel="noopener noreferrer">
             <Image
               src={post.featured_image}
@@ -67,6 +64,11 @@ const posts = [recentPost, ...otherPosts];
               loading={index === 0 ? "eager" : "lazy"}
             />
           </a>
+          <h2>
+            <a href={post.slug} rel="noopener noreferrer">
+              <Fragment set:html={post.title} />
+            </a>
+          </h2>
         </li>
       ))
     }
