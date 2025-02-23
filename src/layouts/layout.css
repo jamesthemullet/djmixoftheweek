@@ -56,22 +56,29 @@ div.logoandtitle {
 
 h1,
 h2 {
-  @media (max-width: 768px) {
-    font-size: 1.75em;
-  }
   font-family: "Knewave", sans-serif;
   font-size: 3em;
   color: #333;
   margin: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 1.75em;
+  }
 }
 
 h2 {
+  font-size: 1.5rem;
+  color: var(--menu);
+
   @media (max-width: 768px) {
-    font-size: 1.5em;
+    font-size: 1.5rem;
   }
-  font-size: 2em;
-  text-decoration: underline;
-  color: #603d34;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 ol {
