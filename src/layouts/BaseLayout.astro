@@ -1,15 +1,12 @@
 ---
-// import Header from "../components/header/header.astro";
 // import Footer from "../components/footer/footer.astro";
 const { pageTitle, description, opengraphImage } = Astro.props;
 import Header from "../components/header/header.astro";
 import "./layout.css";
-// import "@fontsource/yellowtail";
-// import yellowtailWoff2 from "@fontsource/yellowtail/files/yellowtail-latin-400-normal.woff2?url";
 
-// import logo3 from "../images/logos/rdaw-logo-3.webp";
+// import logo3 from null;
 
-// import { SEO } from "astro-seo";
+import { SEO } from "astro-seo";
 ---
 
 <html lang="en">
@@ -41,27 +38,33 @@ import "./layout.css";
       href="/favicon/favicon-16x16.png"
     />
     <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link
+      rel="canonical"
+      href={`https://www.djmixoftheweek.com${Astro.url.pathname}`}
+    />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width" />
-    <!-- <SEO
-      title={pageTitle || "Roast Dinners Around The World"}
+    <meta name="robots" content="index, follow" />
+    <SEO
+      title={pageTitle || "DJ Mix Of The Week"}
       description={description ||
-        "Emporer Gravy bringing you roast dinner reviews from around the world."}
+        "One house/techno/minimal mix every week (ish), personally recommended for your listening joy."}
       openGraph={{
         basic: {
-          title: pageTitle || "Roast Dinners Around The World",
+          title: pageTitle || "DJ Mix Of The Week",
           type: "Article",
-          image: opengraphImage || logo3,
+          // need to replace null
+          image: opengraphImage || "https://example.com/default-image.jpg",
         },
         optional: {
           description:
             description ||
-            "Emporer Gravy bringing you roast dinner reviews from around the world.",
-          siteName: "Roast Dinners Around The World",
+            "One house/techno/minimal mix every week (ish), personally recommended for your listening joy.",
+          siteName: "DJ Mix Of The Week",
         },
       }}
-    /> -->
+    />
     <!-- Google tag (gtag.js) -->
     <!-- <script
       type="text/partytown"
