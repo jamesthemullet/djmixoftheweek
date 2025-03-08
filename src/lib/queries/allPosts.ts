@@ -13,6 +13,11 @@ const ALL_POSTS_QUERY = `
           yearVisited
         }
       }
+      genres {
+        nodes {
+          name
+        }
+      }
     }
   }
 `;

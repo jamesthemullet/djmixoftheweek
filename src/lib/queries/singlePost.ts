@@ -14,6 +14,11 @@ const SINGLE_POST_QUERY = `
           sourceUrl
         }
       }
+      genres {
+        nodes {
+          name
+        }
+      }
     }
   }
 `;
