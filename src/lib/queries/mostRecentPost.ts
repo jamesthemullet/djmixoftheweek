@@ -15,6 +15,11 @@ const MOST_RECENT_POST_QUERY = `
             }
           }
         }
+        genres {
+          nodes {
+            name
+          }
+        }
       }
       pageInfo {
         endCursor
