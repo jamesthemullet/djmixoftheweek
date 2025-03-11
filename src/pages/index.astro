@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
 import { fetchGraphQL } from "../lib/api";
 import MOST_RECENT_POST_QUERY from "../lib/queries/mostRecentPost";
@@ -43,23 +42,25 @@ if (recentPostCursor) {
           (size) => size.name === "medium_large"
         )?.sourceUrl,
       })) || [];
+    recentPostCursor = data?.posts?.pageInfo?.endCursor;
   } catch (error) {
     console.error("Error fetching other posts:", error);
   }
 }
 
 const posts = [recentPost, ...otherPosts];
+const initialCursor = recentPostCursor;
 ---
 
 <BaseLayout pageTitle="Home">
-  <ul>
+  <ul id="post-list">
     {
       posts.map((post, index) => (
         <li>
           <a href={post.slug} rel="noopener noreferrer">
             <Image
               src={post.featured_image}
-              alt={`Photo of the roast dinner at ${post.title}`}
+              alt={``}
               width={768}
               height={576}
               loading={index === 0 ? "eager" : "lazy"}
@@ -77,4 +78,14 @@ const posts = [recentPost, ...otherPosts];
       ))
     }
   </ul>
+
+  <button
+    id="load-more"
+    data-cursor={initialCursor}
+    style="display: block; margin: 20px auto;"
+  >
+    Load More
+  </button>
+
+  <script type="module" src="/js/load-more.ts"></script>
 </BaseLayout>

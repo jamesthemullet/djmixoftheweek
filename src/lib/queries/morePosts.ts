@@ -1,6 +1,6 @@
-const OTHER_POSTS_AFTER_FIRST_QUERY = `
-  query GetOtherPosts($after: String) {
-    posts(first: 11, after: $after) {
+const MORE_POSTS = `
+  query GetOtherPosts($first: Int, $after: String) {
+    posts(first: $first, after: $after) {
       nodes {
         id
         slug
@@ -22,11 +22,12 @@ const OTHER_POSTS_AFTER_FIRST_QUERY = `
           }
         }
       }
-      pageInfo {
-        endCursor
-      }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
     }
   }
 `;
 
-export default OTHER_POSTS_AFTER_FIRST_QUERY;
+export default MORE_POSTS;
