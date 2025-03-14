@@ -107,3 +107,14 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+button {
+  background-color: var(--menu);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-family: "Oswald", sans-serif;
+}
