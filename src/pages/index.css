@@ -32,7 +32,6 @@ ul {
   &.genres {
     justify-content: center;
     flex-direction: row;
-    flex-wrap: no-wrap;
 
     li {
       flex-basis: unset;
