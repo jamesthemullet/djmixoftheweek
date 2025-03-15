@@ -124,15 +124,14 @@
   visibility: hidden;
   max-height: 0;
   transition: max-height 0.3s ease-out;
+  border-bottom: 2px solid white;
 
   @media (min-width: 768px) {
-    top: 100px;
+    top: 0;
     width: auto;
-    display: flex;
-    flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
     visibility: visible;
+    max-height: none;
   }
 
   @media (min-width: 1200px) {
@@ -156,10 +155,10 @@
   @media (min-width: 768px) {
     font-size: 1.5em;
     margin: 0;
+    margin-bottom: 1rem;
   }
 
   @media (min-width: 1200px) {
-    margin: 0;
     line-height: 1;
     font-size: 1em;
   }
@@ -176,4 +175,32 @@
 .open ~ #nav-menu {
   visibility: visible;
   max-height: 500px;
+}
+
+.popular-posts {
+  h3 {
+    font-size: 1em;
+    margin: 0;
+    color: white;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+
+    li {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      a {
+        font-family: "Oswald", sans-serif;
+        font-size: 1rem;
+        line-height: 1.5;
+        display: block;
+        padding: 0.5rem 0;
+        word-wrap: break-word;
+      }
+    }
+  }
 }
