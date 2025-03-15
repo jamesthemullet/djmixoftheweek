@@ -111,11 +111,11 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString("en-GB", {
 <BaseLayout
   pageTitle={singlePost.title}
   description={singlePost.seo.opengraphDescription}
-  opengraphImage={singlePost.seo.opengraphImage.sourceUrl || fallbackImage}
+  opengraphImage={singlePost?.seo?.opengraphImage?.sourceUrl || fallbackImage}
 >
   <div class="image-container">
     <Image
-      src={singlePost.featuredImage.node.sourceUrl || fallbackImage}
+      src={singlePost?.featuredImage?.node?.sourceUrl || fallbackImage}
       alt={singlePost.title}
       width={5000}
       height={5000}
@@ -124,7 +124,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString("en-GB", {
     />
 
     {
-      singlePost.featuredImage.node.caption && (
+      singlePost?.featuredImage?.node?.caption && (
         <figcaption set:html={singlePost.featuredImage.node.caption} />
       )
     }
