@@ -11,10 +11,6 @@ ul {
   li {
     flex-basis: 100%;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    margin-bottom: 0.25rem;
 
     @media (min-width: 768px) {
       flex-basis: 50%;
