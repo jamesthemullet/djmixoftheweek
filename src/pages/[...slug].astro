@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import "./post.css";
+import Comments, { threadedComments } from "../components/comments.astro";
 
 const fallbackImage = "https://example.com/default-image.jpg";
 
@@ -68,6 +69,19 @@ const singleResponse = await fetch("https://blog.djmixoftheweek.com/graphql", {
                 caption
               }
             }
+            comments(where: { order: ASC }) {
+              nodes {
+                id
+                content
+                parentId
+                author {
+                  node {
+                    name
+                  }
+                }
+                date
+              }
+            }
             seo {
               opengraphTitle
               opengraphDescription
@@ -100,6 +114,7 @@ const singleResponse = await fetch("https://blog.djmixoftheweek.com/graphql", {
 const { data } = await singleResponse.json();
 
 const singlePost = data.post;
+const threadedComments = data?.post?.comments?.nodes || [];
 
 const formattedDate = new Date(singlePost.date).toLocaleDateString("en-GB", {
   day: "2-digit",
@@ -138,5 +153,6 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString("en-GB", {
     <div set:html={singlePost.soundcloud.soundcloud} />
     <br />
     <div set:html={singlePost.mixcloud.mixcloud} />
+    <Comments threadedComments={threadedComments} />
   </article>
 </BaseLayout>
