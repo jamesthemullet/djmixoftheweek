@@ -1,0 +1,124 @@
+---
+export interface Comment {
+  id: string;
+  content: string;
+  parentId: string | null;
+  author: {
+    node: {
+      name: string;
+    };
+  };
+  date: string;
+}
+
+interface Props {
+  threadedComments: Comment[];
+}
+
+const { threadedComments } = Astro.props as Props;
+
+const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const formattedDate = date.toLocaleDateString("en-US", options);
+
+  const day = date.getDate();
+  const ordinalSuffix = (day: number) => {
+    if (day > 3 && day < 21) return "th";
+    switch (day % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  };
+
+  const formattedTime = date.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
+  return `${formattedDate.replace(/\d+/, day + ordinalSuffix(day))} at ${formattedTime}`;
+};
+---
+
+<section class="comments-block">
+  <h2>Any comments?</h2>
+
+  {
+    threadedComments.length > 0 ? (
+      <ul class="comments-list">
+        {threadedComments.map((comment) => (
+          <li class="comment">
+            <p>
+              By <strong>{comment.author.node.name}</strong> on{" "}
+              {formatDate(comment.date)}:
+            </p>
+            <p set:html={comment.content} />
+
+            {comment.replies && comment.replies.length > 0 ? (
+              <ul class="comment-replies">
+                {comment.replies.map((reply) => (
+                  <li class="comment-reply">
+                    <p>
+                      By <strong>{reply.author.node.name}</strong> on{" "}
+                      {formatDate(reply.date)}:
+                    </p>
+                    <p set:html={reply.content} />
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No comments yet. Be the first to comment!</p>
+    )
+  }
+</section>
+
+<style>
+  .comments-block {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+
+  .comments-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .comment {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: #fff;
+    border-left: 4px solid #0073e6;
+    border-radius: 4px;
+  }
+
+  .comment-replies {
+    list-style: none;
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .comment-reply {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: #eef2f7;
+    border-left: 3px solid #005bb5;
+    border-radius: 4px;
+  }
+</style>
