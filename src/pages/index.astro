@@ -7,6 +7,7 @@ import OTHER_POSTS_AFTER_FIRST_QUERY from "../lib/queries/otherPostsAfterFirst";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import "./index.css";
+import GET_ALL_GENRES from "../lib/queries/getAllGenres";
 
 let recentPost;
 let recentPostCursor;
@@ -50,6 +51,14 @@ if (recentPostCursor) {
 
 const posts = [recentPost, ...otherPosts];
 const initialCursor = recentPostCursor;
+
+let allGenres;
+
+try {
+  allGenres = await fetchGraphQL(GET_ALL_GENRES);
+} catch (error) {
+  console.error("Error fetching all genres:", error);
+}
 ---
 
 <BaseLayout pageTitle="Home">
@@ -80,6 +89,15 @@ const initialCursor = recentPostCursor;
   </ul>
 
   <button id="load-more" data-cursor={initialCursor}>Load More</button>
-
+  <select id="genre-filter" onchange="window.location.href = this.value">
+    <option value="">Show Posts By Genre</option>
+    {
+      allGenres.genres.nodes.map((genre) => (
+        <option value={`/genre/${genre.slug}`}>
+          {genre.name} ({genre.count})
+        </option>
+      ))
+    }
+  </select>
   <script type="module" src="/js/load-more.ts"></script>
 </BaseLayout>
