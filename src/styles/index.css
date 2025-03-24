@@ -52,3 +52,29 @@ ul {
     }
   }
 }
+
+input {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid var(--text);
+}
+
+textarea {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid var(--text);
+  min-width: 300px;
+}
+
+label {
+  margin: 0.5rem 0;
+}
+
+button {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid var(--text);
+  background: var(--menu);
+  color: var(--white);
+  cursor: pointer;
+}

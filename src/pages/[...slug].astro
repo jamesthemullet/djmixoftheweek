@@ -63,6 +63,7 @@ const singleResponse = await fetch("https://blog.djmixoftheweek.com/graphql", {
             date
             content
             title
+            postId
             featuredImage {
               node {
                 sourceUrl
@@ -153,6 +154,6 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString("en-GB", {
     <div set:html={singlePost.soundcloud.soundcloud} />
     <br />
     <div set:html={singlePost.mixcloud.mixcloud} />
-    <Comments threadedComments={threadedComments} />
+    <Comments threadedComments={threadedComments} postId={singlePost.postId} />
   </article>
 </BaseLayout>
