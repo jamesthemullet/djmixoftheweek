@@ -1,0 +1,111 @@
+---
+import { fetchGraphQL } from "../../lib/api";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import "../post.css";
+import GET_ALL_GENRES from "../../lib/queries/getAllGenres";
+
+const fallbackImage = "https://example.com/default-image.jpg";
+
+export async function getStaticPaths() {
+  const response = await fetch("https://blog.djmixoftheweek.com/graphql", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `
+          query GetAllGenres {
+            genres(first: 100) {
+              nodes {
+                id
+                name
+                count
+                slug
+              }
+            }
+          }
+        `,
+      variables: {
+        first: 100,
+      },
+    }),
+  });
+
+  const { data } = await response.json();
+  const posts = data.genres.nodes;
+
+  const paths = posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+
+  return paths;
+}
+
+const { slug } = Astro.params;
+
+let postsByGenre;
+
+try {
+  const response = await fetchGraphQL(GET_ALL_GENRES);
+  postsByGenre = response?.genres?.nodes.filter(
+    (genre) => genre.slug === slug
+  )[0].posts.nodes;
+
+  console.log(20, postsByGenre);
+} catch {
+  console.error("Error fetching posts by genre");
+}
+
+const capitaliseAndRemoveHyphens = (string: string) =>
+  string
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+---
+
+<BaseLayout
+  pageTitle={capitaliseAndRemoveHyphens(slug)}
+  description={`All posts of genre ${capitaliseAndRemoveHyphens(slug)}`}
+  opengraphImage={postsByGenre[0]?.seo?.opengraphImage?.sourceUrl ||
+    fallbackImage}
+>
+  <h1>Genre: {capitaliseAndRemoveHyphens(slug)}</h1>
+  <ul>
+    {
+      postsByGenre.map((post) => (
+        <li class="genres-list">
+          <div class="image-container">
+            <a href={`/${post.slug}`}>
+              <Image
+                src={post?.featuredImage?.node?.sourceUrl || fallbackImage}
+                alt={post.title}
+                width={700}
+                height={700}
+                class="featured-image"
+                loading="eager"
+              />
+              {post?.featuredImage?.node?.caption && (
+                <figcaption set:html={post.featuredImage.node.caption} />
+              )}
+            </a>
+          </div>
+          <h2>
+            <a href={`/${post.slug}`}>{post.title}</a>
+          </h2>
+          <ul class="genres">
+            <li>
+              {post.genres.nodes.map((genre, index) => (
+                <span key={genre.slug}>
+                  <a href={`/genre/${genre.slug}`} rel="noopener noreferrer">
+                    {genre.name}
+                  </a>
+                  {index < post.genres.nodes.length - 1 && ", "}
+                </span>
+              ))}
+            </li>
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

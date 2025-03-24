@@ -14,6 +14,7 @@ const MORE_POSTS = `
                 name
               }
             }
+            sourceUrl
           }
         }
         genres {
