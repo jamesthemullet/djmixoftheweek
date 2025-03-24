@@ -65,3 +65,28 @@ article {
     color: var(--text);
   }
 }
+
+.genres-list {
+  padding: 0;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text);
+
+  a {
+    color: var(--text);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  figcaption {
+    max-width: 700px;
+  }
+
+  .image-container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
