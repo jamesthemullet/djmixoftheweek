@@ -32,9 +32,8 @@ article {
   padding: 1rem;
 
   @media (min-width: 1400px) {
-    position: absolute;
     background-color: var(--white);
-    top: 60vh;
+    transform: translateY(-50vh);
   }
 
   h2 {
