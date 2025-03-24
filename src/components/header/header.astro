@@ -16,7 +16,7 @@ try {
   console.error("Error fetching top posts:", error);
 }
 
-const currentUrl = Astro.url.pathname;
+const currentUrl = Astro.site || "http://localhost:4321";
 
 const decodeHtmlEntities = (text) => {
   return he.decode(text);
