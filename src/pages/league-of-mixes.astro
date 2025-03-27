@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "./pages.css";
+import { Image } from "astro:assets";
+
+import GET_SINGLE_PAGE from "../lib/queries/getSinglePage";
+import { fetchGraphQL } from "../lib/api";
+
+const variables = { id: "407" };
+let singlePost;
+
+try {
+  const { page } = await fetchGraphQL(GET_SINGLE_PAGE, variables);
+  singlePost = page;
+} catch (error) {
+  console.error("Error fetching GraphQL data:", error);
+  singlePost = null;
+}
+---
+
+<BaseLayout
+  pageTitle={singlePost.title}
+  description={singlePost.seo.opengraphDescription}
+>
+  {
+    singlePost.featuredImage && (
+      <Image
+        src={singlePost.featuredImage?.node.sourceUrl}
+        alt={singlePost.title}
+        width={2000}
+        height={2000}
+        class="featured-image"
+      />
+    )
+  }
+  <div class="container">
+    <h2>{singlePost.title}</h2>
+    <div set:html={singlePost.content} />
+  </div>
+</BaseLayout>
