@@ -1,22 +1,18 @@
 const ALL_POSTS_QUERY = `
-  query AllPosts {
-    posts {
+  query AllPosts($first: Int!, $after: String) {
+    posts(first: $first, after: $after) {
       nodes {
         slug
         title
-        customfields {
-          rating
-          currency
-          price
-          meat
-          country
-          yearVisited
+        ratings {
+          nodes {
+            name
+          }
         }
       }
-      genres {
-        nodes {
-          name
-        }
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }

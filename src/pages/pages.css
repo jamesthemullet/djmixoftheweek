@@ -17,3 +17,9 @@ p {
   margin-bottom: 1.5rem;
   color: #333;
 }
+
+.league-of-mixes {
+  a {
+    color: var(--text);
+  }
+}
