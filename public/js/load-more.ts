@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("load-more");
   const postList = document.getElementById("post-list");
 
-  let first = 12;
+  const first = 12;
   let cursor = button.dataset.cursor || null;
 
   button.addEventListener("click", async () => {
