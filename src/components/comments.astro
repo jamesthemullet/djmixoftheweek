@@ -1,58 +1,14 @@
 ---
-export interface Comment {
-  id: string;
-  content: string;
-  parentId: string | null;
-  author: {
-    node: {
-      name: string;
-    };
-  };
-  date: string;
-}
-
 interface Props {
   threadedComments: Comment[];
   postId: string;
 }
 
+import Comment from "./comment.astro";
 import "../styles/index.css";
 import "../styles/comments.css";
 
 const { threadedComments, postId } = Astro.props as Props;
-
-const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  const formattedDate = date.toLocaleDateString("en-US", options);
-
-  const day = date.getDate();
-  const ordinalSuffix = (day: number) => {
-    if (day > 3 && day < 21) return "th";
-    switch (day % 10) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  };
-
-  const formattedTime = date.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  });
-
-  return `${formattedDate.replace(/\d+/, day + ordinalSuffix(day))} at ${formattedTime}`;
-};
 ---
 
 <section class="comments-block">
@@ -62,27 +18,12 @@ const formatDate = (dateString: string): string => {
     threadedComments.length > 0 ? (
       <ul class="comments-list">
         {threadedComments.map((comment) => (
-          <li class="comment">
-            <p>
-              By <strong>{comment.author.node.name}</strong> on{" "}
-              {formatDate(comment.date)}:
-            </p>
-            <p set:html={comment.content} />
-
-            {comment.replies && comment.replies.length > 0 ? (
-              <ul class="comment-replies">
-                {comment.replies.map((reply) => (
-                  <li class="comment-reply">
-                    <p>
-                      By <strong>{reply.author.node.name}</strong> on{" "}
-                      {formatDate(reply.date)}:
-                    </p>
-                    <p set:html={reply.content} />
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </li>
+          <Comment
+            key={comment.id}
+            comment={comment}
+            postId={postId}
+            commentId={comment.id}
+          />
         ))}
       </ul>
     ) : (
@@ -113,6 +54,7 @@ const formatDate = (dateString: string): string => {
     const message = document.getElementById("message");
 
     form?.addEventListener("submit", async (event) => {
+      console.log(20);
       event.preventDefault();
 
       const authorName = (
