@@ -6,9 +6,10 @@ import { Image } from "astro:assets";
 import GET_SINGLE_PAGE from "../lib/queries/getSinglePage";
 import { fetchGraphQL } from "../lib/api";
 import ALL_POSTS_QUERY from "../lib/queries/allPosts";
+import type { Post } from "../types";
 
 const variables = { id: "407" };
-let singlePost;
+let singlePost: Post = null;
 
 try {
   const { page } = await fetchGraphQL(GET_SINGLE_PAGE, variables);
@@ -36,8 +37,8 @@ try {
   }
 
   allPosts.sort((a, b) => {
-    const ratingA = parseFloat(a.ratings?.nodes[0]?.name || "0");
-    const ratingB = parseFloat(b.ratings?.nodes[0]?.name || "0");
+    const ratingA = Number.parseFloat(a.ratings?.nodes[0]?.name || "0");
+    const ratingB = Number.parseFloat(b.ratings?.nodes[0]?.name || "0");
     return ratingB - ratingA;
   });
 } catch (error) {

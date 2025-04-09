@@ -8,9 +8,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 import "../styles/index.css";
 import GET_ALL_GENRES from "../lib/queries/getAllGenres";
+import type { Genre, Post } from "../types";
 
-let recentPost;
-let recentPostCursor;
+let recentPost: Post = null;
+let recentPostCursor: string | null = null;
 
 try {
   const data = await fetchGraphQL(MOST_RECENT_POST_QUERY);
@@ -52,7 +53,7 @@ if (recentPostCursor) {
 const posts = [recentPost, ...otherPosts];
 const initialCursor = recentPostCursor;
 
-let allGenres;
+let allGenres: Genre[] = [];
 
 try {
   allGenres = await fetchGraphQL(GET_ALL_GENRES);
@@ -81,7 +82,9 @@ try {
             </a>
           </h2>
           <ul class="genres">
-            <li>{post.genres.nodes.map((genre) => genre.name).join(", ")}</li>
+            <li>
+              {post.genres.nodes.map((genre: Genre) => genre?.name).join(", ")}
+            </li>
           </ul>
         </li>
       ))
@@ -92,9 +95,9 @@ try {
   <select id="genre-filter" onchange="window.location.href = this.value">
     <option value="">Show Posts By Genre</option>
     {
-      allGenres.genres.nodes.map((genre) => (
-        <option value={`/genre/${genre.slug}`}>
-          {genre.name} ({genre.count})
+      allGenres.genres.nodes.map((genre: Genre) => (
+        <option value={`/genre/${genre?.slug}`}>
+          {genre?.name} ({genre?.count})
         </option>
       ))
     }
