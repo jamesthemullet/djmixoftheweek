@@ -5,9 +5,11 @@ import { Image } from "astro:assets";
 
 import GET_SINGLE_PAGE from "../lib/queries/getSinglePage";
 import { fetchGraphQL } from "../lib/api";
+import type { Post } from "../types";
 
 const variables = { id: "2" };
-let singlePost;
+
+let singlePost: Post = null;
 
 try {
   const { page } = await fetchGraphQL(GET_SINGLE_PAGE, variables);
@@ -19,11 +21,11 @@ try {
 ---
 
 <BaseLayout
-  pageTitle={singlePost.title}
-  description={singlePost.seo.opengraphDescription}
+  pageTitle={singlePost?.title}
+  description={singlePost?.seo.opengraphDescription}
 >
   {
-    singlePost.featuredImage && (
+    singlePost?.featuredImage && (
       <Image
         src={singlePost.featuredImage?.node.sourceUrl}
         alt={singlePost.title}
@@ -34,7 +36,7 @@ try {
     )
   }
   <div class="container">
-    <h2>{singlePost.title}</h2>
-    <div set:html={singlePost.content} />
+    <h2>{singlePost?.title}</h2>
+    <div set:html={singlePost?.content} />
   </div>
 </BaseLayout>

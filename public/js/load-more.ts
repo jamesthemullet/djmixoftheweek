@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const posts = response?.posts?.nodes || [];
       cursor = response?.posts?.pageInfo?.endCursor || null;
 
+      // biome-ignore lint/complexity/noForEach: <explanation>
       posts.forEach((post) => {
         const li = document.createElement("li");
         li.innerHTML = `

@@ -5,6 +5,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import "../post.css";
 import GET_ALL_GENRES from "../../lib/queries/getAllGenres";
+import type { Post } from "../../types";
 
 const fallbackImage = "https://example.com/default-image.jpg";
 
@@ -43,7 +44,7 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-let postsByGenre;
+let postsByGenre: Post[] = [];
 
 try {
   const response = await fetchGraphQL(GET_ALL_GENRES);

@@ -3,8 +3,9 @@ import { Image } from "astro:assets";
 // import logo3 from "../../images/logos/rdaw-logo-3.webp";
 import "./header.css";
 import he from "he";
+import type { PopularPost } from "../../types";
 
-let popularPosts;
+let popularPosts: PopularPost[] = [];
 
 try {
   const response = await fetch(
@@ -18,7 +19,7 @@ try {
 
 const currentUrl = Astro.site || "http://localhost:4321";
 
-const decodeHtmlEntities = (text) => {
+const decodeHtmlEntities = (text: string) => {
   return he.decode(text);
 };
 ---
@@ -46,8 +47,8 @@ const decodeHtmlEntities = (text) => {
           <ul>
             {popularPosts.map((post) => (
               <li>
-                <a href={`${currentUrl}${post.slug}`}>
-                  {decodeHtmlEntities(post.title.rendered)} ({post.visits})
+                <a href={`${currentUrl}${post?.slug}`}>
+                  {decodeHtmlEntities(post?.title.rendered)} ({post?.visits})
                 </a>
               </li>
             ))}
