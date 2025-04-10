@@ -1,7 +1,15 @@
 ---
 // Parent Astro File
 import AddComment from "./addComment.astro";
+// @ts-ignore
 import Comment from "./comment.astro";
+import type { Comment as CommentType } from "../types";
+
+type Props = {
+  comment: CommentType;
+  postId: string;
+  commentId: string;
+};
 
 const { comment, postId, commentId } = Astro.props as Props;
 
@@ -64,18 +72,14 @@ const formatDate = (dateString: string): string => {
     comment.replies && comment.replies.length > 0 ? (
       <ul class="comment-replies">
         {comment.replies.map((reply) => (
-          <Comment
-            key={reply.id}
-            comment={reply}
-            postId={postId}
-            commentId={reply.id}
-          />
+          <Comment comment={reply} postId={postId} commentId={reply.id} />
         ))}
       </ul>
     ) : null
   }
 </li>
 
+<!-- @ts-ignore -->
 <script type="module" client:load>
   document.addEventListener("DOMContentLoaded", () => {
     const replyButtons = Array.from(document.querySelectorAll(".reply-btn"));

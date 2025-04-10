@@ -1,10 +1,11 @@
 ---
 interface Props {
-  threadedComments: Comment[];
+  threadedComments: CommentsType;
   postId: string;
 }
 
 import Comment from "./comment.astro";
+import type { Comments as CommentsType } from "../types";
 import "../styles/index.css";
 import "../styles/comments.css";
 
@@ -15,15 +16,10 @@ const { threadedComments, postId } = Astro.props as Props;
   <h2>Any comments?</h2>
 
   {
-    threadedComments.length > 0 ? (
+    threadedComments && threadedComments?.length > 0 ? (
       <ul class="comments-list">
-        {threadedComments.map((comment) => (
-          <Comment
-            key={comment.id}
-            comment={comment}
-            postId={postId}
-            commentId={comment.id}
-          />
+        {threadedComments?.map((comment) => (
+          <Comment comment={comment} postId={postId} commentId={comment.id} />
         ))}
       </ul>
     ) : (
@@ -50,7 +46,7 @@ const { threadedComments, postId } = Astro.props as Props;
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("comment-form");
+    const form = document.getElementById("comment-form") as HTMLFormElement;
     const message = document.getElementById("message");
 
     form?.addEventListener("submit", async (event) => {
@@ -82,7 +78,7 @@ const { threadedComments, postId } = Astro.props as Props;
               author: authorName,
               authorEmail: email,
               content: commentText,
-              commentOn: parseInt(postId, 10),
+              commentOn: postId && parseInt(postId, 10),
             },
           },
         }),
@@ -90,11 +86,15 @@ const { threadedComments, postId } = Astro.props as Props;
 
       const data = await response.json();
       if (data.errors) {
-        message.textContent = "Failed to submit comment.";
-        message.style.color = "red";
+        if (message) {
+          message.textContent = "Failed to submit comment.";
+          message.style.color = "red";
+        }
       } else {
-        message.textContent = "Comment submitted! Awaiting moderation.";
-        message.style.color = "green";
+        if (message) {
+          message.textContent = "Comment submitted! Awaiting moderation.";
+          message.style.color = "green";
+        }
         form.reset();
       }
     });

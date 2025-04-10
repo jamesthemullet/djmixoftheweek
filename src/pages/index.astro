@@ -8,7 +8,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 import "../styles/index.css";
 import GET_ALL_GENRES from "../lib/queries/getAllGenres";
-import type { Genre, Post } from "../types";
+import type { Genre, Genres, Post } from "../types";
 
 let recentPost: Post = null;
 let recentPostCursor: string | null = null;
@@ -38,9 +38,9 @@ if (recentPostCursor) {
       after: recentPostCursor,
     });
     otherPosts =
-      data?.posts?.nodes?.map((post) => ({
+      data?.posts?.nodes?.map((post: Post) => ({
         ...post,
-        featured_image: post.featuredImage?.node?.mediaDetails?.sizes?.find(
+        featured_image: post?.featuredImage?.node?.mediaDetails?.sizes?.find(
           (size) => size.name === "medium_large"
         )?.sourceUrl,
       })) || [];
@@ -53,7 +53,7 @@ if (recentPostCursor) {
 const posts = [recentPost, ...otherPosts];
 const initialCursor = recentPostCursor;
 
-let allGenres: Genre[] = [];
+let allGenres: Genres = null;
 
 try {
   allGenres = await fetchGraphQL(GET_ALL_GENRES);
@@ -95,7 +95,7 @@ try {
   <select id="genre-filter" onchange="window.location.href = this.value">
     <option value="">Show Posts By Genre</option>
     {
-      allGenres.genres.nodes.map((genre: Genre) => (
+      allGenres?.genres.nodes.map((genre: Genre) => (
         <option value={`/genre/${genre?.slug}`}>
           {genre?.name} ({genre?.count})
         </option>

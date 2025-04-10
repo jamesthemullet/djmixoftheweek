@@ -47,9 +47,11 @@ const decodeHtmlEntities = (text: string) => {
           <ul>
             {popularPosts.map((post) => (
               <li>
-                <a href={`${currentUrl}${post?.slug}`}>
-                  {decodeHtmlEntities(post?.title.rendered)} ({post?.visits})
-                </a>
+                {post?.title.rendered && (
+                  <a href={`${currentUrl}${post?.slug}`}>
+                    {decodeHtmlEntities(post?.title.rendered)} ({post?.visits})
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -59,16 +61,16 @@ const decodeHtmlEntities = (text: string) => {
   </div>
 
   <script>
-    const navToggle = document.getElementById("nav-toggle");
-    const navMenu = document.getElementById("nav-menu");
+    const navToggle = document.getElementById("nav-toggle") as HTMLElement;
+    const navMenu = document.getElementById("nav-menu") as HTMLElement;
 
     navToggle.addEventListener("click", function () {
       this.classList.toggle("open");
 
       if (navMenu.style.maxHeight) {
-        navMenu.style.maxHeight = null; // Collapse
+        navMenu.style.maxHeight = "";
       } else {
-        navMenu.style.maxHeight = navMenu.scrollHeight + "px"; // Expand to actual height
+        navMenu.style.maxHeight = navMenu.scrollHeight + "px";
       }
     });
   </script>
