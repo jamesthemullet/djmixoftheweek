@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "biome lint .",
-    "lint:fix": "biome check --write ."
+    "lint:fix": "biome check --write .",
+    "ts-check": "astro check"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.6",
@@ -21,6 +22,8 @@
     "he": "^1.2.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4"
+    "@astrojs/ts-plugin": "^1.10.4",
+    "@biomejs/biome": "1.9.4",
+    "typescript": "^5.8.3"
   }
 }
