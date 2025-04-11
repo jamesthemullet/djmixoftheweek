@@ -1,8 +1,9 @@
 import { fetchGraphQL } from "../../src/lib/api";
 import MORE_POSTS from "../../src/lib/queries/morePosts";
+import type { Post } from "../../src/types.ts";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const button = document.getElementById("load-more");
+  const button = document.getElementById("load-more") as HTMLButtonElement;
   const postList = document.getElementById("post-list");
 
   const first = 12;
@@ -23,24 +24,24 @@ document.addEventListener("DOMContentLoaded", () => {
       cursor = response?.posts?.pageInfo?.endCursor || null;
 
       // biome-ignore lint/complexity/noForEach: <explanation>
-      posts.forEach((post) => {
+      posts.forEach((post: Post) => {
         const li = document.createElement("li");
         li.innerHTML = `
-          <a href="${post.slug}" rel="noopener noreferrer">
+          <a href="${post?.slug}" rel="noopener noreferrer">
             <img src="${
-              post.featuredImage?.node?.mediaDetails?.sizes?.find(
+              post?.featuredImage?.node?.mediaDetails?.sizes?.find(
                 (size) => size.name === "medium_large"
               )?.sourceUrl || ""
             }" alt="" width="768" height="576" loading="lazy" />
           </a>
           <h2>
-            <a href="${post.slug}" rel="noopener noreferrer">${post.title}</a>
+            <a href="${post?.slug}" rel="noopener noreferrer">${post?.title}</a>
           </h2>
           <ul class="genres">
-            <li>${post.genres.nodes.map((genre) => genre.name).join(", ")}</li>
+            <li>${post?.genres.nodes.map((genre) => genre.name).join(", ")}</li>
           </ul>
         `;
-        postList.appendChild(li);
+        postList?.appendChild(li);
       });
 
       button.dataset.cursor = cursor || "";

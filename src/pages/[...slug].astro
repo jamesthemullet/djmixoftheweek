@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import "./post.css";
 import Comments from "../components/comments.astro";
+import type { Comments as CommentsType } from "../types";
 
 const fallbackImage = "https://example.com/default-image.jpg";
 
@@ -12,11 +13,13 @@ export async function getStaticPaths() {
   let endCursor = null;
 
   while (hasNextPage) {
-    const response = await fetch("https://blog.djmixoftheweek.com/graphql", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: `
+    const response: Response = await fetch(
+      "https://blog.djmixoftheweek.com/graphql",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: `
           query AllSlugs($first: Int!, $after: String) {
             posts(first: $first, after: $after) {
               nodes {
@@ -29,12 +32,13 @@ export async function getStaticPaths() {
             }
           }
         `,
-        variables: {
-          first: 100,
-          after: endCursor,
-        },
-      }),
-    });
+          variables: {
+            first: 100,
+            after: endCursor,
+          },
+        }),
+      }
+    );
 
     const { data } = await response.json();
     const posts = data.posts.nodes;
@@ -116,19 +120,18 @@ const { data } = await singleResponse.json();
 
 const singlePost = data.post;
 
-const organiseComments = (comments) => {
+const organiseComments = (comments: CommentsType) => {
   const commentMap = new Map();
-  const y: number = "not a number";
 
   // biome-ignore lint/complexity/noForEach: <explanation>
-  comments.forEach((comment) => {
+  comments?.forEach((comment) => {
     comment.replies = [];
     commentMap.set(comment.id, comment);
   });
 
-  const topLevelComments = [];
+  const topLevelComments: CommentsType = [];
   // biome-ignore lint/complexity/noForEach: <explanation>
-  comments.forEach((comment) => {
+  comments?.forEach((comment) => {
     if (comment.parentId) {
       const parent = commentMap.get(comment.parentId);
       if (parent) {
