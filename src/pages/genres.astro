@@ -1,0 +1,37 @@
+---
+import { fetchGraphQL } from "../lib/api";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import "../styles/pages.css";
+import GET_LIST_OF_GENRES from "../lib/queries/getAllGenres";
+import type { Genres } from "../types";
+
+let allGenres: Genres = null;
+
+try {
+  allGenres = await fetchGraphQL(GET_LIST_OF_GENRES);
+} catch (error) {
+  console.error("Error fetching all genres:", error);
+}
+---
+
+<BaseLayout pageTitle="Home">
+  <h1>Genres</h1>
+  <p>
+    Explore the genres of DJ mixes available on the site. Click on a genre to
+    view all mixes in that genre
+  </p>
+  <ul class="genre-list">
+    {
+      allGenres?.genres.nodes.map((genre, index) => (
+        <li>
+          <h2>
+            <a href={`genre/${genre?.slug}`} rel="noopener noreferrer">
+              <Fragment set:html={genre?.name} />
+            </a>
+          </h2>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
