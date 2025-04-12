@@ -3,6 +3,8 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
+import alpinejs from "@astrojs/alpinejs";
+
 const isProduction = process.env.NODE_ENV === "production";
 const siteUrl = isProduction
   ? "https://djmixoftheweek.com"
@@ -10,5 +12,5 @@ const siteUrl = isProduction
 
 export default defineConfig({
   site: siteUrl,
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap(), alpinejs()],
 });

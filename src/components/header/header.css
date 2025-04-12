@@ -173,11 +173,14 @@
   max-height: 500px;
 }
 
-.popular-posts {
+.header-block {
+  h2,
   h3 {
     font-size: 1em;
     margin: 0;
     color: white;
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
   }
 
   ul {
@@ -196,6 +199,10 @@
         display: block;
 
         word-wrap: break-word;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }

@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import "./header.css";
 import he from "he";
 import type { PopularPost } from "../../types";
+import Search from "../search/search.astro";
 
 let popularPosts: PopularPost[] = [];
 
@@ -40,10 +41,14 @@ const decodeHtmlEntities = (text: string) => {
       <a href="/about">About</a>
       <a href="/league-of-mixes">League Of Mixes</a>
     </nav>
+    <section class="header-block">
+      <h2>Search:</h2>
+      <Search />
+    </section>
     {
       popularPosts && (
-        <div class="popular-posts">
-          <h3>Popular Mixes</h3>
+        <div class="header-block">
+          <h2>Popular Mixes:</h2>
           <ul>
             {popularPosts.map((post) => (
               <li>
