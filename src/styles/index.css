@@ -53,10 +53,19 @@ ul {
   }
 }
 
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 input {
   padding: 0.5rem;
-  margin: 0.5rem 0;
-  border: 1px solid var(--text);
+  height: 3rem;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 textarea {
@@ -72,9 +81,11 @@ label {
 
 button {
   padding: 0.5rem;
-  margin: 0.5rem 0;
-  border: 1px solid var(--text);
   background: var(--menu);
+  border: 2px solid var(--white);
   color: var(--white);
   cursor: pointer;
+  height: 3rem;
+  box-sizing: border-box;
+  margin: 0;
 }
