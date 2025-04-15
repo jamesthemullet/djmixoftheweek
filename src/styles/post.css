@@ -63,6 +63,26 @@ article {
     font-size: 0.875rem;
     color: var(--text);
   }
+
+  .wp-block-embed {
+    margin: 0 auto;
+    max-width: fit-content;
+    width: 100%;
+
+    iframe {
+      max-width: 300px;
+      max-height: 200px;
+
+      @media (min-width: 768px) {
+        max-width: 400px;
+        max-height: 300px;
+      }
+      @media (min-width: 1024px) {
+        max-width: 600px;
+        max-height: 400px;
+      }
+    }
+  }
 }
 
 .genres-list {

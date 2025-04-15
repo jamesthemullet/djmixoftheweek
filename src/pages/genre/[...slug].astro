@@ -51,8 +51,6 @@ try {
   postsByGenre = response?.genres?.nodes.filter(
     (genre: Genre) => genre?.slug === slug
   )[0].posts.nodes;
-
-  console.log(20, postsByGenre);
 } catch {
   console.error("Error fetching posts by genre");
 }
