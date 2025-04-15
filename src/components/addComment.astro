@@ -28,7 +28,7 @@ let messageColor = "black";
     <label for="commentText">Comment:</label>
     <textarea name="commentText" id="commentText" required></textarea>
   </div>
-  <button class="yoo" data-button-id={parentId}>Post Comment</button>
+  <button class="reply-button" data-button-id={parentId}>Post Reply</button>
   <p style={`color: ${messageColor};`}>{message}</p>
 </form>
 
@@ -40,13 +40,12 @@ let messageColor = "black";
       const postId = form.getAttribute("data-post-id");
       const parentId = form.getAttribute("data-parent-id");
 
-      const addButtons = form.querySelectorAll(".yoo");
+      const addButtons = form.querySelectorAll(".reply-button");
 
       addButtons.forEach((button) => {
-        // Skip if already handled
         if (button.dataset.handled === "true") return;
 
-        button.dataset.handled = "true"; // Mark as handled
+        button.dataset.handled = "true";
 
         button.addEventListener("click", async (event) => {
           event.preventDefault();
@@ -81,10 +80,10 @@ let messageColor = "black";
 
           const data = await response.json();
 
-          const messageElement = form.querySelector("p"); // Select the feedback <p>
+          const messageElement = form.querySelector("p");
 
           if (data.errors) {
-            messageElement.textContent = "Failed to submit comment.";
+            messageElement.textContent = `Failed to submit comment: ${data.errors[0].message}`;
             messageElement.style.color = "red";
           } else {
             messageElement.textContent =

@@ -3,6 +3,25 @@
   padding: 1.5rem;
   background: #f9f9f9;
   border-radius: 8px;
+
+  form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 500px;
+    }
+  }
+
+  .reply-btn {
+    border: none;
+  }
 }
 
 .comments-list {
@@ -17,7 +36,7 @@
   margin-bottom: 1rem;
   padding: 1rem;
   background: #fff;
-  border-left: 4px solid #0073e6;
+  border-left: 4px solid var(--menu);
   border-radius: 4px;
   width: 100%;
 }
@@ -34,21 +53,6 @@
   margin-top: 0.5rem;
   padding: 0.75rem;
   background: #eef2f7;
-  border-left: 3px solid #005bb5;
+  border-left: 3px solid var(--menu);
   border-radius: 4px;
-}
-
-form {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 500px;
-  }
 }
