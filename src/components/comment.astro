@@ -13,8 +13,6 @@ type Props = {
 
 const { comment, postId, commentId } = Astro.props as Props;
 
-console.log(99, commentId);
-
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = {
