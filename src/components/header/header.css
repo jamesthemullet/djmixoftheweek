@@ -15,7 +15,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     height: 100%;
-    width: 250px;
+    width: 280px;
     padding: 1rem;
     gap: 1rem;
   }
@@ -205,5 +205,14 @@
         }
       }
     }
+  }
+
+  input {
+    border: none;
+    border-radius: 0;
+  }
+
+  button {
+    border: 2px solid var(--white);
   }
 }
