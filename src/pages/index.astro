@@ -67,7 +67,7 @@ try {
     {
       posts.map((post, index) => (
         <li>
-          <a href={post.slug} rel="noopener noreferrer">
+          <a href={post.slug} rel="noopener noreferrer" aria-label={post.title}>
             <Image
               src={post.featured_image}
               alt={``}
@@ -75,12 +75,10 @@ try {
               height={576}
               loading={index === 0 ? "eager" : "lazy"}
             />
-          </a>
-          <h2>
-            <a href={post.slug} rel="noopener noreferrer">
+            <h2>
               <Fragment set:html={post.title} />
-            </a>
-          </h2>
+            </h2>
+          </a>
           <ul class="genres">
             <li>
               {post.genres.nodes.map((genre: Genre) => genre?.name).join(", ")}
@@ -90,9 +88,12 @@ try {
       ))
     }
   </ul>
-
   <button id="load-more" data-cursor={initialCursor}>Load More</button>
-  <select id="genre-filter" onchange="window.location.href = this.value">
+  <select
+    id="genre-filter"
+    onchange="window.location.href = this.value"
+    aria-label="Show Posts By Genre"
+  >
     <option value="">Show Posts By Genre</option>
     {
       allGenres?.genres.nodes.map((genre: Genre) => (
