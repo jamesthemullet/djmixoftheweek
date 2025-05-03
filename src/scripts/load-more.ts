@@ -1,6 +1,6 @@
-import { fetchGraphQL } from "../../src/lib/api";
-import MORE_POSTS from "../../src/lib/queries/morePosts";
-import type { Post } from "../../src/types.ts";
+import { fetchGraphQL } from "../lib/api.ts";
+import MORE_POSTS from "../lib/queries/morePosts.ts";
+import type { Post } from "../types.ts";
 
 document.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("load-more") as HTMLButtonElement;
