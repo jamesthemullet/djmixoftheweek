@@ -15,12 +15,21 @@
     </template>
   </ul>
 
+  <p
+    x-show="searchPerformed && searchResults.length === 0"
+    class="text-gray-500 mt-2"
+  >
+    No results found.
+  </p>
+
   <script>
     document.addEventListener("alpine:init", () => {
       Alpine.data("searchComponent", () => ({
         searchTerm: "",
         searchResults: [],
+        searchPerformed: false,
         async handleSearch() {
+          this.searchPerformed = false;
           try {
             const GRAPHQL_ENDPOINT = "https://blog.djmixoftheweek.com/graphql";
             const SEARCH_QUERY = `
@@ -52,6 +61,8 @@
             this.searchResults = json?.data?.posts?.nodes || [];
           } catch (error) {
             console.error("Error fetching search results:", error);
+          } finally {
+            this.searchPerformed = true;
           }
         },
       }));
