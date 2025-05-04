@@ -16,22 +16,24 @@ try {
 ---
 
 <BaseLayout pageTitle="Home">
-  <h1>Genres</h1>
-  <p>
-    Explore the genres of DJ mixes available on the site. Click on a genre to
-    view all mixes in that genre
-  </p>
-  <ul class="genre-list">
-    {
-      allGenres?.genres.nodes.map((genre, index) => (
-        <li>
-          <h2>
-            <a href={`genre/${genre?.slug}`} rel="noopener noreferrer">
-              <Fragment set:html={genre?.name} />
-            </a>
-          </h2>
-        </li>
-      ))
-    }
-  </ul>
+  <article>
+    <h1>Genres</h1>
+    <p>
+      Explore the genres of DJ mixes available on the site. Click on a genre to
+      view all mixes in that genre
+    </p>
+    <ul class="genre-list">
+      {
+        allGenres?.genres.nodes.map((genre, index) => (
+          <li>
+            <h2>
+              <a href={`genre/${genre?.slug}`} rel="noopener noreferrer">
+                <Fragment set:html={genre?.name} />
+              </a>
+            </h2>
+          </li>
+        ))
+      }
+    </ul>
+  </article>
 </BaseLayout>
