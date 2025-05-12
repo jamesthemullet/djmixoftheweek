@@ -53,6 +53,12 @@ form {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+
+  button {
+    height: unset;
+    margin-bottom: 0;
+    height: 3rem;
+  }
 }
 
 textarea {
