@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import partytown from "@astrojs/partytown";
 
 import alpinejs from "@astrojs/alpinejs";
 
@@ -12,5 +13,14 @@ const siteUrl = isProduction
 
 export default defineConfig({
   site: siteUrl,
-  integrations: [mdx(), sitemap(), alpinejs()],
+  integrations: [
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+    mdx(),
+    sitemap(),
+    alpinejs(),
+  ],
 });
