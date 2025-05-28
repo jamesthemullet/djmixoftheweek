@@ -94,7 +94,7 @@ try {
     onchange="window.location.href = this.value"
     aria-label="Show Posts By Genre"
   >
-    <option value="">Show Posts By Genre</option>
+        <option value="">Show Posts By Genre</option>
     {
       allGenres?.genres.nodes.map((genre: Genre) => (
         <option value={`/genre/${genre?.slug}`}>
