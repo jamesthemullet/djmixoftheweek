@@ -127,6 +127,7 @@
   border-bottom: 2px solid white;
   margin-top: 1rem;
   padding-bottom: 1rem;
+  z-index: 999;
 
   @media (min-width: 768px) {
     top: 0;
