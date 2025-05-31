@@ -1,21 +1,21 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import "../styles/pages.css";
-import { Image } from "astro:assets";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/pages.css';
+import { Image } from 'astro:assets';
 
-import GET_SINGLE_PAGE from "../lib/queries/getSinglePage";
-import { fetchGraphQL } from "../lib/api";
-import ALL_POSTS_QUERY from "../lib/queries/allPosts";
-import type { Post } from "../types";
+import GET_SINGLE_PAGE from '../lib/queries/getSinglePage';
+import { fetchGraphQL } from '../lib/api';
+import ALL_POSTS_QUERY from '../lib/queries/allPosts';
+import type { Post } from '../types';
 
-const variables = { id: "407" };
+const variables = { id: '407' };
 let singlePost: Post = null;
 
 try {
   const { page } = await fetchGraphQL(GET_SINGLE_PAGE, variables);
   singlePost = page;
 } catch (error) {
-  console.error("Error fetching GraphQL data:", error);
+  console.error('Error fetching GraphQL data:', error);
   singlePost = null;
 }
 
@@ -37,20 +37,17 @@ try {
   }
 
   allPosts.sort((a, b) => {
-    const ratingA = Number.parseFloat(a.ratings?.nodes[0]?.name || "0");
-    const ratingB = Number.parseFloat(b.ratings?.nodes[0]?.name || "0");
+    const ratingA = Number.parseFloat(a.ratings?.nodes[0]?.name || '0');
+    const ratingB = Number.parseFloat(b.ratings?.nodes[0]?.name || '0');
     return ratingB - ratingA;
   });
 } catch (error) {
-  console.error("Error fetching posts:", error);
+  console.error('Error fetching posts:', error);
   allPosts = [];
 }
 ---
 
-<BaseLayout
-  pageTitle={singlePost?.title}
-  description={singlePost?.seo.opengraphDescription}
->
+<BaseLayout pageTitle={singlePost?.title} description={singlePost?.seo.opengraphDescription}>
   {
     singlePost?.featuredImage && (
       <Image
@@ -70,7 +67,7 @@ try {
         allPosts.map((post) => (
           <li>
             <a href={`/${post.slug}`}>
-              {post.title} - {post.ratings?.nodes[0]?.name || "No rating"}
+              {post.title} - {post.ratings?.nodes[0]?.name || 'No rating'}
             </a>
           </li>
         ))
