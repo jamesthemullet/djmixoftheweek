@@ -1,7 +1,7 @@
 export async function fetchGraphQL(query: string, variables = {}) {
-  const response = await fetch("https://blog.djmixoftheweek.com/graphql", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+  const response = await fetch('https://blog.djmixoftheweek.com/graphql', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query, variables }),
   });
 

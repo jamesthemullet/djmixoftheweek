@@ -1,11 +1,11 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
-import "../styles/post.css";
-import Comments from "../components/comments.astro";
-import type { Comments as CommentsType } from "../types";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import '../styles/post.css';
+import Comments from '../components/comments.astro';
+import type { Comments as CommentsType } from '../types';
 
-const fallbackImage = "https://example.com/default-image.jpg";
+const fallbackImage = 'https://example.com/default-image.jpg';
 
 export async function getStaticPaths() {
   const allPosts = [];
@@ -13,13 +13,11 @@ export async function getStaticPaths() {
   let endCursor = null;
 
   while (hasNextPage) {
-    const response: Response = await fetch(
-      "https://blog.djmixoftheweek.com/graphql",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query: `
+    const response: Response = await fetch('https://blog.djmixoftheweek.com/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `
           query AllSlugs($first: Int!, $after: String) {
             posts(first: $first, after: $after) {
               nodes {
@@ -32,13 +30,12 @@ export async function getStaticPaths() {
             }
           }
         `,
-          variables: {
-            first: 100,
-            after: endCursor,
-          },
-        }),
-      }
-    );
+        variables: {
+          first: 100,
+          after: endCursor,
+        },
+      }),
+    });
 
     const { data } = await response.json();
     const posts = data.posts.nodes;
@@ -57,9 +54,9 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-const singleResponse = await fetch("https://blog.djmixoftheweek.com/graphql", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
+const singleResponse = await fetch('https://blog.djmixoftheweek.com/graphql', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     query: `
         query SinglePost($id: ID = "${slug}") {
@@ -147,10 +144,10 @@ const organiseComments = (comments: CommentsType) => {
 
 const threadedComments = organiseComments(data.post.comments.nodes);
 
-const formattedDate = new Date(singlePost.date).toLocaleDateString("en-GB", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
+const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
 });
 ---
 

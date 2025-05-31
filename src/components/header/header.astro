@@ -1,24 +1,22 @@
 ---
-import { Image } from "astro:assets";
+import { Image } from 'astro:assets';
 // import logo3 from "../../images/logos/rdaw-logo-3.webp";
-import "./header.css";
-import he from "he";
-import type { PopularPost } from "../../types";
-import Search from "../search/search.astro";
+import './header.css';
+import he from 'he';
+import type { PopularPost } from '../../types';
+import Search from '../search/search.astro';
 
 let popularPosts: PopularPost[] = [];
 
 try {
-  const response = await fetch(
-    "https://blog.djmixoftheweek.com/wp-json/top-10/v1/popular-posts"
-  );
+  const response = await fetch('https://blog.djmixoftheweek.com/wp-json/top-10/v1/popular-posts');
   if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
   popularPosts = await response.json();
 } catch (error) {
-  console.error("Error fetching top posts:", error);
+  console.error('Error fetching top posts:', error);
 }
 
-const currentUrl = Astro.site || "http://localhost:4321";
+const currentUrl = Astro.site || 'http://localhost:4321';
 
 const decodeHtmlEntities = (text: string) => {
   return he.decode(text);
@@ -32,9 +30,7 @@ const decodeHtmlEntities = (text: string) => {
     <div class="title">
       <a href="/">DJ Mix Of The Week</a>
     </div>
-    <button id="nav-toggle" aria-label="Toggle Navigation Menu"
-      ><span></span></button
-    >
+    <button id="nav-toggle" aria-label="Toggle Navigation Menu"><span></span></button>
 
     <nav id="nav-menu">
       <a href="/">Home</a>
@@ -67,16 +63,16 @@ const decodeHtmlEntities = (text: string) => {
   </div>
 
   <script>
-    const navToggle = document.getElementById("nav-toggle") as HTMLElement;
-    const navMenu = document.getElementById("nav-menu") as HTMLElement;
+    const navToggle = document.getElementById('nav-toggle') as HTMLElement;
+    const navMenu = document.getElementById('nav-menu') as HTMLElement;
 
-    navToggle.addEventListener("click", function () {
-      this.classList.toggle("open");
+    navToggle.addEventListener('click', function () {
+      this.classList.toggle('open');
 
       if (navMenu.style.maxHeight) {
-        navMenu.style.maxHeight = "";
+        navMenu.style.maxHeight = '';
       } else {
-        navMenu.style.maxHeight = navMenu.scrollHeight + "px";
+        navMenu.style.maxHeight = navMenu.scrollHeight + 'px';
       }
     });
   </script>

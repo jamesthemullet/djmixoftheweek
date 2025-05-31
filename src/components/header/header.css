@@ -25,7 +25,7 @@
     color: white;
     text-decoration: none;
     padding-right: 1rem;
-    font-family: "Knewave", sans-serif;
+    font-family: 'Knewave', sans-serif;
     max-height: 100px;
 
     img {
@@ -81,13 +81,15 @@
 #nav-toggle::before,
 #nav-toggle::after,
 #nav-toggle span {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 100%;
   height: 4px;
   background: var(--white);
-  transition: transform 0.3s, opacity 0.3s;
+  transition:
+    transform 0.3s,
+    opacity 0.3s;
 }
 
 #nav-toggle::before {
@@ -186,7 +188,7 @@
     font-size: 1em;
     margin: 0;
     color: white;
-    font-family: "Oswald", sans-serif;
+    font-family: 'Oswald', sans-serif;
     font-weight: 400;
   }
 
@@ -200,7 +202,7 @@
       padding: 0;
 
       a {
-        font-family: "Oswald", sans-serif;
+        font-family: 'Oswald', sans-serif;
         font-size: 1rem;
         line-height: 1.5;
         display: block;

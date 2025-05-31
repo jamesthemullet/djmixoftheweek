@@ -14,10 +14,10 @@
   box-sizing: border-box;
 }
 *::before {
-  content: "";
+  content: '';
 }
 *::after {
-  content: "";
+  content: '';
 }
 *::selection {
   background: var(--menu);
@@ -33,7 +33,7 @@ body {
   background-color: var(--white);
   color: var(--text);
   font-size: 1rem;
-  font-family: "Oswald", sans-serif;
+  font-family: 'Oswald', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -85,13 +85,13 @@ button {
 }
 
 @font-face {
-  font-family: "Knewave";
-  src: url("/fonts/Knewave-Regular.ttf") format("truetype");
+  font-family: 'Knewave';
+  src: url('/fonts/Knewave-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "Oswald";
-  src: url("/fonts/Oswald-VariableFont_wght.ttf") format("truetype");
+  font-family: 'Oswald';
+  src: url('/fonts/Oswald-VariableFont_wght.ttf') format('truetype');
 }
 
 html {
@@ -100,7 +100,7 @@ html {
 }
 
 body {
-  font-family: "Oswald", sans-serif;
+  font-family: 'Oswald', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -147,7 +147,7 @@ div.logoandtitle {
 
 h1,
 h2 {
-  font-family: "Knewave", sans-serif;
+  font-family: 'Knewave', sans-serif;
   font-size: 3em;
   color: #333;
   margin: 10px;
@@ -204,7 +204,7 @@ button {
   font-size: 1rem;
   padding: 0.5rem 1rem;
   margin-bottom: 1rem;
-  font-family: "Oswald", sans-serif;
+  font-family: 'Oswald', sans-serif;
   height: 2.5rem;
 }
 
@@ -216,7 +216,7 @@ select {
   font-size: 1rem;
   padding: 0.5rem 3rem 0.5rem 1rem;
   margin-bottom: 1rem;
-  font-family: "Oswald", sans-serif;
+  font-family: 'Oswald', sans-serif;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;

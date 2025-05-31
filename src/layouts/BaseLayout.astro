@@ -1,12 +1,12 @@
 ---
-import Footer from "../components/footer/footer.astro";
+import Footer from '../components/footer/footer.astro';
 const { pageTitle, description, opengraphImage } = Astro.props;
-import Header from "../components/header/header.astro";
-import "./layout.css";
+import Header from '../components/header/header.astro';
+import './layout.css';
 
 // import logo3 from null;
 
-import { SEO } from "astro-seo";
+import { SEO } from 'astro-seo';
 ---
 
 <html lang="en">
@@ -20,23 +20,9 @@ import { SEO } from "astro-seo";
     /> -->
 
     <meta charset="utf-8" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/favicon/favicon-16x16.png"
-    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
     <link rel="canonical" href={`${import.meta.env.SITE}${Astro.url.pathname}`} />
     <meta name="msapplication-TileColor" content="#da532c" />
@@ -44,21 +30,21 @@ import { SEO } from "astro-seo";
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="index, follow" />
     <SEO
-      title={pageTitle || "DJ Mix Of The Week"}
+      title={pageTitle || 'DJ Mix Of The Week'}
       description={description ||
-        "One house/techno/minimal mix every week (ish), personally recommended for your listening joy."}
+        'One house/techno/minimal mix every week (ish), personally recommended for your listening joy.'}
       openGraph={{
         basic: {
-          title: pageTitle || "DJ Mix Of The Week",
-          type: "Article",
+          title: pageTitle || 'DJ Mix Of The Week',
+          type: 'Article',
           // need to replace null
-          image: opengraphImage || "https://example.com/default-image.jpg",
+          image: opengraphImage || 'https://example.com/default-image.jpg',
         },
         optional: {
           description:
             description ||
-            "One house/techno/minimal mix every week (ish), personally recommended for your listening joy.",
-          siteName: "DJ Mix Of The Week",
+            'One house/techno/minimal mix every week (ish), personally recommended for your listening joy.',
+          siteName: 'DJ Mix Of The Week',
         },
       }}
     />
@@ -72,9 +58,9 @@ import { SEO } from "astro-seo";
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag("js", new Date());
+      gtag('js', new Date());
 
-      gtag("config", "G-29LKC2P8CY");
+      gtag('config', 'G-29LKC2P8CY');
     </script>
   </head>
   <body>
