@@ -60,6 +60,21 @@ const decodeHtmlEntities = (text: string) => {
         </div>
       )
     }
+    <section class="header-block subscribe">
+      <h2>Be notified of new posts by e-mail</h2>
+      <p>
+        Please note that this feature is experimental - if you sign up you will also receive test
+        messages until I'm satisfied it is working!
+      </p>
+      <form id="subscribe-form">
+        <label> Name: </label>
+        <input autocomplete="name" type="text" id="name" required />
+        <label> Email: </label>
+        <input autocomplete="email" type="email" id="email" required />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="response" id="response-message"></p>
+    </section>
   </div>
 
   <script>
@@ -73,6 +88,33 @@ const decodeHtmlEntities = (text: string) => {
         navMenu.style.maxHeight = '';
       } else {
         navMenu.style.maxHeight = navMenu.scrollHeight + 'px';
+      }
+    });
+
+    const form = document.getElementById('subscribe-form');
+    const responseMessage = document.getElementById('response-message')!;
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = (document.getElementById('name') as HTMLInputElement).value;
+      const email = (document.getElementById('email') as HTMLInputElement).value;
+
+      console.log(10, 'Form submitted:', { name, email });
+
+      const res = await fetch('https://blog.djmixoftheweek.com/wp-json/custom/v1/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, name }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        responseMessage.textContent = data.message;
+      } else {
+        responseMessage.textContent = `Error: ${data.message || 'Something went wrong'}`;
       }
     });
   </script>
