@@ -157,13 +157,16 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
   opengraphImage={singlePost?.seo?.opengraphImage?.sourceUrl || fallbackImage}
 >
   <div class="image-container">
-    <Image
-      src={singlePost?.featuredImage?.node?.sourceUrl || fallbackImage}
+    <img
+      src={singlePost.featuredImage.node.sourceUrl}
       alt={singlePost.title}
-      width={5000}
-      height={5000}
+      srcset={singlePost.seo.opengraphImage.srcSet}
+      sizes="100vw"
+      width={singlePost.seo.opengraphImage.mediaDetails.width}
+      height={singlePost.seo.opengraphImage.mediaDetails.height}
       class="featured-image"
       loading="eager"
+      fetchpriority="high"
     />
 
     {
