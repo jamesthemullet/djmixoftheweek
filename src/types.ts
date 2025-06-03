@@ -12,6 +12,7 @@ export type Post = {
   featuredImage?: {
     node: {
       sourceUrl: string;
+      srcSet: string;
       caption: string;
       mediaDetails: {
         width: number;
