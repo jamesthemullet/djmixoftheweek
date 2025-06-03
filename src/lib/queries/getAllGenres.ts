@@ -15,6 +15,7 @@ const GET_ALL_GENRES = `
                 id
                 sourceUrl
                 altText
+                srcSet
                 mediaDetails {
                   height
                   width
