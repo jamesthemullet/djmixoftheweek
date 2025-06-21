@@ -4,6 +4,50 @@ import './footer.css';
 ---
 
 <footer>
+  <section class="header-block mobile subscribe">
+    <h2>Be notified of new posts by e-mail</h2>
+    <p>
+      Please note that this feature is experimental - if you sign up you will also receive test
+      messages until I'm satisfied it is working!
+    </p>
+    <form id="footer-subscribe-form">
+      <label> Name: </label>
+      <input autocomplete="name" type="text" id="footer-name" required />
+      <label> Email: </label>
+      <input autocomplete="email" type="email" id="footer-email" required />
+      <button type="submit">Subscribe</button>
+    </form>
+    <p class="response" id="footer-response-message"></p>
+  </section>
   <Search />
   <p>DJ Mix Of The Week</p>
+
+  <script>
+    const form = document.getElementById('footer-subscribe-form');
+    const responseMessage = document.getElementById('footer-response-message')!;
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = (document.getElementById('footer-name') as HTMLInputElement).value;
+      const email = (document.getElementById('footer-email') as HTMLInputElement).value;
+
+      console.log(11, 'Form submitted:', { name, email });
+
+      const res = await fetch('https://blog.djmixoftheweek.com/wp-json/custom/v1/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, name }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        responseMessage.textContent = data.message;
+      } else {
+        responseMessage.textContent = `Error: ${data.message || 'Something went wrong'}`;
+      }
+    });
+  </script>
 </footer>
