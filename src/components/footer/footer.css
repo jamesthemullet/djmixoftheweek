@@ -21,3 +21,43 @@ footer {
     padding-left: 300px;
   }
 }
+
+.subscribe.mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--menu);
+  color: white;
+  margin: 0 20px 20px;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  label {
+    color: white;
+    font-size: 1rem;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  button {
+    margin-top: 1rem;
+  }
+}
