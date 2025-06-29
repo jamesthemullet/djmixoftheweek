@@ -3,7 +3,7 @@ ul {
   flex-direction: column;
   flex: 1;
 
-  @media (min-width: 768px) {
+  @media (min-width: 835px) {
     flex-direction: row;
     flex-wrap: wrap;
   }
@@ -12,7 +12,7 @@ ul {
     flex-basis: 100%;
     box-sizing: border-box;
 
-    @media (min-width: 768px) {
+    @media (min-width: 835px) {
       flex-basis: 50%;
     }
 
