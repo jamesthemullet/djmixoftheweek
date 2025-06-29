@@ -10,7 +10,7 @@
     font-size: 0.625rem;
     width: 100%;
 
-    @media (min-width: var(--breakpoint-ipad-portrait)) {
+    @media (min-width: 835px) {
       font-size: 0.875rem;
     }
 
