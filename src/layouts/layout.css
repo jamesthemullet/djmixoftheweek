@@ -125,7 +125,7 @@ div.page-container {
     align-items: center;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 835px) {
     flex-direction: row;
   }
 }
@@ -135,7 +135,7 @@ div.page-container {
 }
 
 div.logoandtitle {
-  @media (max-width: 768px) {
+  @media (max-width: 835px) {
     text-align: center;
   }
   display: flex;
@@ -152,7 +152,7 @@ h2 {
   color: #333;
   margin: 10px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 835px) {
     font-size: 1.75em;
   }
 }
@@ -161,7 +161,7 @@ h2 {
   font-size: 1.5rem;
   color: var(--menu);
 
-  @media (max-width: 768px) {
+  @media (max-width: 835px) {
     font-size: 1.5rem;
   }
 }
@@ -173,7 +173,7 @@ ul {
 }
 
 ol {
-  @media (max-width: 768px) {
+  @media (max-width: 835px) {
     padding: 0 20px;
   }
   padding: 0;

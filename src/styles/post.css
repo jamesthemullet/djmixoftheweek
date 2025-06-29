@@ -10,7 +10,7 @@
     font-size: 0.625rem;
     width: 100%;
 
-    @media (min-width: 768px) {
+    @media (min-width: 835px) {
       font-size: 0.875rem;
     }
 
@@ -75,7 +75,7 @@ article {
       max-width: 300px;
       max-height: 200px;
 
-      @media (min-width: 768px) {
+      @media (min-width: 835px) {
         max-width: 400px;
         max-height: 300px;
       }
