@@ -9,6 +9,10 @@ const fallbackImage = 'https://example.com/default-image.jpg';
 
 const { slug } = Astro.params;
 
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
 const singleResponse = await fetch('https://blog.djmixoftheweek.com/graphql', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
