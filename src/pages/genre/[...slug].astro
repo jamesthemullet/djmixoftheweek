@@ -9,39 +9,6 @@ import type { Genre, Post } from '../../types';
 
 const fallbackImage = 'https://example.com/default-image.jpg';
 
-export async function getStaticPaths() {
-  const response = await fetch('https://blog.djmixoftheweek.com/graphql', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query: `
-          query GetAllGenres {
-            genres(first: 100) {
-              nodes {
-                id
-                name
-                count
-                slug
-              }
-            }
-          }
-        `,
-      variables: {
-        first: 100,
-      },
-    }),
-  });
-
-  const { data } = await response.json();
-  const posts = data.genres.nodes;
-
-  const paths = posts.map((post: Post) => ({
-    params: { slug: post?.slug },
-  }));
-
-  return paths;
-}
-
 const { slug } = Astro.params;
 
 let postsByGenre: Post[] = [];

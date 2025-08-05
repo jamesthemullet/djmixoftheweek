@@ -7,51 +7,6 @@ import type { Comments as CommentsType } from '../types';
 
 const fallbackImage = 'https://example.com/default-image.jpg';
 
-export async function getStaticPaths() {
-  const allPosts = [];
-  let hasNextPage = true;
-  let endCursor = null;
-
-  while (hasNextPage) {
-    const response: Response = await fetch('https://blog.djmixoftheweek.com/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: `
-          query AllSlugs($first: Int!, $after: String) {
-            posts(first: $first, after: $after) {
-              nodes {
-                slug
-              }
-              pageInfo {
-                hasNextPage
-                endCursor
-              }
-            }
-          }
-        `,
-        variables: {
-          first: 100,
-          after: endCursor,
-        },
-      }),
-    });
-
-    const { data } = await response.json();
-    const posts = data.posts.nodes;
-    allPosts.push(...posts);
-
-    hasNextPage = data.posts.pageInfo.hasNextPage;
-    endCursor = data.posts.pageInfo.endCursor;
-  }
-
-  const paths = allPosts.map((post) => ({
-    params: { slug: post.slug },
-  }));
-
-  return paths;
-}
-
 const { slug } = Astro.params;
 
 const singleResponse = await fetch('https://blog.djmixoftheweek.com/graphql', {
