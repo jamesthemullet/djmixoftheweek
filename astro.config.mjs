@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel/serverless';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import partytown from '@astrojs/partytown';
@@ -12,8 +12,8 @@ const siteUrl = isProduction ? 'https://djmixoftheweek.com' : 'http://localhost:
 
 export default defineConfig({
   output: 'server',
-  adapter: node({
-    mode: 'standalone',
+  adapter: vercel({
+    webAnalytics: { enabled: true },
   }),
   site: siteUrl,
   integrations: [
