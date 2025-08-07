@@ -24,17 +24,26 @@ export async function GET() {
 
   // Static pages
   const staticPages = [
-    { url: '', lastmod: new Date().toISOString() },
-    { url: 'about', lastmod: new Date().toISOString() },
-    { url: 'genres', lastmod: new Date().toISOString() },
-    { url: 'league-of-mixes', lastmod: new Date().toISOString() },
+    { url: '', lastmod: new Date().toISOString().split('T')[0] },
+    { url: 'about', lastmod: new Date().toISOString().split('T')[0] },
+    { url: 'genres', lastmod: new Date().toISOString().split('T')[0] },
+    { url: 'league-of-mixes', lastmod: new Date().toISOString().split('T')[0] },
   ];
 
   // Dynamic post pages
-  const postPages = posts.map((post) => ({
-    url: post.slug,
-    lastmod: post.modified || new Date().toISOString(),
-  }));
+  const postPages = posts.map((post) => {
+    let lastmod;
+    try {
+      lastmod = new Date(post.modified).toISOString().split('T')[0];
+    } catch (error) {
+      lastmod = new Date().toISOString().split('T')[0];
+    }
+
+    return {
+      url: post.slug,
+      lastmod: lastmod,
+    };
+  });
 
   const allPages = [...staticPages, ...postPages];
 
