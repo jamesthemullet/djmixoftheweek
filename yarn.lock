@@ -18,20 +18,10 @@
     kleur "^4.1.5"
     yargs "^17.7.2"
 
-"@astrojs/compiler@^2.10.3":
-  version "2.10.3"
-  resolved "https://registry.yarnpkg.com/@astrojs/compiler/-/compiler-2.10.3.tgz#852386445029f7765a70b4c1d1140e175e1d8c27"
-  integrity sha512-bL/O7YBxsFt55YHU021oL+xz+B/9HvGNId3F9xURN16aeqDK9juHGktdkCSXz+U4nqFACq6ZFvWomOzhV+zfPw==
-
-"@astrojs/compiler@^2.12.2":
+"@astrojs/compiler@^2.10.3", "@astrojs/compiler@^2.12.2", "@astrojs/compiler@^2.9.1":
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/@astrojs/compiler/-/compiler-2.12.2.tgz#5913b6ec7efffebdfb37fae9a50122802ae08c64"
   integrity sha512-w2zfvhjNCkNMmMMOn5b0J8+OmUaBL1o40ipMvqcG6NRpdC+lKxmTi48DT8Xw0SzJ3AfmeFLB45zXZXtmbsjcgw==
-
-"@astrojs/compiler@^2.9.1":
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/@astrojs/compiler/-/compiler-2.12.0.tgz#36fa2b6a5214763a995775699b4d18f63de42de6"
-  integrity sha512-7bCjW6tVDpUurQLeKBUN9tZ5kSv5qYrGmcn0sG0IwacL7isR2ZbyyA3AdZ4uxsuUFOS2SlgReTH7wkxO6zpqWA==
 
 "@astrojs/internal-helpers@0.7.1":
   version "0.7.1"
@@ -1260,10 +1250,10 @@ astro-seo@^0.8.4:
   dependencies:
     "@astrojs/check" "^0.5.4"
 
-astro@^5.6.1:
-  version "5.12.9"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-5.12.9.tgz#f579b09add12a4bd02f438866c5a6a5832c9215e"
-  integrity sha512-cZ7kZ61jyE5nwSrFKSRyf5Gds+uJELqQxJFqMkcgiWQvhWZJUSShn8Uz3yc9WLyLw5Kim5P5un9SkJSGogfEZQ==
+astro@^5.13.1:
+  version "5.13.1"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-5.13.1.tgz#38f7a441abc95cedcff9c1259e95a6f99444d5c9"
+  integrity sha512-8p0UmH/h5DbmxSiu4W9RAODlRrqIYzI+hpDYhyU9jd/og1o9AIF1OsL90KIa/vTdSpm1kNRCfJnwDHddWP3q5A==
   dependencies:
     "@astrojs/compiler" "^2.12.2"
     "@astrojs/internal-helpers" "0.7.1"
@@ -4095,12 +4085,7 @@ sax@^1.2.4:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.4.1.tgz#44cc8988377f126304d3b3fc1010c733b929ef0f"
   integrity sha512-+aWOz7yVScEGoKNd4PA10LZ8sk0A/z5+nXQG5giUO5rprX9jgYsTdov9qCchZiPIZezbZH+jRut8nPodFAX4Jg==
 
-semver@^7.3.8, semver@^7.6.2:
-  version "7.7.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.1.tgz#abd5098d82b18c6c81f6074ff2647fd3e7220c9f"
-  integrity sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==
-
-semver@^7.5.3, semver@^7.6.3, semver@^7.7.1:
+semver@^7.3.8, semver@^7.5.3, semver@^7.6.2, semver@^7.6.3, semver@^7.7.1:
   version "7.7.2"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.2.tgz#67d99fdcd35cec21e6f8b87a7fd515a33f982b58"
   integrity sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==
