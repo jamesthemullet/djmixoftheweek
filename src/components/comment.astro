@@ -1,49 +1,49 @@
 ---
+import type { Comment as CommentType } from "../types";
 // Parent Astro File
-import AddComment from './addComment.astro';
-// @ts-ignore
-import Comment from './comment.astro';
-import type { Comment as CommentType } from '../types';
+import AddComment from "./addComment.astro";
+// @ts-expect-error
+import Comment from "./comment.astro";
 
 type Props = {
-  comment: CommentType;
-  postId: string;
-  commentId: string;
+	comment: CommentType;
+	postId: string;
+	commentId: string;
 };
 
 const { comment, postId, commentId } = Astro.props as Props;
 
 const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-  const formattedDate = date.toLocaleDateString('en-US', options);
+	const date = new Date(dateString);
+	const options: Intl.DateTimeFormatOptions = {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+	};
+	const formattedDate = date.toLocaleDateString("en-US", options);
 
-  const day = date.getDate();
-  const ordinalSuffix = (day: number) => {
-    if (day > 3 && day < 21) return 'th';
-    switch (day % 10) {
-      case 1:
-        return 'st';
-      case 2:
-        return 'nd';
-      case 3:
-        return 'rd';
-      default:
-        return 'th';
-    }
-  };
+	const day = date.getDate();
+	const ordinalSuffix = (day: number) => {
+		if (day > 3 && day < 21) return "th";
+		switch (day % 10) {
+			case 1:
+				return "st";
+			case 2:
+				return "nd";
+			case 3:
+				return "rd";
+			default:
+				return "th";
+		}
+	};
 
-  const formattedTime = date.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  });
+	const formattedTime = date.toLocaleTimeString("en-US", {
+		hour: "numeric",
+		minute: "numeric",
+		hour12: true,
+	});
 
-  return `${formattedDate.replace(/\d+/, day + ordinalSuffix(day))} at ${formattedTime}`;
+	return `${formattedDate.replace(/\d+/, day + ordinalSuffix(day))} at ${formattedTime}`;
 };
 ---
 

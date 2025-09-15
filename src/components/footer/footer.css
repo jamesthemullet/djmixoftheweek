@@ -1,63 +1,63 @@
 footer {
-  background-color: var(--menu);
-  color: white;
-  text-align: center;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  padding: 10px 0;
-  font-family: 'Knewave', sans-serif;
-  font-size: 1.5em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+	background-color: var(--menu);
+	color: white;
+	text-align: center;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	padding: 10px 0;
+	font-family: "Knewave", sans-serif;
+	font-size: 1.5em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 
-  p {
-    color: white;
-  }
+	p {
+		color: white;
+	}
 
-  @media (min-width: 835px) {
-    padding-left: 300px;
-  }
+	@media (min-width: 835px) {
+		padding-left: 300px;
+	}
 }
 
 .subscribe.mobile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--menu);
-  color: white;
-  margin: 0 20px 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--menu);
+	color: white;
+	margin: 0 20px 20px;
 
-  @media (min-width: 835px) {
-    display: none;
-  }
+	@media (min-width: 835px) {
+		display: none;
+	}
 
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-  }
+	form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin: 0;
+	}
 
-  p {
-    margin: 0;
-    font-size: 1rem;
-  }
+	p {
+		margin: 0;
+		font-size: 1rem;
+	}
 
-  label {
-    color: white;
-    font-size: 1rem;
-  }
+	label {
+		color: white;
+		font-size: 1rem;
+	}
 
-  input {
-    width: 100%;
-  }
+	input {
+		width: 100%;
+	}
 
-  button {
-    margin-top: 1rem;
-  }
+	button {
+		margin-top: 1rem;
+	}
 }

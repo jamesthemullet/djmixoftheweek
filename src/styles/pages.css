@@ -1,57 +1,57 @@
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 3rem;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 3rem;
 
-  h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: #333;
-    text-align: center;
-  }
+	h2 {
+		font-size: 2.5rem;
+		margin-bottom: 2rem;
+		color: #333;
+		text-align: center;
+	}
 }
 
 article {
-  background-color: var(--white);
-  padding: 1rem;
+	background-color: var(--white);
+	padding: 1rem;
 }
 
 p {
-  font-size: 1.6rem;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-  color: #333;
+	font-size: 1.6rem;
+	line-height: 1.5;
+	margin-bottom: 1.5rem;
+	color: #333;
 }
 
 .league-of-mixes {
-  a {
-    color: var(--text);
-  }
+	a {
+		color: var(--text);
+	}
 }
 
 .genre-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  list-style: none;
-  padding: 0;
-  margin: 0 5rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	list-style: none;
+	padding: 0;
+	margin: 0 5rem;
 
-  li {
-    margin: 0.5rem;
-    padding: 0.5rem;
-    background-color: var(--white);
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 1.25rem;
+	li {
+		margin: 0.5rem;
+		padding: 0.5rem;
+		background-color: var(--white);
+		border-radius: 5px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		font-size: 1.25rem;
 
-    h2 {
-      text-align: center;
-    }
+		h2 {
+			text-align: center;
+		}
 
-    a {
-      color: var(--text);
-      text-decoration: none;
-    }
-  }
+		a {
+			color: var(--text);
+			text-decoration: none;
+		}
+	}
 }
