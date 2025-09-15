@@ -1,23 +1,23 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
-import '../styles/post.css';
-import Comments from '../components/comments.astro';
-import type { Comments as CommentsType } from '../types';
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/post.css";
+import Comments from "../components/comments.astro";
+import type { Comments as CommentsType } from "../types";
 
-const fallbackImage = 'https://example.com/default-image.jpg';
+const fallbackImage = "https://example.com/default-image.jpg";
 
 const { slug } = Astro.params;
 
 if (!slug) {
-  return Astro.redirect('/404');
+	return Astro.redirect("/404");
 }
 
-const singleResponse = await fetch('https://blog.djmixoftheweek.com/graphql', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    query: `
+const singleResponse = await fetch("https://blog.djmixoftheweek.com/graphql", {
+	method: "POST",
+	headers: { "Content-Type": "application/json" },
+	body: JSON.stringify({
+		query: `
         query SinglePost($id: ID = "${slug}") {
           post(idType: SLUG, id: $id) {
             date
@@ -69,7 +69,7 @@ const singleResponse = await fetch('https://blog.djmixoftheweek.com/graphql', {
           }
         }
         `,
-  }),
+	}),
 });
 
 const { data } = await singleResponse.json();
@@ -78,40 +78,40 @@ const singlePost = data?.post;
 
 // Handle case where post is not found
 if (!singlePost) {
-  return Astro.redirect('/404');
+	return Astro.redirect("/404");
 }
 
 const organiseComments = (comments: CommentsType) => {
-  const commentMap = new Map();
+	const commentMap = new Map();
 
-  // biome-ignore lint/complexity/noForEach: false positive
-  comments?.forEach((comment) => {
-    comment.replies = [];
-    commentMap.set(comment.id, comment);
-  });
+	// biome-ignore lint/complexity/noForEach: false positive
+	comments?.forEach((comment) => {
+		comment.replies = [];
+		commentMap.set(comment.id, comment);
+	});
 
-  const topLevelComments: CommentsType = [];
-  // biome-ignore lint/complexity/noForEach: false positive
-  comments?.forEach((comment) => {
-    if (comment.parentId) {
-      const parent = commentMap.get(comment.parentId);
-      if (parent) {
-        parent.replies.push(comment);
-      }
-    } else {
-      topLevelComments.push(comment);
-    }
-  });
+	const topLevelComments: CommentsType = [];
+	// biome-ignore lint/complexity/noForEach: false positive
+	comments?.forEach((comment) => {
+		if (comment.parentId) {
+			const parent = commentMap.get(comment.parentId);
+			if (parent) {
+				parent.replies.push(comment);
+			}
+		} else {
+			topLevelComments.push(comment);
+		}
+	});
 
-  return topLevelComments;
+	return topLevelComments;
 };
 
 const threadedComments = organiseComments(singlePost.comments?.nodes || []);
 
-const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
-  day: '2-digit',
-  month: '2-digit',
-  year: 'numeric',
+const formattedDate = new Date(singlePost.date).toLocaleDateString("en-GB", {
+	day: "2-digit",
+	month: "2-digit",
+	year: "numeric",
 });
 ---
 

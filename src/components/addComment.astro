@@ -1,12 +1,12 @@
 ---
 interface Props {
-  postId: string;
-  parentId?: string | null;
+	postId: string;
+	parentId?: string | null;
 }
 const { postId, parentId } = Astro.props as Props;
 
-let message = '';
-let messageColor = 'black';
+const message = "";
+const messageColor = "black";
 ---
 
 <form
