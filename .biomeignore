@@ -1,0 +1,11 @@
+# Ignore Astro generated files
+
+.astro/
+
+# Ignore node_modules
+
+node_modules/
+
+# Ignore build output
+
+dist/
