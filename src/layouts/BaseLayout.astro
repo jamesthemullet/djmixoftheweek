@@ -1,4 +1,7 @@
 ---
+/** biome-ignore-all lint/correctness/noUnusedImports: <explanation> */
+/** biome-ignore-all lint/correctness/noUnusedVariables: <explanation> */
+
 import Footer from "../components/footer/footer.astro";
 
 const { pageTitle, description, opengraphImage } = Astro.props;
@@ -6,21 +9,11 @@ const { pageTitle, description, opengraphImage } = Astro.props;
 import Header from "../components/header/header.astro";
 import "./layout.css";
 
-// import logo3 from null;
-
 import { SEO } from "astro-seo";
 ---
 
 <html lang="en">
   <head>
-    <!-- <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href={yellowtailWoff2}
-      crossorigin="anonymous"
-    /> -->
-
     <meta charset="utf-8" />
     <script
       async
@@ -43,7 +36,6 @@ import { SEO } from "astro-seo";
         basic: {
           title: pageTitle || 'DJ Mix Of The Week',
           type: 'Article',
-          // need to replace null
           image: opengraphImage || 'https://example.com/default-image.jpg',
         },
         optional: {

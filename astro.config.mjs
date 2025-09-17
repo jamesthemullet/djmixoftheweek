@@ -3,7 +3,6 @@
 import alpinejs from "@astrojs/alpinejs";
 import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
-import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel/serverless";
 import { defineConfig } from "astro/config";
 

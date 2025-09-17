@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/post.css";
 import Comments from "../components/comments.astro";
@@ -76,7 +75,6 @@ const { data } = await singleResponse.json();
 
 const singlePost = data?.post;
 
-// Handle case where post is not found
 if (!singlePost) {
 	return Astro.redirect("/404");
 }
@@ -107,6 +105,16 @@ const organiseComments = (comments: CommentsType) => {
 };
 
 const threadedComments = organiseComments(singlePost.comments?.nodes || []);
+
+const processContent = (content: string) => {
+	return content
+		.replace(
+			/https:\/\/blog\.djmixoftheweek\.com\//g,
+			"https://djmixoftheweek.com/",
+		)
+		.replace(/href="\/\//g, 'href="https://')
+		.replace(/blog\.djmixoftheweek\.com/g, "djmixoftheweek.com");
+};
 
 const formattedDate = new Date(singlePost.date).toLocaleDateString("en-GB", {
 	day: "2-digit",
@@ -144,7 +152,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString("en-GB", {
     <date>
       Posted: {formattedDate}
     </date>
-    <div set:html={singlePost.content} />
+    <div set:html={processContent(singlePost.content)} />
     <div set:html={singlePost.soundcloud.soundcloud} />
     <br />
     <div set:html={singlePost.mixcloud.mixcloud} />

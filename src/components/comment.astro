@@ -1,4 +1,7 @@
 ---
+/** biome-ignore-all lint/correctness/noUnusedVariables: <explanation> */
+/** biome-ignore-all lint/correctness/noUnusedImports: <explanation> */
+
 import type { Comment as CommentType } from "../types";
 // Parent Astro File
 import AddComment from "./addComment.astro";
@@ -53,7 +56,6 @@ const formatDate = (dateString: string): string => {
   </p>
   <p set:html={comment.content} />
 
-  <!-- Reply Button for comment -->
   <button class="reply-btn" data-target-id={comment.id}> Reply </button>
 
   <div class="reply-form-container" id={`reply-form-${comment.id}`} style="display: none;">
