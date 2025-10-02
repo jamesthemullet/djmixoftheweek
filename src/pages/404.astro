@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/pages.css';
+---
+
+<BaseLayout
+  pageTitle="Page not found"
+  description="We couldn't find the page you were looking for."
+>
+  <main class="container">
+    <h1>404 — Gosh, dropped a clanger there</h1>
+    <p>
+      Oops, should have pre-recorded it and danced around like a lemon. The page you're after isn't
+      here.
+    </p>
+
+    <p>
+      Spin back to the <a href="/">home deck</a>, or cue up something from the crates below.
+    </p>
+
+    <section>
+      <h2>Quick playlists</h2>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/genres">Browse by genre</a></li>
+        <li><a href="/league-of-mixes">League of mixes</a></li>
+      </ul>
+    </section>
+  </main>
+</BaseLayout>
