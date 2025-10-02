@@ -1,21 +1,23 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import "../styles/pages.css";
-import { Image } from "astro:assets";
-import { fetchGraphQL } from "../lib/api";
-import GET_SINGLE_PAGE from "../lib/queries/getSinglePage";
-import type { Post } from "../types";
+/** biome-ignore-all lint/correctness/noUnusedVariables: <explanation> */
 
-const variables = { id: "2" };
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/pages.css';
+import { Image } from 'astro:assets';
+import { fetchGraphQL } from '../lib/api';
+import GET_SINGLE_PAGE from '../lib/queries/getSinglePage';
+import type { Post } from '../types';
+
+const variables = { id: '2' };
 
 let singlePost: Post = null;
 
 try {
-	const { page } = await fetchGraphQL(GET_SINGLE_PAGE, variables);
-	singlePost = page;
+  const { page } = await fetchGraphQL(GET_SINGLE_PAGE, variables);
+  singlePost = page;
 } catch (error) {
-	console.error("Error fetching GraphQL data:", error);
-	singlePost = null;
+  console.error('Error fetching GraphQL data:', error);
+  singlePost = null;
 }
 ---
 
