@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "biome check src",
+    "lint:errors": "biome check src --diagnostic-level=error",
     "lint:fix": "biome check --write src",
     "ts-check": "astro check"
   },
