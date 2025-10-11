@@ -68,6 +68,16 @@ export type DJ = {
   };
 } | null;
 
+export type Nationality = {
+  id: string;
+  name: string;
+  slug: string;
+  count: number;
+  posts: {
+    nodes: Post[];
+  };
+} | null;
+
 export type Comment = {
   id: string;
   author: {
