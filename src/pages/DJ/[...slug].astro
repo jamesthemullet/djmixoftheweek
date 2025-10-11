@@ -17,7 +17,7 @@ let postsByDJ: Post[] = [];
 
 try {
   const pageSize = 100;
-  let postsAfter: string | undefined ;
+  let postsAfter: string | undefined;
   let foundDJNode: DJ | null = null;
 
   type PageInfo = { hasNextPage?: boolean; endCursor?: string | null };
@@ -72,45 +72,57 @@ const capitaliseAndRemoveHyphens = (string: string | undefined) => {
   description={`All posts of DJ ${capitaliseAndRemoveHyphens(slug)}`}
   opengraphImage={postsByDJ[0]?.seo?.opengraphImage?.sourceUrl || fallbackImage}
 >
-  <h1>{capitaliseAndRemoveHyphens(slug)}</h1>
-  <ul>
-    {
-      postsByDJ.map((post, index) => (
-        <li class="genres-list">
-          <div class="image-container">
-            <a href={`/${post?.slug}`}>
-              <img
-                src={post?.featuredImage?.node?.sourceUrl || fallbackImage}
-                srcset={post?.featuredImage?.node?.srcSet}
-                alt={post?.title.rendered || ''}
-                sizes="(max-width: 600px) 100vw, 700px"
-                width={700}
-                height={466.67}
-                class="featured-image"
-                loading={index < 2 ? 'eager' : 'lazy'}
-              />
-              {post?.featuredImage?.node?.caption && (
-                <figcaption set:html={post.featuredImage.node.caption} />
-              )}
-            </a>
-          </div>
-          <h2>
-            <a href={`/${post?.slug}`}>{post?.title}</a>
-          </h2>
-          <ul class="genres">
-            <li>
-              {post?.genres.nodes.map((genre, index) => (
-                <span>
-                  <a href={`/genre/${genre.slug}`} rel="noopener noreferrer">
-                    {genre.name}
-                  </a>
-                  {index < post.genres.nodes.length - 1 && ', '}
-                </span>
-              ))}
-            </li>
-          </ul>
-        </li>
-      ))
-    }
-  </ul>
+  <h1>Genre: {capitaliseAndRemoveHyphens(slug)}</h1>
+
+  {
+    postsByDJ.length === 0 ? (
+      <section>
+        <p>
+          No posts found for <strong>{capitaliseAndRemoveHyphens(slug)}</strong>.
+        </p>
+        <p>
+          You can <a href="/">return to the homepage</a> or try a different DJ.
+        </p>
+      </section>
+    ) : (
+      <ul>
+        {postsByDJ.map((post, index) => (
+          <li class="genres-list">
+            <div class="image-container">
+              <a href={`/${post?.slug}`}>
+                <img
+                  src={post?.featuredImage?.node?.sourceUrl || fallbackImage}
+                  srcset={post?.featuredImage?.node?.srcSet}
+                  alt={post?.title.rendered || ''}
+                  sizes="(max-width: 600px) 100vw, 700px"
+                  width={700}
+                  height={466.67}
+                  class="featured-image"
+                  loading={index < 2 ? 'eager' : 'lazy'}
+                />
+                {post?.featuredImage?.node?.caption && (
+                  <figcaption set:html={post.featuredImage.node.caption} />
+                )}
+              </a>
+            </div>
+            <h2>
+              <a href={`/${post?.slug}`}>{post?.title}</a>
+            </h2>
+            <ul class="genres">
+              <li>
+                {post?.genres.nodes.map((genre, index) => (
+                  <span>
+                    <a href={`/genre/${genre.slug}`} rel="noopener noreferrer">
+                      {genre.name}
+                    </a>
+                    {index < post.genres.nodes.length - 1 && ', '}
+                  </span>
+                ))}
+              </li>
+            </ul>
+          </li>
+        ))}
+      </ul>
+    )
+  }
 </BaseLayout>
