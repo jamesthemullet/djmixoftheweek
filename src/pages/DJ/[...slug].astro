@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchGraphQL } from '../../lib/api';
+import '../../styles/post.css';
+import type { DJ, Post } from '../../types';
+import GET_ALL_DJS from '../../lib/queries/getAllDJs';
+
+const fallbackImage = 'https://example.com/default-image.jpg';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+let postsByDJ: Post[] = [];
+
+try {
+  const response = await fetchGraphQL(GET_ALL_DJS);
+  postsByDJ = response?.dJs?.nodes.filter((dj: DJ) => dj?.slug === slug)[0].posts.nodes;
+} catch {
+  console.error('Error fetching posts by DJ');
+}
+
+const capitaliseAndRemoveHyphens = (string: string | undefined) => {
+  if (!string) return 'Unknown DJ';
+  return string
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+---
+
+<BaseLayout
+  pageTitle={capitaliseAndRemoveHyphens(slug)}
+  description={`All posts of DJ ${capitaliseAndRemoveHyphens(slug)}`}
+  opengraphImage={postsByDJ[0]?.seo?.opengraphImage?.sourceUrl || fallbackImage}
+>
+  <h1>Genre: {capitaliseAndRemoveHyphens(slug)}</h1>
+  <ul>
+    {
+      postsByDJ.map((post, index) => (
+        <li class="genres-list">
+          <div class="image-container">
+            <a href={`/${post?.slug}`}>
+              <img
+                src={post?.featuredImage?.node?.sourceUrl || fallbackImage}
+                srcset={post?.featuredImage?.node?.srcSet}
+                alt={post?.title.rendered || ''}
+                sizes="(max-width: 600px) 100vw, 700px"
+                width={700}
+                height={466.67}
+                class="featured-image"
+                loading={index < 2 ? 'eager' : 'lazy'}
+              />
+              {post?.featuredImage?.node?.caption && (
+                <figcaption set:html={post.featuredImage.node.caption} />
+              )}
+            </a>
+          </div>
+          <h2>
+            <a href={`/${post?.slug}`}>{post?.title}</a>
+          </h2>
+          <ul class="genres">
+            <li>
+              {post?.genres.nodes.map((genre, index) => (
+                <span>
+                  <a href={`/genre/${genre.slug}`} rel="noopener noreferrer">
+                    {genre.name}
+                  </a>
+                  {index < post.genres.nodes.length - 1 && ', '}
+                </span>
+              ))}
+            </li>
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
