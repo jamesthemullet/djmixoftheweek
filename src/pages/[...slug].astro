@@ -106,13 +106,22 @@ const organiseComments = (comments: CommentsType) => {
 
 const threadedComments = organiseComments(singlePost.comments?.nodes || []);
 
+const siteUrlStr = String(Astro.site || 'http://localhost:4321');
+
+// biome-ignore lint/correctness/noUnusedVariables: Used in template
 const processContent = (content: string) => {
+  const destBase = siteUrlStr.includes('localhost')
+    ? `${siteUrlStr}/`
+    : 'https://djmixoftheweek.com/';
+
   return content
-    .replace(/https:\/\/blog\.djmixoftheweek\.com\//g, 'https://djmixoftheweek.com/')
+    .replace(/https:\/\/blog\.djmixoftheweek\.com\//g, destBase)
     .replace(/href="\/\//g, 'href="https://')
-    .replace(/blog\.djmixoftheweek\.com/g, 'djmixoftheweek.com');
+    .replace(/blog\.djmixoftheweek\.com/g, destBase.replace(/https?:\/\//, '').replace(/\/$/, ''))
+    .replace(/([^:]\/)\/+/g, '$1');
 };
 
+// biome-ignore lint/correctness/noUnusedVariables: Used in template
 const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
   day: '2-digit',
   month: '2-digit',
