@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchGraphQL } from '../../lib/api';
+import '../../styles/post.css';
+import GET_ALL_NATIONALITIES from '../../lib/queries/getAllNationalities';
+import type { Nationality, Post } from '../../types';
+
+const fallbackImage = 'https://example.com/default-image.jpg';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+let postsByNationality: Post[] = [];
+
+try {
+  const pageSize = 100;
+  let postsAfter: string | undefined;
+  let foundNationalityNode: Nationality | null = null;
+
+  type PageInfo = { hasNextPage?: boolean; endCursor?: string | null };
+
+  const getPageInfo = (node: Nationality | null, nodes: unknown[]): PageInfo | undefined => {
+    const n = node as unknown as { posts?: { pageInfo?: PageInfo } } | undefined;
+    if (n?.posts?.pageInfo) return n.posts.pageInfo;
+    const first = nodes[0] as unknown as { posts?: { pageInfo?: PageInfo } } | undefined;
+    return first?.posts?.pageInfo;
+  };
+
+  while (true) {
+    const response = await fetchGraphQL(GET_ALL_NATIONALITIES, {
+      postsFirst: pageSize,
+      postsAfter,
+    });
+
+    const nationalityNodes = response?.nationalities?.nodes || [];
+    if (!foundNationalityNode) {
+      foundNationalityNode =
+        nationalityNodes.find((nationality: Nationality) => nationality?.slug === slug) || null;
+    }
+
+    if (foundNationalityNode) {
+      const matching = nationalityNodes.find(
+        (nationality: Nationality) => nationality?.slug === slug
+      );
+      if (matching?.posts?.nodes) {
+        postsByNationality = postsByNationality.concat(matching.posts.nodes as Post[]);
+      }
+    }
+
+    const pageInfo = getPageInfo(foundNationalityNode, nationalityNodes);
+
+    if (pageInfo?.hasNextPage) {
+      postsAfter = pageInfo.endCursor ?? undefined;
+      continue;
+    }
+
+    break;
+  }
+} catch (err) {
+  console.error('Error fetching posts by Nationality', err);
+}
+
+// biome-ignore lint/correctness/noUnusedVariables: Used in template
+const capitaliseAndRemoveHyphens = (string: string | undefined) => {
+  if (!string) return 'Unknown Nationality';
+  return string
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+---
+
+<BaseLayout
+  pageTitle={capitaliseAndRemoveHyphens(slug)}
+  description={`All posts of DJ sets featuring DJs from ${capitaliseAndRemoveHyphens(slug)}`}
+  opengraphImage={postsByNationality[0]?.seo?.opengraphImage?.sourceUrl || fallbackImage}
+>
+  <h1>DJ Sets featuring DJs from {capitaliseAndRemoveHyphens(slug)}</h1>
+
+  {
+    postsByNationality.length === 0 ? (
+      <section>
+        <p>
+          No posts found for <strong>{capitaliseAndRemoveHyphens(slug)}</strong>.
+        </p>
+        <p>
+          You can <a href="/">return to the homepage</a> or try a different Nationality.
+        </p>
+      </section>
+    ) : (
+      <ul>
+        {postsByNationality.map((post, index) => (
+          <li class="genres-list">
+            <div class="image-container">
+              <a href={`/${post?.slug}`}>
+                <img
+                  src={post?.featuredImage?.node?.sourceUrl || fallbackImage}
+                  srcset={post?.featuredImage?.node?.srcSet}
+                  alt={post?.title.rendered || ''}
+                  sizes="(max-width: 600px) 100vw, 700px"
+                  width={700}
+                  height={466.67}
+                  class="featured-image"
+                  loading={index < 2 ? 'eager' : 'lazy'}
+                />
+                {post?.featuredImage?.node?.caption && (
+                  <figcaption set:html={post.featuredImage.node.caption} />
+                )}
+              </a>
+            </div>
+            <h2>
+              <a href={`/${post?.slug}`}>{post?.title}</a>
+            </h2>
+            <ul class="genres">
+              <li>
+                {post?.genres.nodes.map((genre, index) => (
+                  <span>
+                    <a href={`/genre/${genre.slug}`} rel="noopener noreferrer">
+                      {genre.name}
+                    </a>
+                    {index < post.genres.nodes.length - 1 && ', '}
+                  </span>
+                ))}
+              </li>
+            </ul>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</BaseLayout>
