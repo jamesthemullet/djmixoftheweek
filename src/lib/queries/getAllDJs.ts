@@ -1,12 +1,12 @@
 const GET_ALL_DJS = `
-  query GetAllDJs {
+  query GetAllDJs($postsFirst: Int = 100, $postsAfter: String) {
     dJs(first: 100) {
       nodes {
         id
         name
         count
         slug
-        posts(first: 100) {
+        posts(first: $postsFirst, after: $postsAfter) {
           nodes {
             slug
             featuredImage {
@@ -47,6 +47,10 @@ const GET_ALL_DJS = `
                 srcSet
               }
             }
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
           }
         }
       }

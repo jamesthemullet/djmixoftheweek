@@ -1,11 +1,9 @@
 ---
-import { Image } from 'astro:assets';
-
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fetchGraphQL } from '../../lib/api';
 import '../../styles/post.css';
-import type { DJ, Post } from '../../types';
 import GET_ALL_DJS from '../../lib/queries/getAllDJs';
+import type { DJ, Post } from '../../types';
 
 const fallbackImage = 'https://example.com/default-image.jpg';
 
@@ -18,12 +16,48 @@ if (!slug) {
 let postsByDJ: Post[] = [];
 
 try {
-  const response = await fetchGraphQL(GET_ALL_DJS);
-  postsByDJ = response?.dJs?.nodes.filter((dj: DJ) => dj?.slug === slug)[0].posts.nodes;
-} catch {
-  console.error('Error fetching posts by DJ');
+  const pageSize = 100;
+  let postsAfter: string | undefined ;
+  let foundDJNode: DJ | null = null;
+
+  type PageInfo = { hasNextPage?: boolean; endCursor?: string | null };
+
+  const getPageInfo = (node: DJ | null, nodes: unknown[]): PageInfo | undefined => {
+    const n = node as unknown as { posts?: { pageInfo?: PageInfo } } | undefined;
+    if (n?.posts?.pageInfo) return n.posts.pageInfo;
+    const first = nodes[0] as unknown as { posts?: { pageInfo?: PageInfo } } | undefined;
+    return first?.posts?.pageInfo;
+  };
+
+  while (true) {
+    const response = await fetchGraphQL(GET_ALL_DJS, { postsFirst: pageSize, postsAfter });
+
+    const djNodes = response?.dJs?.nodes || [];
+    if (!foundDJNode) {
+      foundDJNode = djNodes.find((dj: DJ) => dj?.slug === slug) || null;
+    }
+
+    if (foundDJNode) {
+      const matching = djNodes.find((dj: DJ) => dj?.slug === slug);
+      if (matching?.posts?.nodes) {
+        postsByDJ = postsByDJ.concat(matching.posts.nodes as Post[]);
+      }
+    }
+
+    const pageInfo = getPageInfo(foundDJNode, djNodes);
+
+    if (pageInfo?.hasNextPage) {
+      postsAfter = pageInfo.endCursor ?? undefined;
+      continue;
+    }
+
+    break;
+  }
+} catch (err) {
+  console.error('Error fetching posts by DJ', err);
 }
 
+// biome-ignore lint/correctness/noUnusedVariables: Used in template
 const capitaliseAndRemoveHyphens = (string: string | undefined) => {
   if (!string) return 'Unknown DJ';
   return string
@@ -38,7 +72,7 @@ const capitaliseAndRemoveHyphens = (string: string | undefined) => {
   description={`All posts of DJ ${capitaliseAndRemoveHyphens(slug)}`}
   opengraphImage={postsByDJ[0]?.seo?.opengraphImage?.sourceUrl || fallbackImage}
 >
-  <h1>Genre: {capitaliseAndRemoveHyphens(slug)}</h1>
+  <h1>{capitaliseAndRemoveHyphens(slug)}</h1>
   <ul>
     {
       postsByDJ.map((post, index) => (
