@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.10.4",
-    "@biomejs/biome": "2.2.5",
+    "@biomejs/biome": "2.2.6",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.8.3"
