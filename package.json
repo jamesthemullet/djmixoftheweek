@@ -17,22 +17,21 @@
     "@astrojs/mdx": "^4.0.6",
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/rss": "^4.0.11",
-    "@astrojs/sitemap": "^3.2.1",
     "@astrojs/vercel": "^9.0.0",
     "@types/alpinejs": "^3.13.11",
     "@types/he": "^1.2.3",
-    "@types/node": "^22.14.0",
+    "@types/node": "^24.10.0",
     "alpinejs": "^3.14.9",
     "astro": "^5.13.1",
     "astro-seo": "^0.8.4",
     "he": "^1.2.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/ts-plugin": "^1.10.4",
     "@biomejs/biome": "2.3.2",
-    "prettier": "^3.5.3",
-    "prettier-plugin-astro": "^0.14.1",
-    "typescript": "^5.8.3"
+    "knip": "^5.67.1",
+    "typescript": "^5.9.3"
   },
   "resolutions": {
     "path-to-regexp": "8.3.0"
