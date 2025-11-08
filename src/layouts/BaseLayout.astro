@@ -60,6 +60,12 @@ import { SEO } from "astro-seo";
 
       gtag('config', 'G-29LKC2P8CY');
     </script>
+    <script>
+  if (import.meta.env.MODE === 'development') {
+    const { accented } = await import('accented');
+    accented();
+  }
+</script>
   </head>
   <body>
     <div class="page-container">
