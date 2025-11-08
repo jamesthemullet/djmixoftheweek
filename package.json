@@ -21,6 +21,7 @@
     "@types/alpinejs": "^3.13.11",
     "@types/he": "^1.2.3",
     "@types/node": "^24.10.0",
+    "accented": "^1.2.0",
     "alpinejs": "^3.14.9",
     "astro": "^5.13.1",
     "astro-seo": "^0.8.4",
