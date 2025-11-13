@@ -1326,9 +1326,9 @@ abbrev@^3.0.0:
   integrity sha512-AO2ac6pjRB3SJmGJo+v5/aK6Omggp6fsLrs6wN9bd35ulu4cCwaAU9+7ZhXjeqHVkaHThLuzH0nZr0YpCDhygg==
 
 accented@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/accented/-/accented-1.2.0.tgz#385472a490ef968889c6c3c12b4f55ed15f1408b"
-  integrity sha512-NocJbG2dxb92aazvewwDgI8hbqdInFElHqmjuzCEBroa4KvyxxkQE4mcvZ4+Q2BVGpW6efURTgVz7UqBNfPQWw==
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/accented/-/accented-1.2.1.tgz#382f6856c60611756cad5ed7c754b30182754149"
+  integrity sha512-m3TIUG9yEsnNEhLPbgxEIE+22fiY/aiNrMfQarM5t5J51caQiYIjjLA/5/HBHIeYEwGTdhsUmzf4kTtmKM/qBg==
   dependencies:
     "@preact/signals-core" "^1.12.1"
     axe-core "^4.11.0"
