@@ -1086,11 +1086,6 @@
   dependencies:
     "@types/unist" "*"
 
-"@types/he@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@types/he/-/he-1.2.3.tgz#c33ca3096f30cbd5d68d78211572de3f9adff75a"
-  integrity sha512-q67/qwlxblDzEDvzHhVkwc1gzVWxaNxeyHUBF4xElrvjL11O+Ytze+1fGpBHlr/H9myiBUaUXNnNPmBHxxfAcA==
-
 "@types/mdast@^4.0.0":
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/@types/mdast/-/mdast-4.0.4.tgz#7ccf72edd2f1aa7dd3437e180c64373585804dd6"
@@ -2148,7 +2143,7 @@ fontace@~0.4.0:
   dependencies:
     fontkitten "^1.0.0"
 
-fontkitten@^1.0.0:
+fontkitten@1.0.0, fontkitten@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fontkitten/-/fontkitten-1.0.0.tgz#9667c877f61da868c97b7a063e99d37e2c2c0ddb"
   integrity sha512-b0RdzQeztiiUFWEDzq6Ka26qkNVNLCehoRtifOIGNbQ4CfxyYRh73fyWaQX/JshPVcueITOEeoSWPy5XQv8FUg==
@@ -2388,11 +2383,6 @@ hastscript@^9.0.0:
     hast-util-parse-selector "^4.0.0"
     property-information "^7.0.0"
     space-separated-tokens "^2.0.0"
-
-he@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
-  integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
 html-escaper@3.0.3:
   version "3.0.3"
