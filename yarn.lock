@@ -2155,10 +2155,10 @@ fontace@~0.4.0:
   dependencies:
     fontkitten "^1.0.0"
 
-fontkitten@1.0.0, fontkitten@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/fontkitten/-/fontkitten-1.0.0.tgz#9667c877f61da868c97b7a063e99d37e2c2c0ddb"
-  integrity sha512-b0RdzQeztiiUFWEDzq6Ka26qkNVNLCehoRtifOIGNbQ4CfxyYRh73fyWaQX/JshPVcueITOEeoSWPy5XQv8FUg==
+fontkitten@1.0.1, fontkitten@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/fontkitten/-/fontkitten-1.0.1.tgz#85419e9fd0ec1f737beed0d1e78a4f91ac1480de"
+  integrity sha512-m+/cO+/kAU9farlejecXLgQH20+UXyH0K6oosGtogAz7BWco+KTYE60epKwMt8eVxqlOE2Fs+GoHVlGDUbKOoA==
   dependencies:
     tiny-inflate "^1.0.3"
 
