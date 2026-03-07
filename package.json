@@ -30,12 +30,12 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/ts-plugin": "^1.10.4",
-    "@biomejs/biome": "2.4.5",
+    "@biomejs/biome": "2.4.6",
     "knip": "^5.67.1",
     "typescript": "^5.9.3"
   },
   "resolutions": {
-    "fontkitten": "1.0.2",
+    "fontkitten": "1.0.3",
     "path-to-regexp": "8.3.0",
     "lodash": "^4.17.23"
   }
