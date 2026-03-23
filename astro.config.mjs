@@ -3,7 +3,7 @@
 import alpinejs from "@astrojs/alpinejs";
 import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 import { defineConfig } from "astro/config";
 
 const isProduction = process.env.NODE_ENV === "production";
