@@ -7,7 +7,7 @@
   resolved "https://registry.yarnpkg.com/@astrojs/alpinejs/-/alpinejs-0.5.0.tgz#55f58af5ec8fe902231e7c28605e2c668323233f"
   integrity sha512-mORFY/ljzz6LPqkBPBd4v2i6yMhTkySgopIpVyKODEoJegp1PuX2Hri589P1oJzICGHSY8Q28OIyF/50Cf/lMQ==
 
-"@astrojs/check@^0.9.0", "@astrojs/check@^0.9.4":
+"@astrojs/check@0.9.8", "@astrojs/check@^0.9.0":
   version "0.9.8"
   resolved "https://registry.yarnpkg.com/@astrojs/check/-/check-0.9.8.tgz#d70dcab429a91cc830ded9bfadc716ec0ebd6983"
   integrity sha512-LDng8446QLS5ToKjRHd3bgUdirvemVVExV7nRyJfW2wV36xuv7vDxwy5NWN9zqeSEDgg0Tv84sP+T3yEq+Zlkw==
@@ -84,7 +84,7 @@
     unist-util-visit-parents "^6.0.2"
     vfile "^6.0.3"
 
-"@astrojs/mdx@^5.0.0":
+"@astrojs/mdx@5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@astrojs/mdx/-/mdx-5.0.2.tgz#fef8ac598160bda84d8396bc2b4758aced9bae52"
   integrity sha512-0as6odPH9ZQhS3pdH9dWmVOwgXuDtytJiE4VvYgR0lSFBvF4PSTyE0HdODHm/d7dBghvWTPc2bQaBm4y4nTBNw==
@@ -103,7 +103,7 @@
     unist-util-visit "^5.1.0"
     vfile "^6.0.3"
 
-"@astrojs/partytown@^2.1.4":
+"@astrojs/partytown@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@astrojs/partytown/-/partytown-2.1.5.tgz#e70ecde54ec5aeeb838698cb9d876010bf341537"
   integrity sha512-Uo2Uqmvjh/5w08wGoVAspdj14hUoE28uQH8SkzaBMw9bTBNIviEkPi3VkJi+tj1ZYAY9oX7OSkRDJ48QRtMhlw==
@@ -118,7 +118,7 @@
   dependencies:
     prismjs "^1.30.0"
 
-"@astrojs/rss@^4.0.11":
+"@astrojs/rss@4.0.17":
   version "4.0.17"
   resolved "https://registry.yarnpkg.com/@astrojs/rss/-/rss-4.0.17.tgz#0244c156b6835133a33b306ae7b8d788887485d9"
   integrity sha512-eV+wdMbeVKC9+sPaV0LN8JL1LGo9YAh3GKl4Ou4nzMNLmXM/aswYpSGxVEAuHilgBZ6/++/Pv08ICmuOqX107w==
@@ -140,7 +140,7 @@
     is-wsl "^3.1.0"
     which-pm-runs "^1.1.0"
 
-"@astrojs/ts-plugin@^1.10.4":
+"@astrojs/ts-plugin@1.10.7":
   version "1.10.7"
   resolved "https://registry.yarnpkg.com/@astrojs/ts-plugin/-/ts-plugin-1.10.7.tgz#8b857bfe466f783c36c94f63bea68106f8c90122"
   integrity sha512-CFJQgMLxi7F21VMcLBuAQmD9KrnT/ACfhZgdhsmVzOcb5Lscu7MIUl/ZxYDviXqDnhDBF1JzYOj+kusJlGmG8w==
@@ -153,7 +153,7 @@
     semver "^7.7.4"
     vscode-languageserver-textdocument "^1.0.12"
 
-"@astrojs/vercel@^10.0.0":
+"@astrojs/vercel@10.0.2":
   version "10.0.2"
   resolved "https://registry.yarnpkg.com/@astrojs/vercel/-/vercel-10.0.2.tgz#9b4ed24cfa1d382686330ffb06af9dd563514d5e"
   integrity sha512-l3TzsOnlEr9j0lMy/KhXnWaZh199tqIs3dd7FoQIm8HxMbbcmfMd5nUWCSU2+pXdfIUnsCmrlP0txDvlV5Vqxw==
@@ -1458,7 +1458,7 @@ astro-seo@^1.0.0:
   dependencies:
     "@astrojs/check" "^0.9.0"
 
-astro@^6.0.0:
+astro@6.0.8:
   version "6.0.8"
   resolved "https://registry.yarnpkg.com/astro/-/astro-6.0.8.tgz#043e003510e4c0c6129cecb8d5bd45d81a82abed"
   integrity sha512-DCPeb8GKOoFWh+8whB7Qi/kKWD/6NcQ9nd1QVNzJFxgHkea3WYrNroQRq4whmBdjhkYPTLS/1gmUAl2iA2Es2g==
