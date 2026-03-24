@@ -32,7 +32,7 @@
     "@astrojs/ts-plugin": "1.10.7",
     "@biomejs/biome": "2.4.8",
     "knip": "^6.0.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.0"
   },
   "resolutions": {
     "fontkitten": "1.0.3",
