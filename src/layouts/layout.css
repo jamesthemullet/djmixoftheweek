@@ -83,11 +83,13 @@ button {
 @font-face {
 	font-family: "Knewave";
 	src: url("/fonts/Knewave-Regular.ttf") format("truetype");
+	font-display: swap;
 }
 
 @font-face {
 	font-family: "Oswald";
 	src: url("/fonts/Oswald-VariableFont_wght.ttf") format("truetype");
+	font-display: swap;
 }
 
 html {
