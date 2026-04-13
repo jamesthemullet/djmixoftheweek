@@ -5,9 +5,7 @@
   "prConcurrentLimit": 2,
   "prHourlyLimit": 10,
   "timezone": "Europe/London",
-  "schedule": [
-    "after 4am and before 5am"
-  ],
+  "schedule": ["* 2-5 * * *"],
   "packageRules": [
     {
       "matchUpdateTypes": [
