@@ -12,7 +12,7 @@ if (!slug) {
   return Astro.redirect('/404');
 }
 
-const singleResponse = await fetch('https://blog.djmixoftheweek.com/graphql', {
+const singleResponse = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/graphql`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({

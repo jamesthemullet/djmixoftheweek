@@ -33,9 +33,7 @@ import './footer.css';
       const name = (document.getElementById('footer-name') as HTMLInputElement).value;
       const email = (document.getElementById('footer-email') as HTMLInputElement).value;
 
-      console.log(11, 'Form submitted:', { name, email });
-
-      const res = await fetch('https://blog.djmixoftheweek.com/wp-json/custom/v1/subscribe', {
+      const res = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/wp-json/custom/v1/subscribe`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
