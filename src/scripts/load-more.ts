@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				const titleLink = document.createElement("a");
 				titleLink.href = post?.slug || "";
 				titleLink.rel = "noopener noreferrer";
-				titleLink.textContent = post?.title || "";
+				titleLink.textContent = post?.title?.rendered || "";
 				h2.appendChild(titleLink);
 
 				const ul = document.createElement("ul");

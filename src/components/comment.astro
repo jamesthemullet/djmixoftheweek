@@ -54,7 +54,7 @@ const formatDate = (dateString: string): string => {
   <p>
     By <strong>{comment.author.node.name}</strong> on {formatDate(comment.date)}:
   </p>
-  <p>{comment.content}</p>
+  <Fragment set:html={comment.content} />
 
   <button class="reply-btn" data-target-id={comment.id}> Reply </button>
 
