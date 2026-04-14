@@ -28,7 +28,7 @@
         async handleSearch() {
           this.searchPerformed = false;
           try {
-            const GRAPHQL_ENDPOINT = 'https://blog.djmixoftheweek.com/graphql';
+            const GRAPHQL_ENDPOINT = `${import.meta.env.PUBLIC_API_BASE_URL}/graphql`;
             const SEARCH_QUERY = `
             query SearchPosts($search: String!) {
               posts(where: { search: $search }, first: 4) {
