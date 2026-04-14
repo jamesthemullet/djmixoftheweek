@@ -26,21 +26,38 @@ document.addEventListener("DOMContentLoaded", () => {
 			// biome-ignore lint/complexity/noForEach: <explanation>
 			posts.forEach((post: Post) => {
 				const li = document.createElement("li");
-				li.innerHTML = `
-          <a href="${post?.slug}" rel="noopener noreferrer">
-            <img src="${
-							post?.featuredImage?.node?.mediaDetails?.sizes?.find(
-								(size) => size.name === "medium_large",
-							)?.sourceUrl || ""
-						}" alt="" width="768" height="576" loading="lazy" />
-          </a>
-          <h2>
-            <a href="${post?.slug}" rel="noopener noreferrer">${post?.title}</a>
-          </h2>
-          <ul class="genres">
-            <li>${post?.genres.nodes.map((genre) => genre.name).join(", ")}</li>
-          </ul>
-        `;
+
+				const imgLink = document.createElement("a");
+				imgLink.href = post?.slug || "";
+				imgLink.rel = "noopener noreferrer";
+				const img = document.createElement("img");
+				img.src =
+					post?.featuredImage?.node?.mediaDetails?.sizes?.find(
+						(size) => size.name === "medium_large",
+					)?.sourceUrl || "";
+				img.alt = "";
+				img.width = 768;
+				img.height = 576;
+				img.loading = "lazy";
+				imgLink.appendChild(img);
+
+				const h2 = document.createElement("h2");
+				const titleLink = document.createElement("a");
+				titleLink.href = post?.slug || "";
+				titleLink.rel = "noopener noreferrer";
+				titleLink.textContent = post?.title?.rendered || "";
+				h2.appendChild(titleLink);
+
+				const ul = document.createElement("ul");
+				ul.className = "genres";
+				const genreLi = document.createElement("li");
+				genreLi.textContent =
+					post?.genres.nodes.map((genre) => genre.name).join(", ") || "";
+				ul.appendChild(genreLi);
+
+				li.appendChild(imgLink);
+				li.appendChild(h2);
+				li.appendChild(ul);
 				postList?.appendChild(li);
 			});
 

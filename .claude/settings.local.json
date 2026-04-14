@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(wc -c \"C:\\\\Users\\\\james\\\\Documents\\\\GitHub\\\\djmixoftheweek/public/fonts\"/*)",
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Bash(gh pr:*)"
     ]
   }
 }
