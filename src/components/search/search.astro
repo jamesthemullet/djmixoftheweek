@@ -1,7 +1,13 @@
 <div x-data="searchComponent()">
   <form @submit.prevent="handleSearch">
-    <input type="text" placeholder="Search..." x-model="searchTerm" required />
-    <button type="submit">Search</button>
+    <input
+      type="text"
+      placeholder="Search..."
+      x-model="searchTerm"
+      @input="debouncedSearch()"
+      required
+    />
+    <button type="submit" :disabled="isLoading">Search</button>
   </form>
 
   <ul x-show="searchResults.length > 0">
@@ -9,57 +15,84 @@
     <template x-for="post in searchResults" :key="post.slug">
       <li>
         <a :href="`/${post.slug}`" x-text="post.title"></a>
-
-        <a :href="`/${post.slug}`" rel="noopener noreferrer"> </a>
       </li>
     </template>
   </ul>
 
-  <p x-show="searchPerformed && searchResults.length === 0" class="text-gray-500 mt-2">
+  <p x-show="searchPerformed && searchResults.length === 0">
     No results found.
   </p>
 
   <script>
+    const GRAPHQL_ENDPOINT = `${import.meta.env.PUBLIC_API_BASE_URL}/graphql`;
+    const SEARCH_QUERY = `
+      query SearchPosts($search: String!) {
+        posts(where: { search: $search }, first: 4) {
+          nodes {
+            title
+            slug
+          }
+        }
+      }
+    `;
+
+    type SearchResult = { title: string; slug: string };
+    const cache: Record<string, SearchResult[]> = {};
+    let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+    let abortController: AbortController | null = null;
+
+    async function fetchSearch(term: string): Promise<SearchResult[]> {
+      if (cache[term]) return cache[term];
+
+      if (abortController) abortController.abort();
+      abortController = new AbortController();
+
+      const response = await fetch(GRAPHQL_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: SEARCH_QUERY, variables: { search: term } }),
+        signal: abortController.signal,
+      });
+
+      const json = await response.json();
+      const results: SearchResult[] = json?.data?.posts?.nodes || [];
+      cache[term] = results;
+      return results;
+    }
+
     document.addEventListener('alpine:init', () => {
       Alpine.data('searchComponent', () => ({
         searchTerm: '',
-        searchResults: [],
+        searchResults: [] as SearchResult[],
         searchPerformed: false,
-        async handleSearch() {
-          this.searchPerformed = false;
-          try {
-            const GRAPHQL_ENDPOINT = `${import.meta.env.PUBLIC_API_BASE_URL}/graphql`;
-            const SEARCH_QUERY = `
-            query SearchPosts($search: String!) {
-              posts(where: { search: $search }, first: 4) {
-                nodes {
-                  title
-                  slug
-                  featuredImage {
-                    node {
-                      sourceUrl
-                    }
-                  }
-                }
-              }
+        isLoading: false,
+
+        debouncedSearch() {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(() => {
+            if ((this.searchTerm as string).trim().length >= 2) {
+              (this.handleSearch as () => Promise<void>)();
             }
-          `;
+          }, 300);
+        },
 
-            const response = await fetch(GRAPHQL_ENDPOINT, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                query: SEARCH_QUERY,
-                variables: { search: this.searchTerm },
-              }),
-            });
+        async handleSearch() {
+          const term = (this.searchTerm as string).trim();
+          if (!term) return;
 
-            const json = await response.json();
-            this.searchResults = json?.data?.posts?.nodes || [];
-          } catch (error) {
-            console.error('Error fetching search results:', error);
+          (this as { isLoading: boolean }).isLoading = true;
+          (this as { searchPerformed: boolean }).searchPerformed = false;
+
+          try {
+            const results = await fetchSearch(term);
+            (this as { searchResults: SearchResult[] }).searchResults = results;
+          } catch (error: unknown) {
+            if (!(error instanceof Error) || error.name !== 'AbortError') {
+              console.error('Error fetching search results:', error);
+            }
           } finally {
-            this.searchPerformed = true;
+            (this as { isLoading: boolean }).isLoading = false;
+            (this as { searchPerformed: boolean }).searchPerformed = true;
           }
         },
       }));
