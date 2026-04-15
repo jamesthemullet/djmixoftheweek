@@ -6,13 +6,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { fetchGraphQL } from '../lib/api';
 
 import '../styles/pages.css';
-import GET_LIST_OF_GENRES from '../lib/queries/getAllGenres';
+import GET_GENRE_NAMES from '../lib/queries/getGenreNames';
 import type { Genres } from '../types';
 
 let allGenres: Genres = null;
 
 try {
-  allGenres = await fetchGraphQL(GET_LIST_OF_GENRES);
+  allGenres = await fetchGraphQL(GET_GENRE_NAMES);
 } catch (error) {
   console.error('Error fetching all genres:', error);
 }
