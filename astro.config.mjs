@@ -12,7 +12,7 @@ const siteUrl = isProduction
 	: "http://localhost:4321";
 
 export default defineConfig({
-	output: "server",
+	output: "static",
 	adapter: vercel({
 		webAnalytics: { enabled: true },
 	}),

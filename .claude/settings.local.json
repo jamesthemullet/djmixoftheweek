@@ -8,7 +8,12 @@
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
       "Bash(git push:*)",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Bash(du *)",
+      "Bash(file *)",
+      "Bash(yarn build *)",
+      "Bash(git commit *)",
+      "Bash(npx ttf2woff2 *)"
     ]
   }
 }
