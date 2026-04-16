@@ -73,6 +73,7 @@ try {
               width={768}
               height={576}
               loading={index === 0 ? 'eager' : 'lazy'}
+              fetchpriority={index === 0 ? 'high' : undefined}
             />
             <h2>
               <Fragment set:html={post.title} />
