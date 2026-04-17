@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 .vercel
 .claude/settings.local.json
+.claude/settings.local.json
