@@ -104,12 +104,12 @@
     unist-util-visit "^5.1.0"
     vfile "^6.0.3"
 
-"@astrojs/partytown@2.1.6":
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/@astrojs/partytown/-/partytown-2.1.6.tgz#579db871ff020db44fa1521969c909f2941f7434"
-  integrity sha512-pS95OSnPkSmuOHzwLXCea8p4P8bqmA2fm3BUBW6/egzSTaWYte/Gp1jiAoPmCZ6FV7jGx4GHduO2CUltUXc3Og==
+"@astrojs/partytown@2.1.7":
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/@astrojs/partytown/-/partytown-2.1.7.tgz#e1cee8e4f3b6b50447f619f946f57f0a7bf1725e"
+  integrity sha512-dbffmNmJ+sAJ0/aXSaLX4aI04EZS/2C6Mm/+fmd4ikqWO7hV6nIi0sug8Z3c+yqedJNi1swFvpwluWmGjLHNzw==
   dependencies:
-    "@qwik.dev/partytown" "^0.11.2"
+    "@qwik.dev/partytown" "^0.13.2"
     mrmime "^2.0.1"
 
 "@astrojs/prism@4.0.1":
@@ -901,15 +901,15 @@
   resolved "https://registry.yarnpkg.com/@oxc-resolver/binding-win32-x64-msvc/-/binding-win32-x64-msvc-11.19.1.tgz#a48dccdcb0833da4957579b0e314666407990364"
   integrity sha512-6hIU3RQu45B+VNTY4Ru8ppFwjVS/S5qwYyGhBotmjxfEKk41I2DlGtRfGJndZ5+6lneE2pwloqunlOyZuX/XAw==
 
-"@preact/signals-core@^1.14.0":
+"@preact/signals-core@^1.14.1":
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/@preact/signals-core/-/signals-core-1.14.1.tgz#2a5739381eca3d730519d2d447ceb8110508d0bc"
   integrity sha512-vxPpfXqrwUe9lpjqfYNjAF/0RF/eFGeLgdJzdmIIZjpOnTmGmAB4BjWone562mJGMRP4frU6iZ6ei3PDsu52Ng==
 
-"@qwik.dev/partytown@^0.11.2":
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/@qwik.dev/partytown/-/partytown-0.11.2.tgz#2f8c715912c3522b1d2e1bbf75801196ab198422"
-  integrity sha512-795y49CqBiKiwKAD+QBZlzlqEK275hVcazZ7wBPSfgC23L+vWuA7PJmMpgxojOucZHzYi5rAAQ+IP1I3BKVZxw==
+"@qwik.dev/partytown@^0.13.2":
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/@qwik.dev/partytown/-/partytown-0.13.2.tgz#d1a554028b4bfc869d3f548474ae35cd71aec8d4"
+  integrity sha512-Umls4bSkuzqLVcGvf8OgwIn/OldproSAbaQ/iYGe8VPYBpl2CaOSxabWwkeC72LDFqxVL0b0q8XlI8MuChDyzg==
   dependencies:
     dotenv "^16.4.7"
 
@@ -1336,12 +1336,12 @@ abbrev@^3.0.0:
   integrity sha512-AO2ac6pjRB3SJmGJo+v5/aK6Omggp6fsLrs6wN9bd35ulu4cCwaAU9+7ZhXjeqHVkaHThLuzH0nZr0YpCDhygg==
 
 accented@^1.2.0:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/accented/-/accented-1.2.5.tgz#f4ffc227e6511ddecf6647a4bfeef724a6dff170"
-  integrity sha512-oC/3j3aYuFe2b+t0VXW/Tv6PAX6EsN0qBnIYFlFJ8TD/28Eg1ddqK3YaP6RJTh5K77omB2k1qfK0Kj/RyjbUdw==
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/accented/-/accented-1.2.6.tgz#d49f526809c377246f698dd1644f654d981cd9e8"
+  integrity sha512-mVr9BDW3TWjQLEE7diRKUoZYvbV5Dh5fDddnxgsVoV5lp+zsNiUZMF/ai9TSi2HobUEx7ujFGgE/AGtJUB3Y1w==
   dependencies:
-    "@preact/signals-core" "^1.14.0"
-    axe-core "^4.11.1"
+    "@preact/signals-core" "^1.14.1"
+    axe-core "^4.11.2"
 
 acorn-import-attributes@^1.9.5:
   version "1.9.5"
@@ -1442,10 +1442,10 @@ astro-seo@^1.0.0:
   dependencies:
     "@astrojs/check" "^0.9.0"
 
-astro@6.1.5:
-  version "6.1.5"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-6.1.5.tgz#4b2756939fa8e870f6f5623116fcd38fa945aa56"
-  integrity sha512-AJVw/JlssxUCBFi3Hp4djL8Pt7wUQqStBBawCd8cNGBBM2lBzp/rXGguzt4OcMfW+86fs0hpFwMyopHM2r6d3g==
+astro@6.1.6:
+  version "6.1.6"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-6.1.6.tgz#79b5fccfef9dc80e72185b84219d72e1ebc75ba3"
+  integrity sha512-pRsz+kYriwCV/AUcY/I9OVKtVHuYFs2DtCszAxprXded/kTE53nMwxfnK0Nf6FPfaX9vcUiLnigcSIhuFoKntA==
   dependencies:
     "@astrojs/compiler" "^3.0.1"
     "@astrojs/internal-helpers" "0.8.0"
@@ -1509,10 +1509,10 @@ async-sema@^3.1.1:
   resolved "https://registry.yarnpkg.com/async-sema/-/async-sema-3.1.1.tgz#e527c08758a0f8f6f9f15f799a173ff3c40ea808"
   integrity sha512-tLRNUXati5MFePdAk8dw7Qt7DpxPB60ofAgn8WRhW6a2rcimZnYBP9oxHiv0OHy+Wz7kPMG+t4LGdt31+4EmGg==
 
-axe-core@^4.11.1:
-  version "4.11.2"
-  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.11.2.tgz#86d28e085b170a4b43d459aee6d30624fba9be4e"
-  integrity sha512-byD6KPdvo72y/wj2T/4zGEvvlis+PsZsn/yPS3pEO+sFpcrqRpX/TJCxvVaEsNeMrfQbCr7w163YqoD9IYwHXw==
+axe-core@^4.11.2:
+  version "4.11.3"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.11.3.tgz#d23cf404edaa5f97bdfd9afed6eea8405e5326e7"
+  integrity sha512-zBQouZixDTbo3jMGqHKyePxYxr1e5W8UdTmBQ7sNtaA9M2bE32daxxPLS/jojhKOHxQ7LWwPjfiwf/fhaJWzlg==
 
 axobject-query@^4.1.0:
   version "4.1.0"
