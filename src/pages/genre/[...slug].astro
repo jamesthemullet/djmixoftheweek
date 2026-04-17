@@ -6,8 +6,8 @@ import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { fetchGraphQL } from "../../lib/api";
 import "../../styles/post.css";
-import GET_ALL_GENRES from "../../lib/queries/getAllGenres";
-import type { Genre, Post } from "../../types";
+import GET_GENRE_BY_SLUG from "../../lib/queries/getGenreBySlug";
+import type { Post } from "../../types";
 
 const fallbackImage = '/blog-placeholder-1.jpg';
 
@@ -20,10 +20,23 @@ if (!slug) {
 let postsByGenre: Post[] = [];
 
 try {
-	const response = await fetchGraphQL(GET_ALL_GENRES);
-	postsByGenre = response?.genres?.nodes.filter(
-		(genre: Genre) => genre?.slug === slug,
-	)[0].posts.nodes;
+	let hasNextPage = true;
+	let postsAfter: string | undefined;
+
+	while (hasNextPage) {
+		const response = await fetchGraphQL(GET_GENRE_BY_SLUG, {
+			slug,
+			postsFirst: 100,
+			postsAfter,
+		});
+
+		const genre = response?.genre;
+		if (!genre) break;
+
+		postsByGenre = postsByGenre.concat(genre.posts?.nodes || []);
+		hasNextPage = genre.posts?.pageInfo?.hasNextPage ?? false;
+		postsAfter = genre.posts?.pageInfo?.endCursor ?? undefined;
+	}
 } catch {
 	console.error("Error fetching posts by genre");
 }

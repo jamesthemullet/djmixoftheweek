@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			const posts = response?.posts?.nodes || [];
 			cursor = response?.posts?.pageInfo?.endCursor || null;
 
+			const fragment = document.createDocumentFragment();
+
 			// biome-ignore lint/complexity/noForEach: <explanation>
 			posts.forEach((post: Post) => {
 				const li = document.createElement("li");
@@ -58,8 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
 				li.appendChild(imgLink);
 				li.appendChild(h2);
 				li.appendChild(ul);
-				postList?.appendChild(li);
+				fragment.appendChild(li);
 			});
+
+			postList?.appendChild(fragment);
 
 			button.dataset.cursor = cursor || "";
 			button.textContent = "Load More";
