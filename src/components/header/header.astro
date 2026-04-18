@@ -74,7 +74,7 @@ const decodeHtmlEntities = (text: string) => {
         <input autocomplete="email" type="email" id="email" required />
         <button type="submit">Subscribe</button>
       </form>
-      <p class="response" id="response-message"></p>
+      <p class="response" id="response-message" role="status" aria-live="polite" aria-atomic="true"></p>
     </section>
   </div>
 
@@ -83,12 +83,16 @@ const decodeHtmlEntities = (text: string) => {
     const navMenu = document.getElementById('nav-menu') as HTMLElement;
 
     navToggle.addEventListener('click', function () {
+      const isOpen = !!navMenu.style.maxHeight;
       this.classList.toggle('open');
 
-      if (navMenu.style.maxHeight) {
+      if (isOpen) {
         navMenu.style.maxHeight = '';
+        navToggle.focus();
       } else {
         navMenu.style.maxHeight = navMenu.scrollHeight + 'px';
+        const firstLink = navMenu.querySelector<HTMLElement>('a, button');
+        firstLink?.focus();
       }
     });
 

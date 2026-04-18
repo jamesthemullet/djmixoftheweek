@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 
 		button.textContent = "Loading...";
+		button.setAttribute("aria-busy", "true");
+		button.disabled = true;
 
 		try {
 			const response = await fetchGraphQL(MORE_POSTS, { first, after: cursor });
@@ -67,6 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			button.dataset.cursor = cursor || "";
 			button.textContent = "Load More";
+			button.removeAttribute("aria-busy");
+			button.disabled = false;
 
 			if (!cursor) {
 				button.style.display = "none";
@@ -74,6 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		} catch (error) {
 			console.error("Error loading more posts:", error);
 			button.textContent = "Load More";
+			button.removeAttribute("aria-busy");
+			button.disabled = false;
 		}
 	});
 });
