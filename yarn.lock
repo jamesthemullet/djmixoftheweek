@@ -1442,10 +1442,10 @@ astro-seo@^1.0.0:
   dependencies:
     "@astrojs/check" "^0.9.0"
 
-astro@6.1.6:
-  version "6.1.6"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-6.1.6.tgz#79b5fccfef9dc80e72185b84219d72e1ebc75ba3"
-  integrity sha512-pRsz+kYriwCV/AUcY/I9OVKtVHuYFs2DtCszAxprXded/kTE53nMwxfnK0Nf6FPfaX9vcUiLnigcSIhuFoKntA==
+astro@6.1.7:
+  version "6.1.7"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-6.1.7.tgz#7c1371319996268865ad1ef987a6f9eceb0e4b78"
+  integrity sha512-pvZysIUV2C2nRv8N7cXAkCLcfDQz/axAxF09SqiTz1B+xnvbhy6KzL2I6J15ZBXk8k0TfMD75dJ151QyQmAqZA==
   dependencies:
     "@astrojs/compiler" "^3.0.1"
     "@astrojs/internal-helpers" "0.8.0"
@@ -3918,9 +3918,9 @@ typescript-auto-import-cache@^0.3.5:
     semver "^7.3.8"
 
 typescript@^6.0.0:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-6.0.2.tgz#0b1bfb15f68c64b97032f3d78abbf98bdbba501f"
-  integrity sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-6.0.3.tgz#90251dc007916e972786cb94d74d15b185577d21"
+  integrity sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==
 
 ufo@^1.6.1, ufo@^1.6.3:
   version "1.6.3"
