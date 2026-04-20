@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					post?.featuredImage?.node?.mediaDetails?.sizes?.find(
 						(size) => size.name === "medium_large",
 					)?.sourceUrl || "";
-				img.alt = "";
+				img.alt = post?.title?.rendered || "";
 				img.width = 768;
 				img.height = 576;
 				img.loading = "lazy";

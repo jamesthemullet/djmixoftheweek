@@ -74,7 +74,7 @@ const capitaliseAndRemoveHyphens = (string: string | undefined) => {
   description={`All posts of DJ ${capitaliseAndRemoveHyphens(slug)}`}
   opengraphImage={postsByDJ[0]?.seo?.opengraphImage?.sourceUrl || fallbackImage}
 >
-  <h1>Genre: {capitaliseAndRemoveHyphens(slug)}</h1>
+  <h1>DJ: {capitaliseAndRemoveHyphens(slug)}</h1>
 
   {
     postsByDJ.length === 0 ? (
@@ -95,7 +95,7 @@ const capitaliseAndRemoveHyphens = (string: string | undefined) => {
                 <img
                   src={post?.featuredImage?.node?.sourceUrl || fallbackImage}
                   srcset={post?.featuredImage?.node?.srcSet}
-                  alt={post?.title.rendered || ''}
+                  alt={post?.title?.rendered || (typeof post?.title === 'string' ? post?.title : undefined) || capitaliseAndRemoveHyphens(slug)}
                   sizes="(max-width: 600px) 100vw, 700px"
                   width={700}
                   height={466.67}
