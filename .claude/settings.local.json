@@ -15,7 +15,8 @@
       "Bash(git commit *)",
       "Bash(npx ttf2woff2 *)",
       "Bash(yarn playwright *)",
-      "Bash(yarn test:e2e --project=chromium e2e/homepage.spec.ts)"
+      "Bash(yarn test:e2e --project=chromium e2e/homepage.spec.ts)",
+      "Bash(yarn test:e2e --project=chromium e2e/genres.spec.ts)"
     ]
   }
 }
