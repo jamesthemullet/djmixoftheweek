@@ -60,8 +60,9 @@ if (recentPostCursor) {
 	}
 }
 
-const posts = [recentPost, ...otherPosts];
+const posts = [recentPost, ...otherPosts].filter((p): p is NonNullable<Post> => p !== null);
 const initialCursor = recentPostCursor;
+const FALLBACK_IMAGE = '/blog-placeholder-1.jpg';
 ---
 
 <BaseLayout pageTitle="Home">
@@ -69,10 +70,10 @@ const initialCursor = recentPostCursor;
     {
       posts.map((post, index) => (
         <li>
-          <a href={post.slug} rel="noopener noreferrer" aria-label={post.title}>
+          <a href={post.slug} rel="noopener noreferrer" aria-label={post.title.rendered}>
             <Image
-              src={post.featured_image}
-              alt={post.title}
+              src={post.featured_image ?? FALLBACK_IMAGE}
+              alt={post.title.rendered}
               width={768}
               height={576}
               loading={index === 0 ? 'eager' : 'lazy'}
@@ -83,7 +84,7 @@ const initialCursor = recentPostCursor;
             </h2>
           </a>
           <ul class="genres">
-            <li>{post.genres.nodes.map((genre: Genre) => genre?.name).join(', ')}</li>
+            <li>{post.genres.nodes.map((genre) => genre?.name).join(', ')}</li>
           </ul>
         </li>
       ))
