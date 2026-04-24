@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					post?.featuredImage?.node?.mediaDetails?.sizes?.find(
 						(size) => size.name === "medium_large",
 					)?.sourceUrl || "";
-				img.alt = post?.title?.rendered || "";
+				img.alt = post?.title || "";
 				img.width = 768;
 				img.height = 576;
 				img.loading = "lazy";
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				const titleLink = document.createElement("a");
 				titleLink.href = post?.slug || "";
 				titleLink.rel = "noopener noreferrer";
-				titleLink.textContent = post?.title?.rendered || "";
+				titleLink.textContent = post?.title || "";
 				h2.appendChild(titleLink);
 
 				const ul = document.createElement("ul");

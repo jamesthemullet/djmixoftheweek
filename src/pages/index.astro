@@ -70,10 +70,10 @@ const FALLBACK_IMAGE = '/blog-placeholder-1.jpg';
     {
       posts.map((post, index) => (
         <li>
-          <a href={post.slug} rel="noopener noreferrer" aria-label={post.title.rendered}>
+          <a href={post.slug} rel="noopener noreferrer" aria-label={post.title}>
             <Image
               src={post.featured_image ?? FALLBACK_IMAGE}
-              alt={post.title.rendered}
+              alt={post.title}
               width={768}
               height={576}
               loading={index === 0 ? 'eager' : 'lazy'}

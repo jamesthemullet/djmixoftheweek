@@ -1,8 +1,6 @@
 export type Post = {
   slug: string;
-  title: {
-    rendered: string;
-  };
+  title: string;
   seo: {
     opengraphDescription: string;
     opengraphImage: {
