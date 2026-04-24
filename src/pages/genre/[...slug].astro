@@ -1,8 +1,6 @@
 ---
 export const prerender = false;
 
-import { Image } from "astro:assets";
-
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { fetchGraphQL } from "../../lib/api";
 import "../../styles/post.css";
@@ -65,7 +63,7 @@ const capitaliseAndRemoveHyphens = (string: string | undefined) => {
               <img
                 src={post?.featuredImage?.node?.sourceUrl || fallbackImage}
                 srcset={post?.featuredImage?.node?.srcSet}
-                alt={post?.title?.rendered || (typeof post?.title === 'string' ? post?.title : undefined) || capitaliseAndRemoveHyphens(slug)}
+                alt={post?.title || capitaliseAndRemoveHyphens(slug)}
                 sizes="(max-width: 600px) 100vw, 700px"
                 width={700}
                 height={466.67}
