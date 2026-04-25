@@ -139,7 +139,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
   <div class="image-container">
     <img
       src={singlePost.featuredImage.node.sourceUrl}
-      alt={singlePost.title}
+      alt=""
       srcset={singlePost.seo.opengraphImage.srcSet}
       sizes="100vw"
       width={singlePost.seo.opengraphImage.mediaDetails.width}
