@@ -20,6 +20,7 @@ const MORE_POSTS = `
         genres {
           nodes {
             name
+            slug
           }
         }
       }

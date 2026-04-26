@@ -55,8 +55,16 @@ document.addEventListener("DOMContentLoaded", () => {
 				const ul = document.createElement("ul");
 				ul.className = "genres";
 				const genreLi = document.createElement("li");
-				genreLi.textContent =
-					post?.genres.nodes.map((genre) => genre.name).join(", ") || "";
+				post?.genres.nodes.forEach((genre, i) => {
+					const a = document.createElement("a");
+					a.href = `/genre/${genre.slug}`;
+					a.rel = "noopener noreferrer";
+					a.textContent = genre.name;
+					genreLi.appendChild(a);
+					if (i < (post?.genres.nodes.length ?? 0) - 1) {
+						genreLi.appendChild(document.createTextNode(", "));
+					}
+				});
 				ul.appendChild(genreLi);
 
 				li.appendChild(imgLink);

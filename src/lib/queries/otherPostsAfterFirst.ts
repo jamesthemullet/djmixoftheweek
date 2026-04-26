@@ -19,6 +19,7 @@ const OTHER_POSTS_AFTER_FIRST_QUERY = `
         genres {
           nodes {
             name
+            slug
           }
         }
       }
