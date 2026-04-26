@@ -84,7 +84,14 @@ const FALLBACK_IMAGE = '/blog-placeholder-1.jpg';
             </h2>
           </a>
           <ul class="genres">
-            <li>{post.genres.nodes.map((genre) => genre?.name).join(', ')}</li>
+            <li>
+              {post.genres.nodes.map((genre, i) => (
+                <span>
+                  <a href={`/genre/${genre.slug}`} rel="noopener noreferrer">{genre.name}</a>
+                  {i < post.genres.nodes.length - 1 && ', '}
+                </span>
+              ))}
+            </li>
           </ul>
         </li>
       ))
