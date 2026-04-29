@@ -1,6 +1,6 @@
 const GET_ALL_DJS = `
-  query GetAllDJs($postsFirst: Int = 100, $postsAfter: String) {
-    dJs(first: 100) {
+  query GetAllDJs($postsFirst: Int = 100, $postsAfter: String, $djsAfter: String) {
+    dJs(first: 100, after: $djsAfter) {
       nodes {
         id
         name
@@ -53,6 +53,10 @@ const GET_ALL_DJS = `
             endCursor
           }
         }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }

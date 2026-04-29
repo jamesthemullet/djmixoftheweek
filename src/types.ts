@@ -56,6 +56,16 @@ export type Genre = {
   count: number;
 } | null;
 
+export type DJs = {
+  dJs: {
+    nodes: DJ[];
+    pageInfo?: {
+      hasNextPage: boolean;
+      endCursor?: string | null;
+    };
+  };
+} | null;
+
 export type DJ = {
   id: string;
   name: string;

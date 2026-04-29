@@ -21,6 +21,8 @@
       "Bash(gh label *)",
       "Bash(yarn test:e2e *)",
       "Bash(yarn test:unit *)"
+      "Bash(gh issue *)",
+      "Bash(git mv *)"
     ]
   }
 }
