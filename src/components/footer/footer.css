@@ -17,6 +17,10 @@ footer {
 		color: white;
 	}
 
+	label {
+		color: white;
+	}
+
 	@media (min-width: 835px) {
 		padding-left: 300px;
 	}
