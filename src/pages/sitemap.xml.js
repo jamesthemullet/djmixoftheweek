@@ -1,26 +1,31 @@
 export async function GET() {
   const siteUrl = "https://djmixoftheweek.com";
 
-  // Fetch all posts from your WordPress API
-  const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/graphql`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      query: `
-        query AllPostsForSitemap {
-          posts(first: 1000) {
-            nodes {
-              slug
-              modified
+  let posts = [];
+
+  try {
+    const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/graphql`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: `
+          query AllPostsForSitemap {
+            posts(first: 1000) {
+              nodes {
+                slug
+                modified
+              }
             }
           }
-        }
-      `,
-    }),
-  });
+        `,
+      }),
+    });
 
-  const { data } = await response.json();
-  const posts = data?.posts?.nodes || [];
+    const { data } = await response.json();
+    posts = data?.posts?.nodes || [];
+  } catch (error) {
+    console.error("Error fetching posts for sitemap:", error);
+  }
 
   // Static pages
   const staticPages = [
