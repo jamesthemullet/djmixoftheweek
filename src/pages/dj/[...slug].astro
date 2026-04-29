@@ -18,42 +18,44 @@ if (!slug) {
 let postsByDJ: Post[] = [];
 
 try {
-  const pageSize = 100;
-  let postsAfter: string | undefined;
-  let foundDJNode: DJ | null = null;
-
   type PageInfo = { hasNextPage?: boolean; endCursor?: string | null };
 
-  const getPageInfo = (node: DJ | null, nodes: unknown[]): PageInfo | undefined => {
-    const n = node as unknown as { posts?: { pageInfo?: PageInfo } } | undefined;
-    if (n?.posts?.pageInfo) return n.posts.pageInfo;
-    const first = nodes[0] as unknown as { posts?: { pageInfo?: PageInfo } } | undefined;
-    return first?.posts?.pageInfo;
-  };
+  // First: paginate through all DJ nodes to find the target DJ
+  let djsAfter: string | undefined;
+  let foundDJNode: DJ | null = null;
 
-  while (true) {
-    const response = await fetchGraphQL(GET_ALL_DJS, { postsFirst: pageSize, postsAfter });
+  while (!foundDJNode) {
+    const response = await fetchGraphQL(GET_ALL_DJS, { postsFirst: 100, djsAfter });
+    const djNodes: DJ[] = response?.dJs?.nodes || [];
 
-    const djNodes = response?.dJs?.nodes || [];
-    if (!foundDJNode) {
-      foundDJNode = djNodes.find((dj: DJ) => dj?.slug === slug) || null;
+    foundDJNode = djNodes.find((dj: DJ) => dj?.slug === slug) || null;
+
+    const djsPageInfo: PageInfo = response?.dJs?.pageInfo || {};
+    if (!foundDJNode && djsPageInfo.hasNextPage) {
+      djsAfter = djsPageInfo.endCursor ?? undefined;
+    } else {
+      break;
     }
+  }
 
-    if (foundDJNode) {
+  if (foundDJNode) {
+    // Collect posts from the initial fetch
+    const initialPosts = (foundDJNode as unknown as { posts?: { nodes?: Post[]; pageInfo?: PageInfo } })?.posts;
+    if (initialPosts?.nodes) postsByDJ = postsByDJ.concat(initialPosts.nodes);
+
+    // Then paginate through remaining posts for this DJ
+    let postsAfter: string | undefined = initialPosts?.pageInfo?.hasNextPage
+      ? (initialPosts.pageInfo.endCursor ?? undefined)
+      : undefined;
+
+    while (postsAfter) {
+      const response = await fetchGraphQL(GET_ALL_DJS, { postsFirst: 100, postsAfter, djsAfter });
+      const djNodes: DJ[] = response?.dJs?.nodes || [];
       const matching = djNodes.find((dj: DJ) => dj?.slug === slug);
-      if (matching?.posts?.nodes) {
-        postsByDJ = postsByDJ.concat(matching.posts.nodes as Post[]);
-      }
+      const posts = (matching as unknown as { posts?: { nodes?: Post[]; pageInfo?: PageInfo } })?.posts;
+      if (posts?.nodes) postsByDJ = postsByDJ.concat(posts.nodes);
+      postsAfter = posts?.pageInfo?.hasNextPage ? (posts.pageInfo.endCursor ?? undefined) : undefined;
     }
-
-    const pageInfo = getPageInfo(foundDJNode, djNodes);
-
-    if (pageInfo?.hasNextPage) {
-      postsAfter = pageInfo.endCursor ?? undefined;
-      continue;
-    }
-
-    break;
   }
 } catch (err) {
   console.error('Error fetching posts by DJ', err);

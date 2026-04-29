@@ -18,7 +18,9 @@
       "Bash(yarn test:e2e --project=chromium e2e/homepage.spec.ts)",
       "Bash(yarn test:e2e --project=chromium e2e/genres.spec.ts)",
       "Bash(yarn tsc *)",
-      "Bash(gh label *)"
+      "Bash(gh label *)",
+      "Bash(gh issue *)",
+      "Bash(git mv *)"
     ]
   }
 }
