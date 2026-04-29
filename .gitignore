@@ -24,7 +24,5 @@ pnpm-debug.log*
 .idea/
 
 .vercel
-.claude/settings.local.json
-.claude/settings.local.json
-.claude/settings.local.json
 /test-results
+/.claude
