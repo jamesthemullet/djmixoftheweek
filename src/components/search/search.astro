@@ -1,8 +1,11 @@
+---
+const { inputId = 'search-input' } = Astro.props;
+---
 <div x-data="searchComponent()">
   <form @submit.prevent="handleSearch">
-    <label for="search-input">Search</label>
+    <label for={inputId}>Search</label>
     <input
-      id="search-input"
+      id={inputId}
       type="text"
       placeholder="Search..."
       x-model="searchTerm"
@@ -12,14 +15,16 @@
     <button type="submit" :disabled="isLoading">Search</button>
   </form>
 
-  <ul x-show="searchResults.length > 0" aria-live="polite" aria-label="Search results">
+  <div x-show="searchResults.length > 0">
     <h3>Search Results:</h3>
-    <template x-for="post in searchResults" :key="post.slug">
-      <li>
-        <a :href="`/${post.slug}`" x-text="post.title"></a>
-      </li>
-    </template>
-  </ul>
+    <ul aria-live="polite" aria-label="Search results">
+      <template x-for="post in searchResults" :key="post.slug">
+        <li>
+          <a :href="`/${post.slug}`" x-text="post.title"></a>
+        </li>
+      </template>
+    </ul>
+  </div>
 
   <p x-show="searchPerformed && searchResults.length === 0">
     No results found.
