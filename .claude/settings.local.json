@@ -20,9 +20,20 @@
       "Bash(yarn tsc *)",
       "Bash(gh label *)",
       "Bash(yarn test:e2e *)",
-      "Bash(yarn test:unit *)"
+      "Bash(yarn test:unit *)",
       "Bash(gh issue *)",
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Bash(curl -s \"https://blog.djmixoftheweek.com/wp-json/top-10/v1/popular-posts\")",
+      "Bash(curl -s \"https://blog.djmixoftheweek.com/wp-json/top-10/v1/\")",
+      "Bash(curl -s \"https://blog.djmixoftheweek.com/wp-json/\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); routes=[k for k in d.get\\('routes',{}\\) if 'top' in k.lower\\(\\)]; print\\(routes\\)\")",
+      "Bash(curl -s \"https://blog.djmixoftheweek.com/wp-json/top-10/v1/popular-posts?limit=10&post_types=post\")",
+      "Bash(curl -s \"https://blog.djmixoftheweek.com/wp-json/top-10/v1/popular-posts?post_types=post&limit=3\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(json.dumps\\({k: v for k,v in p.items\\(\\) if k in ['id','slug','title','visits']}, indent=2\\)\\) for p in d[:2]]\")",
+      "Bash(curl -s \"https://blog.djmixoftheweek.com/wp-json/top-10/v1/popular-posts?post_types=post&limit=2\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(list\\(d[0].keys\\(\\)\\), indent=2\\)\\)\")",
+      "Bash(curl *)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'{len\\(d\\)} posts'\\); [print\\(p['slug'], p.get\\('visits'\\)\\) for p in d[:3]]\")"
     ]
   }
 }
