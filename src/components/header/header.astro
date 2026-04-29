@@ -10,7 +10,7 @@ import Search from '../search/search.astro';
 let popularPosts: PopularPost[] = [];
 
 try {
-  const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/wp-json/top-10/v1/popular-posts`);
+  const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/wp-json/top-10/v1/popular-posts?post_types=post`);
   if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
   popularPosts = await response.json();
 } catch (error) {
@@ -45,7 +45,7 @@ const decodeHtmlEntities = (text: string) => {
       <Search inputId="header-search-input" />
     </section>
     {
-      popularPosts && (
+      popularPosts && popularPosts.length > 0 && (
         <div class="header-block popular-mixes">
           <h2>Popular Mixes:</h2>
           <ul>
