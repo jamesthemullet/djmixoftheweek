@@ -4,7 +4,9 @@ export const prerender = false;
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/post.css';
 import Comments from '../components/comments.astro';
-import type { Comments as CommentsType } from '../types';
+import { fetchGraphQL } from '../lib/api';
+import GET_GENRE_BY_SLUG from '../lib/queries/getGenreBySlug';
+import type { Comments as CommentsType, Post } from '../types';
 
 const fallbackImage = '/blog-placeholder-1.jpg';
 
@@ -67,6 +69,12 @@ const singleResponse = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/graph
             soundcloud {
               soundcloud
             }
+            genres {
+              nodes {
+                slug
+                name
+              }
+            }
           }
         }
         `,
@@ -107,6 +115,21 @@ const organiseComments = (comments: CommentsType) => {
 };
 
 const threadedComments = organiseComments(singlePost.comments?.nodes || []);
+
+const genreNodes = singlePost.genres?.nodes ?? [];
+const randomGenre = genreNodes[Math.floor(Math.random() * genreNodes.length)];
+const genreSlug = randomGenre?.slug;
+const genreName = randomGenre?.name;
+let moreMixes: Post[] = [];
+
+if (genreSlug) {
+  try {
+    const genreData = await fetchGraphQL(GET_GENRE_BY_SLUG, { slug: genreSlug, postsFirst: 5 });
+    moreMixes = (genreData?.genre?.posts?.nodes || []).filter((p: Post) => p != null && p.slug !== slug).slice(0, 4);
+  } catch {
+    // silently skip if genre fetch fails
+  }
+}
 
 const siteUrlStr = String(Astro.site || 'http://localhost:4321');
 
@@ -174,4 +197,35 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
     </div>
     <Comments threadedComments={threadedComments} postId={singlePost.postId} />
   </article>
+  {moreMixes.length > 0 && (
+    <section class="more-in-genre container">
+      <h2>More {genreName} mixes</h2>
+      <ul>
+        {moreMixes.map((post, index) => post && (
+          <li class="genres-list">
+            <div class="image-container">
+              <a href={`/${post.slug}`} aria-label={post.title}>
+                <img
+                  src={post.featuredImage?.node?.sourceUrl || '/blog-placeholder-1.jpg'}
+                  srcset={post.featuredImage?.node?.srcSet}
+                  alt=""
+                  sizes="(max-width: 600px) 100vw, 700px"
+                  width={700}
+                  height={466.67}
+                  class="featured-image"
+                  loading="lazy"
+                />
+                {post.featuredImage?.node?.caption && (
+                  <figcaption set:html={post.featuredImage.node.caption} />
+                )}
+              </a>
+            </div>
+            <h3>
+              <a href={`/${post.slug}`}>{post.title}</a>
+            </h3>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
 </BaseLayout>
