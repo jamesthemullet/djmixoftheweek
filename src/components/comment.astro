@@ -5,8 +5,7 @@
 import type { Comment as CommentType } from "../types";
 // Parent Astro File
 import AddComment from "./addComment.astro";
-// @ts-expect-error
-import Comment from "./comment.astro";
+import CommentItem from "./comment.astro";
 
 type Props = {
 	comment: CommentType;
@@ -66,7 +65,7 @@ const formatDate = (dateString: string): string => {
     comment.replies && comment.replies.length > 0 ? (
       <ul class="comment-replies">
         {comment.replies.map((reply) => (
-          <Comment comment={reply} postId={postId} commentId={reply.id} />
+          <CommentItem comment={reply} postId={postId} commentId={reply.id} />
         ))}
       </ul>
     ) : null
