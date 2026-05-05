@@ -116,8 +116,10 @@ const organiseComments = (comments: CommentsType) => {
 
 const threadedComments = organiseComments(singlePost.comments?.nodes || []);
 
-const genreSlug = singlePost.genres?.nodes?.[0]?.slug;
-const genreName = singlePost.genres?.nodes?.[0]?.name;
+const genreNodes = singlePost.genres?.nodes ?? [];
+const randomGenre = genreNodes[Math.floor(Math.random() * genreNodes.length)];
+const genreSlug = randomGenre?.slug;
+const genreName = randomGenre?.name;
 let moreMixes: Post[] = [];
 
 if (genreSlug) {
@@ -202,7 +204,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
         {moreMixes.map((post, index) => post && (
           <li class="genres-list">
             <div class="image-container">
-              <a href={`/${post.slug}`}>
+              <a href={`/${post.slug}`} aria-label={post.title}>
                 <img
                   src={post.featuredImage?.node?.sourceUrl || '/blog-placeholder-1.jpg'}
                   srcset={post.featuredImage?.node?.srcSet}
@@ -221,18 +223,6 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
             <h3>
               <a href={`/${post.slug}`}>{post.title}</a>
             </h3>
-            <ul class="genres">
-              <li>
-                {post.genres?.nodes?.map((genre, i) => (
-                  <span>
-                    <a href={`/genre/${genre.slug}`} rel="noopener noreferrer">
-                      {genre.name}
-                    </a>
-                    {i < (post.genres?.nodes?.length ?? 0) - 1 && ', '}
-                  </span>
-                ))}
-              </li>
-            </ul>
           </li>
         ))}
       </ul>
