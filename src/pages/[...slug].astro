@@ -123,7 +123,7 @@ let moreMixes: Post[] = [];
 if (genreSlug) {
   try {
     const genreData = await fetchGraphQL(GET_GENRE_BY_SLUG, { slug: genreSlug, postsFirst: 5 });
-    moreMixes = (genreData?.genre?.posts?.nodes || []).filter((p: Post) => p.slug !== slug).slice(0, 4);
+    moreMixes = (genreData?.genre?.posts?.nodes || []).filter((p: Post) => p != null && p.slug !== slug).slice(0, 4);
   } catch {
     // silently skip if genre fetch fails
   }
@@ -199,7 +199,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
     <section class="more-in-genre container">
       <h2>More {genreName} mixes</h2>
       <ul>
-        {moreMixes.map((post, index) => (
+        {moreMixes.map((post, index) => post && (
           <li class="genres-list">
             <div class="image-container">
               <a href={`/${post.slug}`}>
