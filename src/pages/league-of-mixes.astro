@@ -44,6 +44,9 @@ try {
 	console.error("Error fetching posts:", error);
 	allPosts = [];
 }
+
+const fallbackImage = '/blog-placeholder-1.jpg';
+
 ---
 
 <BaseLayout pageTitle={singlePost?.title} description={singlePost?.seo.opengraphDescription}>
@@ -61,7 +64,13 @@ try {
   <div class="container">
     <h2>{singlePost?.title}</h2>
     <div set:html={singlePost?.content} />
-    <ul class="league-of-mixes">
+
+    <div class="sort-controls">
+      <button id="btn-list" class="active" aria-pressed="true">List</button>
+      <button id="btn-cards" aria-pressed="false">Cards</button>
+    </div>
+
+<ul class="league-of-mixes" id="view-list">
       {
         allPosts.map((post) => (
           <li>
@@ -72,5 +81,73 @@ try {
         ))
       }
     </ul>
+
+    <ul class="league-of-mixes-cards" id="view-cards" hidden>
+      {
+        allPosts.map((post, index) => (
+          <li class="league-card">
+            <div class="image-container">
+              <a href={`/${post.slug}`} aria-label={post.title}>
+                <img
+                  src={post?.featuredImage?.node?.sourceUrl || fallbackImage}
+                  srcset={post?.featuredImage?.node?.srcSet}
+                  alt=""
+                  sizes="(max-width: 600px) 100vw, 700px"
+                  width={700}
+                  height={466.67}
+                  class="featured-image"
+                  loading={index < 2 ? 'eager' : 'lazy'}
+                />
+              </a>
+              {post.ratings?.nodes[0]?.name && (
+                <span class="rating-badge">{post.ratings.nodes[0].name}</span>
+              )}
+            </div>
+            <h3>
+              <a href={`/${post.slug}`}>{post.title}</a>
+            </h3>
+            {post?.genres?.nodes?.length > 0 && (
+              <ul class="genres">
+                <li>
+                  {post.genres.nodes.map((genre: { name: string; slug: string }, i: number) => (
+                    <span>
+                      <a href={`/genre/${genre.slug}`} rel="noopener noreferrer">
+                        {genre.name}
+                      </a>
+                      {i < post.genres.nodes.length - 1 && ', '}
+                    </span>
+                  ))}
+                </li>
+              </ul>
+            )}
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </BaseLayout>
+
+<script>
+  const btnList = document.getElementById('btn-list');
+  const btnCards = document.getElementById('btn-cards');
+  const viewList = document.getElementById('view-list');
+  const viewCards = document.getElementById('view-cards');
+  btnList?.addEventListener('click', () => {
+    viewList?.removeAttribute('hidden');
+    viewCards?.setAttribute('hidden', '');
+    btnList.classList.add('active');
+    btnList.setAttribute('aria-pressed', 'true');
+    btnCards?.classList.remove('active');
+    btnCards?.setAttribute('aria-pressed', 'false');
+  });
+
+  btnCards?.addEventListener('click', () => {
+    viewCards?.removeAttribute('hidden');
+    viewList?.setAttribute('hidden', '');
+    btnCards.classList.add('active');
+    btnCards.setAttribute('aria-pressed', 'true');
+    btnList?.classList.remove('active');
+    btnList?.setAttribute('aria-pressed', 'false');
+  });
+
+</script>
