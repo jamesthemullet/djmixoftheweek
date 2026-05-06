@@ -109,7 +109,7 @@ const fallbackImage = '/blog-placeholder-1.jpg';
             {post?.genres?.nodes?.length > 0 && (
               <ul class="genres">
                 <li>
-                  {post.genres.nodes.map((genre, i) => (
+                  {post.genres.nodes.map((genre: { name: string; slug: string }, i: number) => (
                     <span>
                       <a href={`/genre/${genre.slug}`} rel="noopener noreferrer">
                         {genre.name}
