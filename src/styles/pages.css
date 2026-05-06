@@ -29,8 +29,6 @@ p {
   }
 }
 
-<<<<<<< Updated upstream
-=======
 .league-of-mixes-cards {
   list-style: none;
   padding: 0;
@@ -105,8 +103,7 @@ p {
   text-align: center;
   margin-top: 0.25rem;
 }
-
->>>>>>> Stashed changes
++
 .genre-list {
   display: flex;
   flex-wrap: wrap;
