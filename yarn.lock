@@ -1662,10 +1662,10 @@ astro-seo@^1.0.0:
   dependencies:
     "@astrojs/check" "^0.9.0"
 
-astro@6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-6.2.1.tgz#2f22e48bb1031db8004fb960d5f7518380ea4d70"
-  integrity sha512-3g1sYNly+QAkuO5ErNEQBYvsxorNDSCUNIeStBs+kcXGchvKQl1Q9EuDNOvSg010XLlHJFLVFZs9LV18Jjp4Hg==
+astro@6.2.2:
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-6.2.2.tgz#7aff5ad54adeebddee38b7e56268b366109209a7"
+  integrity sha512-zkne2lZU+iTZPBK8F4gbMfrw5f11bT4VXiBxcdFHcPvYyH+Hox7V1sZu97RDpvwmHi+wQ0efKv89KY5744a0jQ==
   dependencies:
     "@astrojs/compiler" "^4.0.0"
     "@astrojs/internal-helpers" "0.9.0"
@@ -1688,10 +1688,12 @@ astro@6.2.1:
     esbuild "^0.27.3"
     flattie "^1.1.1"
     fontace "~0.4.1"
+    get-tsconfig "5.0.0-beta.4"
     github-slugger "^2.0.0"
     html-escaper "3.0.3"
     http-cache-semantics "^4.2.0"
     js-yaml "^4.1.1"
+    jsonc-parser "^3.3.1"
     magic-string "^0.30.21"
     magicast "^0.5.2"
     mrmime "^2.0.1"
@@ -1710,7 +1712,6 @@ astro@6.2.1:
     tinyclip "^0.1.12"
     tinyexec "^1.0.4"
     tinyglobby "^0.2.15"
-    tsconfck "^3.1.6"
     ultrahtml "^1.6.0"
     unifont "~0.7.4"
     unist-util-visit "^5.1.0"
@@ -2291,6 +2292,13 @@ get-tsconfig@4.14.0:
   dependencies:
     resolve-pkg-maps "^1.0.0"
 
+get-tsconfig@5.0.0-beta.4:
+  version "5.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/get-tsconfig/-/get-tsconfig-5.0.0-beta.4.tgz#48e1c84919d16fd1edfebd04e8958da942945c25"
+  integrity sha512-7nF7C9fIPFEMHgEMEfgIlO9wDdZ8CyHw27rWciFZfHvHDReIiPhsYuzPRXsfvBCqFy1l8RRyyWV7QLM+ZhUJsQ==
+  dependencies:
+    resolve-pkg-maps "^1.0.0"
+
 github-slugger@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/github-slugger/-/github-slugger-2.0.0.tgz#52cf2f9279a21eb6c59dd385b410f0c0adda8f1a"
@@ -2607,7 +2615,7 @@ jsonc-parser@^2.3.0:
   resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-2.3.1.tgz#59549150b133f2efacca48fe9ce1ec0659af2342"
   integrity sha512-H8jvkz1O50L3dMZCsLqiuB2tA7muqbSg1AtGEkN0leAqGjsUzDJir3Zwr02BhqdcITPg3ei3mZ+HjMocAknhhg==
 
-jsonc-parser@^3.0.0:
+jsonc-parser@^3.0.0, jsonc-parser@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-3.3.1.tgz#f2a524b4f7fd11e3d791e559977ad60b98b798b4"
   integrity sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==
@@ -4206,11 +4214,6 @@ trough@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/trough/-/trough-2.2.0.tgz#94a60bd6bd375c152c1df911a4b11d5b0256f50f"
   integrity sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==
-
-tsconfck@^3.1.6:
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/tsconfck/-/tsconfck-3.1.6.tgz#da1f0b10d82237ac23422374b3fce1edb23c3ead"
-  integrity sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==
 
 tslib@^2.4.0:
   version "2.8.1"
