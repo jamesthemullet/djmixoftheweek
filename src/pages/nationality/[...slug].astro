@@ -65,7 +65,6 @@ try {
   console.error('Error fetching posts by Nationality', err);
 }
 
-// biome-ignore lint/correctness/noUnusedVariables: Used in template
 const capitaliseAndRemoveHyphens = (string: string | undefined) => {
   if (!string) return 'Unknown Nationality';
   return string

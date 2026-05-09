@@ -92,14 +92,12 @@ if (!singlePost) {
 const organiseComments = (comments: CommentsType) => {
   const commentMap = new Map();
 
-  // biome-ignore lint/complexity/noForEach: false positive
   comments?.forEach((comment) => {
     comment.replies = [];
     commentMap.set(comment.id, comment);
   });
 
   const topLevelComments: CommentsType = [];
-  // biome-ignore lint/complexity/noForEach: false positive
   comments?.forEach((comment) => {
     if (comment.parentId) {
       const parent = commentMap.get(comment.parentId);
@@ -133,7 +131,6 @@ if (genreSlug) {
 
 const siteUrlStr = String(Astro.site || 'http://localhost:4321');
 
-// biome-ignore lint/correctness/noUnusedVariables: Used in template
 const processContent = (content: string) => {
   const destBase = siteUrlStr.includes('localhost')
     ? `${siteUrlStr}/`
@@ -146,7 +143,6 @@ const processContent = (content: string) => {
     .replace(/([^:]\/)\/+/g, '$1');
 };
 
-// biome-ignore lint/correctness/noUnusedVariables: Used in template
 const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
   day: '2-digit',
   month: '2-digit',

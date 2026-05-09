@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			const fragment = document.createDocumentFragment();
 
-			// biome-ignore lint/complexity/noForEach: <explanation>
 			posts.forEach((post: Post) => {
 				const li = document.createElement("li");
 

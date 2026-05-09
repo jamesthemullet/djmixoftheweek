@@ -61,7 +61,6 @@ try {
   console.error('Error fetching posts by DJ', err);
 }
 
-// biome-ignore lint/correctness/noUnusedVariables: Used in template
 const capitaliseAndRemoveHyphens = (string: string | undefined) => {
   if (!string) return 'Unknown DJ';
   return string
