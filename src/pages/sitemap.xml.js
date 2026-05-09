@@ -40,7 +40,7 @@ export async function GET() {
     let lastmod;
     try {
       lastmod = new Date(post.modified).toISOString().split("T")[0];
-    } catch (error) {
+    } catch {
       lastmod = new Date().toISOString().split("T")[0];
     }
 
