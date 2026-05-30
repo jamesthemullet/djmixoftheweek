@@ -1,27 +1,8 @@
----/** biome-ignore-all lint/correctness/noUnusedVariables: <explanation> */
-
+---
 // import { Image } from 'astro:assets';
 // import logo3 from "../../images/logos/rdaw-logo-3.webp";
 import './header.css';
-import he from 'he';
-import type { PopularPost } from '../../types';
 import Search from '../search/search.astro';
-
-let popularPosts: PopularPost[] = [];
-
-try {
-  const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/wp-json/top-10/v1/popular-posts?post_types=post`);
-  if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
-  popularPosts = await response.json();
-} catch (error) {
-  console.error('Error fetching top posts:', error);
-}
-
-const currentUrl = Astro.site || 'http://localhost:4321';
-
-const decodeHtmlEntities = (text: string) => {
-  return he.decode(text);
-};
 ---
 
 <header>
@@ -44,25 +25,7 @@ const decodeHtmlEntities = (text: string) => {
       <h2>Search:</h2>
       <Search />
     </section>
-    {
-      popularPosts && popularPosts.length > 0 && (
-        <div class="header-block popular-mixes">
-          <h2>Popular Mixes:</h2>
-          <ul>
-            {popularPosts.map((post) => (
-              <li>
-                {post?.title.rendered && (
-                  <a href={`${currentUrl}${post?.slug}`}>
-                    {decodeHtmlEntities(post?.title.rendered)} ({post?.visits})
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )
-    }
-    <section class="header-block non-mobile subscribe">
+<section class="header-block non-mobile subscribe">
       <h2>Be notified of new posts by e-mail</h2>
 
       <form id="subscribe-form">
