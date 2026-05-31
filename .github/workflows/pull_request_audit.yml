@@ -48,6 +48,7 @@ jobs:
   e2e:
     needs: [lint, typecheck]
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       PUBLIC_API_BASE_URL: https://blog.djmixoftheweek.com
     steps:
@@ -58,8 +59,8 @@ jobs:
           node-version: 24.x
       - name: Install dependencies
         run: yarn install
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+      - name: Install Playwright system deps
+        run: npx playwright install-deps chrome
       - name: Run e2e tests
         run: yarn test:e2e --project=chromium
   axe:

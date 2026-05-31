@@ -7,10 +7,11 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:4322',
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], channel: process.env.CI ? 'chrome' : undefined } }],
   webServer: {
     command: 'yarn dev --port 4322',
     url: 'http://localhost:4322',
     reuseExistingServer: !process.env.CI,
+    timeout: 120000,
   },
 });
