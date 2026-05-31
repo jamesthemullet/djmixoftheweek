@@ -48,6 +48,7 @@ jobs:
   e2e:
     needs: [lint, typecheck]
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       PUBLIC_API_BASE_URL: https://blog.djmixoftheweek.com
     steps:
@@ -58,8 +59,21 @@ jobs:
           node-version: 24.x
       - name: Install dependencies
         run: yarn install
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./node_modules/@playwright/test/package.json').version)")" >> $GITHUB_ENV
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ env.PLAYWRIGHT_VERSION }}
       - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
       - name: Run e2e tests
         run: yarn test:e2e --project=chromium
   axe:

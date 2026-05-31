@@ -12,5 +12,6 @@ export default defineConfig({
     command: 'yarn dev --port 4322',
     url: 'http://localhost:4322',
     reuseExistingServer: !process.env.CI,
+    timeout: 120000,
   },
 });
