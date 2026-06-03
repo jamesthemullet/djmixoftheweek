@@ -34,15 +34,6 @@ export type Post = {
   };
 } | null;
 
-export type PopularPost = {
-  slug: string;
-  title: {
-    rendered: string;
-  };
-  visits: number;
-  featuredImage?: { node: { sourceUrl: string } };
-} | null;
-
 export type Genres = {
   genres: {
     nodes: Genre[];
