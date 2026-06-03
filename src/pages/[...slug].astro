@@ -7,8 +7,7 @@ import Comments from '../components/comments.astro';
 import { fetchGraphQL } from '../lib/api';
 import GET_GENRE_BY_SLUG from '../lib/queries/getGenreBySlug';
 import type { Comments as CommentsType, Post } from '../types';
-
-const fallbackImage = '/blog-placeholder-1.jpg';
+import { FALLBACK_IMAGE as fallbackImage } from '../consts';
 
 const { slug } = Astro.params;
 
@@ -202,7 +201,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
             <div class="image-container">
               <a href={`/${post.slug}`} aria-label={post.title}>
                 <img
-                  src={post.featuredImage?.node?.sourceUrl || '/blog-placeholder-1.jpg'}
+                  src={post.featuredImage?.node?.sourceUrl || fallbackImage}
                   srcset={post.featuredImage?.node?.srcSet}
                   alt=""
                   sizes="(max-width: 600px) 100vw, 700px"

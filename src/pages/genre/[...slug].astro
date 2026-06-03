@@ -6,8 +6,7 @@ import { fetchGraphQL } from "../../lib/api";
 import "../../styles/post.css";
 import GET_GENRE_BY_SLUG from "../../lib/queries/getGenreBySlug";
 import type { Post } from "../../types";
-
-const fallbackImage = '/blog-placeholder-1.jpg';
+import { FALLBACK_IMAGE as fallbackImage } from "../../consts";
 
 const { slug } = Astro.params;
 
