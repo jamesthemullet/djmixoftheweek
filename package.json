@@ -39,6 +39,7 @@
     "@playwright/test": "^1.59.1",
     "knip": "^6.0.0",
     "typescript": "^6.0.0",
+    "happy-dom": "^17.4.4",
     "vitest": "^4.1.5"
   },
   "resolutions": {
