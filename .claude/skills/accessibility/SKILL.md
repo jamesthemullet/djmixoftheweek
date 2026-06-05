@@ -64,10 +64,22 @@ Output exactly this structure:
 **Next suggestion:** <the next candidate worth tackling in this category, with file path>
 ```
 
+### Step 5 — Raise a PR
+
+After reporting, commit the change and open a pull request:
+
+1. Stage only the file(s) you modified: `git add <file>`
+2. Commit with a message in the form: `fix(a11y): <short description of the fix>`
+3. Push to the current branch
+4. Create a PR using `gh pr create` targeting `main` with:
+   - **Title:** `fix(a11y): <short description>`
+   - **Body:** include the Category, WCAG criterion, file, issue, and fix from Step 4
+   - Add the label `accessibility` if it exists (use `gh label list` to check; skip silently if it doesn't)
+
 ## Known project patterns
 
 - **Skip link:** `<a href="#main-content" class="skip-link">` is already present in `BaseLayout.astro` — verify its CSS makes it visible on `:focus` before flagging it as missing
-- **Nav toggle:** `#nav-toggle` in `header/header.astro` controls `#nav-menu` visibility via `style.maxHeight` — it needs `aria-expanded` toggled in the same JS handler and `aria-controls="nav-menu"` in the markup; the menu itself needs `aria-hidden` mirroring the collapsed state
+- **Nav toggle:** `#nav-toggle` in `header/header.astro` now has `aria-expanded` and `aria-controls="nav-menu"` — the JS handler toggles `aria-expanded` on click. The `#nav-menu` `<nav>` still has no `aria-hidden` toggling; adding it to mirror the collapsed state on mobile is the next improvement to tackle here
 - **Search input:** The `<input>` in `search/search.astro` has only a `placeholder` and no `<label>` — a visually hidden `<label>` or `aria-label` is needed (WCAG 1.3.1 / 4.1.2)
 - **Search form:** The `<form>` in `search/search.astro` would benefit from `role="search"` to expose it as a search landmark to screen readers
 - **Alpine.js ARIA:** Alpine.js binds like `:aria-expanded="isOpen"` and `:aria-hidden="!isOpen"` are the idiomatic way to keep ARIA state in sync with Alpine reactive data — prefer these over manual DOM manipulation in `<script>` blocks
