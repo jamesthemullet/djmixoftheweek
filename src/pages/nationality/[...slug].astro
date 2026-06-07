@@ -6,6 +6,7 @@ import { fetchGraphQL } from '../../lib/api';
 import '../../styles/post.css';
 import GET_ALL_NATIONALITIES from '../../lib/queries/getAllNationalities';
 import type { Nationality, Post } from '../../types';
+import { capitaliseAndRemoveHyphens } from '../../lib/utils';
 
 const fallbackImage = '/blog-placeholder-1.jpg';
 
@@ -65,27 +66,20 @@ try {
   console.error('Error fetching posts by Nationality', err);
 }
 
-const capitaliseAndRemoveHyphens = (string: string | undefined) => {
-  if (!string) return 'Unknown Nationality';
-  return string
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-};
 ---
 
 <BaseLayout
-  pageTitle={capitaliseAndRemoveHyphens(slug)}
-  description={`All posts of DJ sets featuring DJs from ${capitaliseAndRemoveHyphens(slug)}`}
+  pageTitle={capitaliseAndRemoveHyphens(slug, 'Unknown Nationality')}
+  description={`All posts of DJ sets featuring DJs from ${capitaliseAndRemoveHyphens(slug, 'Unknown Nationality')}`}
   opengraphImage={postsByNationality[0]?.seo?.opengraphImage?.sourceUrl || fallbackImage}
 >
-  <h1>DJ Sets featuring DJs from {capitaliseAndRemoveHyphens(slug)}</h1>
+  <h1>DJ Sets featuring DJs from {capitaliseAndRemoveHyphens(slug, 'Unknown Nationality')}</h1>
 
   {
     postsByNationality.length === 0 ? (
       <section>
         <p>
-          No posts found for <strong>{capitaliseAndRemoveHyphens(slug)}</strong>.
+          No posts found for <strong>{capitaliseAndRemoveHyphens(slug, 'Unknown Nationality')}</strong>.
         </p>
         <p>
           You can <a href="/">return to the homepage</a> or try a different Nationality.
