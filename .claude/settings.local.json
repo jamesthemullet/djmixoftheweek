@@ -36,7 +36,8 @@
       "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'{len\\(d\\)} posts'\\); [print\\(p['slug'], p.get\\('visits'\\)\\) for p in d[:3]]\")",
       "Bash(Select-String -Pattern \"alpine\")",
       "Bash(sed 's/.*\\\\.//')",
-      "Bash(yarn lint *)"
+      "Bash(yarn lint *)",
+      "Bash(git fetch *)"
     ]
   }
 }

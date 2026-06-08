@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('DJs page renders a list of DJs', async ({ page }) => {
   await page.goto('/djs');
-  await expect(page.locator('h1')).toContainText('DJs');
+  await expect(page.locator('h1:not(.sr-only)')).toContainText('DJs');
   await expect(page.locator('.genre-list li')).not.toHaveCount(0);
 });
 
