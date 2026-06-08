@@ -24,6 +24,14 @@
 	}
 }
 
+.reply-form-container {
+	display: none;
+}
+
+.reply-form-container.is-open {
+	display: block;
+}
+
 .comments-list {
 	list-style: none;
 	padding: 0;

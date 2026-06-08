@@ -12,7 +12,7 @@ import Search from '../search/search.astro';
     <div class="title">
       <a href="/">DJ Mix Of The Week</a>
     </div>
-    <button id="nav-toggle" aria-label="Toggle Navigation Menu"><span></span></button>
+    <button id="nav-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
 
     <nav id="nav-menu">
       <a href="/">Home</a>
@@ -49,9 +49,11 @@ import Search from '../search/search.astro';
 
       if (isOpen) {
         navMenu.style.maxHeight = '';
+        navToggle.setAttribute('aria-expanded', 'false');
         navToggle.focus();
       } else {
         navMenu.style.maxHeight = navMenu.scrollHeight + 'px';
+        navToggle.setAttribute('aria-expanded', 'true');
         const firstLink = navMenu.querySelector<HTMLElement>('a, button');
         firstLink?.focus();
       }

@@ -6,12 +6,12 @@ test('DJs page renders a list of DJs', async ({ page }) => {
   await expect(page.locator('.genre-list li')).not.toHaveCount(0);
 });
 
-test('clicking a DJ on the DJs page navigates to that DJ and shows their posts', async ({ page }) => {
+test('clicking a DJ on the DJs page navigates to that DJ and lists their posts', async ({ page }) => {
   await page.goto('/djs');
   const firstDJLink = page.locator('.genre-list li').first().locator('a');
   const href = await firstDJLink.getAttribute('href');
   await firstDJLink.click();
   await expect(page).toHaveURL(new RegExp(href!.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
-  await expect(page.locator('h1')).toContainText('DJ:');
+  await expect(page.locator('h1:not(.sr-only)')).toContainText('DJ:');
   await expect(page.locator('ul li')).not.toHaveCount(0);
 });

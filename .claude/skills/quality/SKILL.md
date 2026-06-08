@@ -42,7 +42,30 @@ Read the relevant source files in `src/pages/`, `src/components/`, `src/lib/`, a
 
 Make the fix. Keep scope tight — one issue, one or two files. Do not refactor beyond what is needed to address the specific finding.
 
-### Step 4 — Report
+### Step 4 — Create a PR
+
+Once the fix is made and the build passes, open a pull request:
+
+1. Create a new branch named `quality/<short-description>` (e.g. `quality/extract-utils`).
+2. Commit the changed files with a message like `refactor: <what was fixed>`.
+3. Push the branch and open a PR with `gh pr create`:
+   - Title: `refactor: <what was fixed>` (keep it under 70 chars)
+   - Body should follow this template:
+
+```
+## Summary
+- <one bullet describing the quality issue>
+- <one bullet on what was changed and why it improves the code>
+
+## Quality category
+<chosen category name>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+```
+
+4. Return the PR URL to the user.
+
+### Step 5 — Report
 
 Output exactly this structure:
 
@@ -53,6 +76,7 @@ Output exactly this structure:
 **File:** <path:line>
 **Issue:** <one sentence describing the problem>
 **Fix:** <what was changed and why>
+**PR:** <URL>
 **Next suggestion:** <the next candidate worth tackling in this category, with file path>
 ```
 
