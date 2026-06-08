@@ -5,8 +5,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fetchGraphQL } from '../../lib/api';
 import '../../styles/post.css';
 import GET_ALL_NATIONALITIES from '../../lib/queries/getAllNationalities';
-import type { Nationality, Post } from '../../types';
 import { capitaliseAndRemoveHyphens } from '../../lib/utils';
+import type { Nationality, Post } from '../../types';
 
 const fallbackImage = '/blog-placeholder-1.jpg';
 
