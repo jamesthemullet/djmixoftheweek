@@ -1,5 +1,11 @@
 import { test, expect } from '@playwright/test';
 
+test('DJs page renders a list of DJs', async ({ page }) => {
+  await page.goto('/djs');
+  await expect(page.locator('h1:not(.sr-only)')).toContainText('DJs');
+  await expect(page.locator('.genre-list li')).not.toHaveCount(0);
+});
+
 test('clicking a DJ on the DJs page navigates to that DJ and lists their posts', async ({ page }) => {
   await page.goto('/djs');
   const firstDJLink = page.locator('.genre-list li').first().locator('a');

@@ -1,5 +1,22 @@
 import { test, expect } from '@playwright/test';
 
+test('single post page shows an article with a title and date', async ({ page }) => {
+  await page.goto('/');
+  const firstLink = page.locator('#post-list li').first().locator('a').first();
+  await firstLink.click();
+  await expect(page.locator('article')).toBeVisible();
+  await expect(page.locator('article h1')).not.toBeEmpty();
+  await expect(page.locator('article date')).toBeVisible();
+});
+
+test('single post page includes a comments section', async ({ page }) => {
+  await page.goto('/');
+  const firstLink = page.locator('#post-list li').first().locator('a').first();
+  await firstLink.click();
+  await expect(page.locator('article')).toBeVisible();
+  await expect(page.locator('.comments-block')).toBeVisible();
+});
+
 test('share button shows "Copied!" on click and reverts after timeout', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
 
