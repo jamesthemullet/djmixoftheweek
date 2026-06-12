@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { fetchGraphQL } from '../lib/api';
+import '../styles/pages.css';
+import GET_DJS_WITH_RATINGS from '../lib/queries/getDJsWithRatings';
+import type { DJs } from '../types';
+
+interface DJStat {
+  id: string;
+  name: string;
+  slug: string;
+  totalPosts: number;
+  avgRating: number | null;
+  ratedPosts: number;
+}
+
+let djStats: DJStat[] = [];
+
+try {
+  let after: string | undefined;
+  while (true) {
+    const response: DJs = await fetchGraphQL(GET_DJS_WITH_RATINGS, { djsAfter: after });
+    const page = response?.dJs;
+    if (page?.nodes) {
+      for (const dj of page.nodes) {
+        if (!dj || !dj.count) continue;
+        const ratedPosts = dj.posts?.nodes?.filter(
+          (p) => p?.ratings?.nodes?.[0]?.name
+        ) ?? [];
+        const avgRating =
+          ratedPosts.length > 0
+            ? ratedPosts.reduce(
+                (sum, p) => sum + parseFloat(p.ratings!.nodes[0]!.name!),
+                0
+              ) / ratedPosts.length
+            : null;
+        djStats.push({
+          id: dj.id,
+          name: dj.name,
+          slug: dj.slug,
+          totalPosts: dj.count,
+          avgRating: avgRating !== null ? Math.round(avgRating * 100) / 100 : null,
+          ratedPosts: ratedPosts.length,
+        });
+      }
+    }
+    if (page?.pageInfo?.hasNextPage) {
+      after = page.pageInfo.endCursor ?? undefined;
+    } else {
+      break;
+    }
+  }
+} catch (error) {
+  console.error('Error fetching DJ stats:', error);
+}
+
+const djStatsJson = JSON.stringify(djStats);
+---
+
+<BaseLayout pageTitle="DJ Leaderboard">
+  <article>
+    <h1>DJ Leaderboard</h1>
+    <p>
+      All DJs ranked by average rating. Click a DJ's name to view all their mixes.
+    </p>
+    <div
+      x-data={`{
+        djs: ${djStatsJson},
+        sort: 'rating',
+        get sortedDJs() {
+          return [...this.djs].sort((a, b) => {
+            if (this.sort === 'rating') {
+              if (a.avgRating === null && b.avgRating === null) return 0;
+              if (a.avgRating === null) return 1;
+              if (b.avgRating === null) return -1;
+              return b.avgRating - a.avgRating;
+            }
+            if (this.sort === 'posts') return b.totalPosts - a.totalPosts;
+            return a.name.localeCompare(b.name);
+          });
+        }
+      }`}
+    >
+      <div class="sort-controls">
+        <button @click="sort = 'rating'" :class="{ active: sort === 'rating' }">Top Rated</button>
+        <button @click="sort = 'posts'" :class="{ active: sort === 'posts' }">Most Mixes</button>
+        <button @click="sort = 'name'" :class="{ active: sort === 'name' }">A–Z</button>
+      </div>
+      <table class="dj-leaderboard-table">
+        <thead>
+          <tr>
+            <th>DJ</th>
+            <th>Avg Rating</th>
+            <th>Total Mixes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="dj in sortedDJs" :key="dj.id">
+            <tr>
+              <td>
+                <a :href="`/dj/${dj.slug}`" rel="noopener noreferrer" x-html="dj.name"></a>
+              </td>
+              <td x-text="dj.avgRating !== null ? dj.avgRating.toFixed(2) : '—'"></td>
+              <td x-text="dj.totalPosts"></td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </article>
+</BaseLayout>
