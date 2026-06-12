@@ -30,7 +30,7 @@ try {
         const avgRating =
           ratedPosts.length > 0
             ? ratedPosts.reduce(
-                (sum, p) => sum + parseFloat(p.ratings!.nodes[0]!.name!),
+                (sum, p) => sum + parseFloat(p!.ratings!.nodes[0]!.name!),
                 0
               ) / ratedPosts.length
             : null;
