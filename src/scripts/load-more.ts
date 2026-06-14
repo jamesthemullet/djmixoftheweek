@@ -1,4 +1,5 @@
 import { fetchGraphQL } from "../lib/api.ts";
+import { FEATURED_IMAGE_SIZE } from "../lib/constants.ts";
 import MORE_POSTS from "../lib/queries/morePosts.ts";
 import type { Post } from "../types.ts";
 
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				const img = document.createElement("img");
 				img.src =
 					post?.featuredImage?.node?.mediaDetails?.sizes?.find(
-						(size) => size.name === "medium_large",
+						(size) => size.name === FEATURED_IMAGE_SIZE,
 					)?.sourceUrl || "";
 				img.alt = post?.title || "";
 				img.width = 768;
