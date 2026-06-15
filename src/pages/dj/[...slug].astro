@@ -24,7 +24,7 @@ try {
 
   while (hasNextPage) {
     const response = await fetchGraphQL(GET_DJ_BY_SLUG, { slug, postsFirst: 100, postsAfter });
-    const dj = response?.tag;
+    const dj = response?.dJ;
     if (!dj) break;
 
     postsByDJ = postsByDJ.concat(dj.posts?.nodes || []);

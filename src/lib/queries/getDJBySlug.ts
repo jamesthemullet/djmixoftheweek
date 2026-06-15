@@ -1,6 +1,6 @@
 const GET_DJ_BY_SLUG = `
   query GetDJBySlug($slug: ID!, $postsFirst: Int = 100, $postsAfter: String) {
-    tag(id: $slug, idType: SLUG) {
+    dJ(id: $slug, idType: SLUG) {
       id
       name
       slug
