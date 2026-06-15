@@ -31,20 +31,8 @@ const GET_ALL_DJS = `
               }
             }
             seo {
-              opengraphTitle
-              opengraphDescription
-              opengraphSiteName
               opengraphImage {
-                uri
-                altText
-                mediaDetails {
-                  file
-                  height
-                  width
-                }
-                mediaItemUrl
                 sourceUrl
-                srcSet
               }
             }
           }
