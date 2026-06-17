@@ -26,7 +26,7 @@ test('share button shows "Copied!" on click and reverts after timeout', async ({
   await firstLink.click();
   await expect(page).toHaveURL(new RegExp(href!.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
 
-  const shareButton = page.getByRole('button', { name: 'Copy Link' });
+  const shareButton = page.locator('button.share-button');
   await expect(shareButton).toHaveText('Copy Link');
 
   await shareButton.click();
