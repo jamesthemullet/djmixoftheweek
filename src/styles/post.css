@@ -113,6 +113,21 @@ article {
 		background-color: #25d366;
 		text-decoration: none;
 	}
+
+	&.share-button--facebook {
+		background-color: #1877f2;
+		text-decoration: none;
+	}
+
+	&.share-button--bluesky {
+		background-color: #0085ff;
+		text-decoration: none;
+	}
+
+	&.share-button--threads {
+		background-color: #000;
+		text-decoration: none;
+	}
 }
 
 .more-in-genre {

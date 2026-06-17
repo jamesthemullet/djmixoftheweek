@@ -195,7 +195,25 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
         :href="'https://wa.me/?text=' + encodeURIComponent(title + ' ' + window.location.href)"
         target="_blank"
         rel="noopener noreferrer"
-      >Share on WhatsApp</a>
+      >WhatsApp</a>
+      <a
+        class="share-button share-button--facebook"
+        :href="'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Facebook</a>
+      <a
+        class="share-button share-button--bluesky"
+        :href="'https://bsky.app/intent/compose?text=' + encodeURIComponent(title + ' ' + window.location.href)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Bluesky</a>
+      <a
+        class="share-button share-button--threads"
+        :href="'https://www.threads.net/intent/post?text=' + encodeURIComponent(title + ' ' + window.location.href)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Threads</a>
     </div>
     <Comments threadedComments={threadedComments} postId={singlePost.postId} />
   </article>
