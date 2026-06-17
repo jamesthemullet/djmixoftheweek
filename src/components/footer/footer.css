@@ -26,6 +26,50 @@ footer {
 	}
 }
 
+.recently-visited.mobile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--menu);
+	color: white;
+	margin: 0 20px 20px;
+
+	@media (min-width: 835px) {
+		display: none;
+	}
+
+	h2 {
+		font-size: 1em;
+		margin: 0 0 0.5rem;
+		color: white;
+		font-family: "Oswald", sans-serif;
+		font-weight: 400;
+	}
+
+	ul {
+		display: flex;
+		flex-direction: column;
+
+		li {
+			list-style-type: none;
+
+			a {
+				font-family: "Oswald", sans-serif;
+				font-size: 1rem;
+				line-height: 1.5;
+				display: block;
+				color: white;
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+}
+
 .subscribe.mobile {
 	display: flex;
 	flex-direction: column;

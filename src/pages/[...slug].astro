@@ -224,4 +224,12 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
       </ul>
     </section>
   )}
+<script define:vars={{ mixSlug: slug, mixTitle: singlePost.title, mixImageUrl: singlePost.featuredImage?.node?.sourceUrl ?? '' }}>
+  const entry = { slug: mixSlug, title: mixTitle, imageUrl: mixImageUrl };
+  const key = 'djmotw_history';
+  const history = JSON.parse(localStorage.getItem(key) || '[]');
+  const filtered = history.filter((m) => m.slug !== mixSlug);
+  filtered.unshift(entry);
+  localStorage.setItem(key, JSON.stringify(filtered.slice(0, 3)));
+</script>
 </BaseLayout>
