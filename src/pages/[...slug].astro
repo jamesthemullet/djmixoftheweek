@@ -196,13 +196,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
         target="_blank"
         rel="noopener noreferrer"
       >WhatsApp</a>
-      <a
-        class="share-button share-button--facebook"
-        :href="'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href)"
-        target="_blank"
-        rel="noopener noreferrer"
-      >Facebook</a>
-      <a
+<a
         class="share-button share-button--bluesky"
         :href="'https://bsky.app/intent/compose?text=' + encodeURIComponent(title + ' ' + window.location.href)"
         target="_blank"
