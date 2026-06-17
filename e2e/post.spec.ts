@@ -26,13 +26,13 @@ test('share button shows "Copied!" on click and reverts after timeout', async ({
   await firstLink.click();
   await expect(page).toHaveURL(new RegExp(href!.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
 
-  const shareButton = page.locator('.share-button');
-  await expect(shareButton).toHaveText('Share This Mix');
+  const shareButton = page.getByRole('button', { name: 'Copy Link' });
+  await expect(shareButton).toHaveText('Copy Link');
 
   await shareButton.click();
   await expect(shareButton).toHaveText('Copied!');
 
-  await expect(shareButton).toHaveText('Share This Mix', { timeout: 5000 });
+  await expect(shareButton).toHaveText('Copy Link', { timeout: 5000 });
 });
 
 test('more mixes section links navigate to another post page', async ({ page }) => {
