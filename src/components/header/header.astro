@@ -26,6 +26,24 @@ import Search from '../search/search.astro';
       <h2>Search:</h2>
       <Search />
     </section>
+    <section
+      class="header-block non-mobile recently-visited"
+      x-data="{ history: [] }"
+      x-init="history = JSON.parse(localStorage.getItem('djmotw_history') || '[]')"
+    >
+      <template x-if="history.length > 0">
+        <div>
+          <h2>Recently visited</h2>
+          <ul>
+            <template x-for="mix in history" :key="mix.slug">
+              <li>
+                <a :href="`/${mix.slug}`" x-text="mix.title"></a>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </template>
+    </section>
 <section class="header-block non-mobile subscribe">
       <h2>Be notified of new posts by e-mail</h2>
 
