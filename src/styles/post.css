@@ -95,6 +95,7 @@ article {
 .share-button {
 	appearance: none;
 	background-color: var(--text);
+	margin: 0;
 	border: none;
 	border-radius: 0.25rem;
 	box-sizing: border-box;
