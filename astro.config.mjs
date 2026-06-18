@@ -1,7 +1,6 @@
 // @ts-check
 
 import alpinejs from "@astrojs/alpinejs";
-import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import vercel from "@astrojs/vercel";
 import { defineConfig } from "astro/config";
@@ -23,7 +22,6 @@ export default defineConfig({
 				forward: ["dataLayer.push"],
 			},
 		}),
-		mdx(),
 		alpinejs(),
 	],
 });

@@ -32,6 +32,11 @@ export type Post = {
       slug: string;
     }[];
   };
+  ratings?: {
+    nodes: {
+      name: string;
+    }[];
+  };
 } | null;
 
 export type Genres = {
