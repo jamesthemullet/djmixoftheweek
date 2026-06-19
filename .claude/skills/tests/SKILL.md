@@ -91,20 +91,35 @@ describe('fetchGraphQL', () => {
 });
 ```
 
-## Step 5: Verify and report
+## Step 5: Verify
 
 Run the test you just wrote:
 - e2e: `yarn test:e2e --project=chromium <path-to-test-file>`
 - unit: `yarn test:unit <path-to-test-file>`
 
-If it passes: report what was added and why it's valuable.
-If it fails: fix it before reporting. Don't leave a failing test.
+If it fails: fix it before continuing. Don't leave a failing test.
 
-Report format:
+## Step 6: Create a PR
+
+Once the test passes, open a pull request:
+
+1. Create a new branch named `tests/<short-description>` (e.g. `tests/djs-e2e`).
+2. Commit the new test file with a message like `test: add e2e test for DJ page navigation`.
+3. Push the branch and open a PR with `gh pr create`:
+   - Title: `test: <what was tested>` (keep it under 70 chars)
+   - Body should follow this template:
+
 ```
-Added: <type> test — <what it tests>
-File: <path>
-Reason: <why this particular test adds value>
+## Summary
+- <one bullet describing what the test covers>
+- <one bullet on why it adds value>
+
+## Test plan
+- [ ] `yarn test:e2e --project=chromium <path>` passes locally
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
 
-If no improvement was justifiable, say so clearly and briefly explain why.
+4. Return the PR URL to the user.
+
+If no improvement was justifiable, say so clearly and briefly explain why (skip the PR step).

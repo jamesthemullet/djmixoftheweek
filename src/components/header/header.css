@@ -230,7 +230,8 @@
 	}
 
 	&.popular-mixes,
-	&.search {
+	&.search,
+	&.recently-visited {
 		display: none;
 
 		@media (min-width: 835px) {

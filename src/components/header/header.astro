@@ -9,7 +9,7 @@ import Search from '../search/search.astro';
     <div class="title">
       <a href="/">DJ Mix Of The Week</a>
     </div>
-    <button id="nav-toggle" aria-label="Toggle Navigation Menu"><span></span></button>
+    <button id="nav-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
 
     <nav id="nav-menu">
       <a href="/">Home</a>
@@ -17,10 +17,29 @@ import Search from '../search/search.astro';
       <a href="/league-of-mixes">League Of Mixes</a>
       <a href="/genres">Posts By Genre</a>
       <a href="/djs">Posts By DJ</a>
+      <a href="/dj-leaderboard">DJ Leaderboard</a>
     </nav>
     <section class="header-block search">
       <h2>Search:</h2>
       <Search />
+    </section>
+    <section
+      class="header-block non-mobile recently-visited"
+      x-data="{ history: [] }"
+      x-init="history = JSON.parse(localStorage.getItem('djmotw_history') || '[]')"
+    >
+      <template x-if="history.length > 0">
+        <div>
+          <h2>Recently visited</h2>
+          <ul>
+            <template x-for="mix in history" :key="mix.slug">
+              <li>
+                <a :href="`/${mix.slug}`" x-text="mix.title"></a>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </template>
     </section>
 <section class="header-block non-mobile subscribe">
       <h2>Be notified of new posts by e-mail</h2>
@@ -46,9 +65,11 @@ import Search from '../search/search.astro';
 
       if (isOpen) {
         navMenu.style.maxHeight = '';
+        navToggle.setAttribute('aria-expanded', 'false');
         navToggle.focus();
       } else {
         navMenu.style.maxHeight = navMenu.scrollHeight + 'px';
+        navToggle.setAttribute('aria-expanded', 'true');
         const firstLink = navMenu.querySelector<HTMLElement>('a, button');
         firstLink?.focus();
       }
