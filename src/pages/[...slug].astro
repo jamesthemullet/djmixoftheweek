@@ -4,10 +4,10 @@ export const prerender = false;
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/post.css';
 import Comments from '../components/comments.astro';
+import { FALLBACK_IMAGE as fallbackImage } from '../consts';
 import { fetchGraphQL } from '../lib/api';
 import GET_GENRE_BY_SLUG from '../lib/queries/getGenreBySlug';
 import type { Comments as CommentsType, Post } from '../types';
-import { FALLBACK_IMAGE as fallbackImage } from '../consts';
 
 const { slug } = Astro.params;
 

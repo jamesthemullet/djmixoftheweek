@@ -2,11 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/pages.css";
 import { Image } from "astro:assets";
+import { FALLBACK_IMAGE as fallbackImage } from "../consts";
 import { fetchGraphQL } from "../lib/api";
 import ALL_POSTS_QUERY from "../lib/queries/allPosts";
 import GET_SINGLE_PAGE from "../lib/queries/getSinglePage";
 import type { Post } from "../types";
-import { FALLBACK_IMAGE as fallbackImage } from "../consts";
 
 const variables = { id: "407" };
 let singlePost: Post = null;

@@ -4,10 +4,10 @@ export const prerender = false;
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fetchGraphQL } from '../../lib/api';
 import '../../styles/post.css';
+import { FALLBACK_IMAGE as fallbackImage } from '../../consts';
 import GET_ALL_NATIONALITIES from '../../lib/queries/getAllNationalities';
 import { capitaliseAndRemoveHyphens } from '../../lib/utils';
 import type { Nationality, Post } from '../../types';
-import { FALLBACK_IMAGE as fallbackImage } from '../../consts';
 
 const { slug } = Astro.params;
 
