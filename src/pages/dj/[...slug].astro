@@ -5,10 +5,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fetchGraphQL } from '../../lib/api';
 import '../../styles/post.css';
 import { FALLBACK_IMAGE as fallbackImage } from '../../consts';
-import GET_ALL_DJS from '../../lib/queries/getAllDJs';
 import GET_DJ_BY_SLUG from '../../lib/queries/getDJBySlug';
 import { capitaliseAndRemoveHyphens } from '../../lib/utils';
-import type { DJ, Post } from '../../types';
+import type { Post } from '../../types';
 
 const { slug } = Astro.params;
 
