@@ -214,7 +214,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
     <section class="more-in-genre container">
       <h2>More {genreName} mixes</h2>
       <ul>
-        {moreMixes.map((post, index) => post && (
+        {moreMixes.map((post) => post && (
           <li class="genres-list">
             <div class="image-container">
               <a href={`/${post.slug}`} aria-label={post.title}>
@@ -241,7 +241,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
       </ul>
     </section>
   )}
-<script define:vars={{ mixSlug: slug, mixTitle: singlePost.title, mixImageUrl: singlePost.featuredImage?.node?.sourceUrl ?? '' }}>
+<script is:inline define:vars={{ mixSlug: slug, mixTitle: singlePost.title, mixImageUrl: singlePost.featuredImage?.node?.sourceUrl ?? '' }}>
   const entry = { slug: mixSlug, title: mixTitle, imageUrl: mixImageUrl };
   const key = 'djmotw_history';
   const history = JSON.parse(localStorage.getItem(key) || '[]');
