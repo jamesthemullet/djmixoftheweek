@@ -4,11 +4,10 @@ export const prerender = false;
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/post.css';
 import Comments from '../components/comments.astro';
+import { FALLBACK_IMAGE as fallbackImage } from '../consts';
 import { fetchGraphQL } from '../lib/api';
 import GET_GENRE_BY_SLUG from '../lib/queries/getGenreBySlug';
 import type { Comments as CommentsType, Post } from '../types';
-
-const fallbackImage = '/blog-placeholder-1.jpg';
 
 const { slug } = Astro.params;
 
@@ -215,12 +214,12 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
     <section class="more-in-genre container">
       <h2>More {genreName} mixes</h2>
       <ul>
-        {moreMixes.map((post, index) => post && (
+        {moreMixes.map((post) => post && (
           <li class="genres-list">
             <div class="image-container">
               <a href={`/${post.slug}`} aria-label={post.title}>
                 <img
-                  src={post.featuredImage?.node?.sourceUrl || '/blog-placeholder-1.jpg'}
+                  src={post.featuredImage?.node?.sourceUrl || fallbackImage}
                   srcset={post.featuredImage?.node?.srcSet}
                   alt=""
                   sizes="(max-width: 600px) 100vw, 700px"
@@ -242,7 +241,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
       </ul>
     </section>
   )}
-<script define:vars={{ mixSlug: slug, mixTitle: singlePost.title, mixImageUrl: singlePost.featuredImage?.node?.sourceUrl ?? '' }}>
+<script is:inline define:vars={{ mixSlug: slug, mixTitle: singlePost.title, mixImageUrl: singlePost.featuredImage?.node?.sourceUrl ?? '' }}>
   const entry = { slug: mixSlug, title: mixTitle, imageUrl: mixImageUrl };
   const key = 'djmotw_history';
   const history = JSON.parse(localStorage.getItem(key) || '[]');

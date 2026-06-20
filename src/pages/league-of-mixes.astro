@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/pages.css";
 import { Image } from "astro:assets";
+import { FALLBACK_IMAGE as fallbackImage } from "../consts";
 import { fetchGraphQL } from "../lib/api";
 import ALL_POSTS_QUERY from "../lib/queries/allPosts";
 import GET_SINGLE_PAGE from "../lib/queries/getSinglePage";
@@ -44,8 +45,6 @@ try {
 	console.error("Error fetching posts:", error);
 	allPosts = [];
 }
-
-const fallbackImage = '/blog-placeholder-1.jpg';
 
 ---
 

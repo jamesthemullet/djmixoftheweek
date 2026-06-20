@@ -4,11 +4,10 @@ export const prerender = false;
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { fetchGraphQL } from "../../lib/api";
 import "../../styles/post.css";
+import { FALLBACK_IMAGE as fallbackImage } from "../../consts";
 import GET_GENRE_BY_SLUG from "../../lib/queries/getGenreBySlug";
 import { capitaliseAndRemoveHyphens } from "../../lib/utils";
 import type { Post } from "../../types";
-
-const fallbackImage = '/blog-placeholder-1.jpg';
 
 const { slug } = Astro.params;
 

@@ -6,6 +6,7 @@ import MOST_RECENT_POST_QUERY from "../lib/queries/mostRecentPost";
 import OTHER_POSTS_AFTER_FIRST_QUERY from "../lib/queries/otherPostsAfterFirst";
 
 import "../styles/index.css";
+import { FALLBACK_IMAGE } from "../consts";
 import GET_GENRE_NAMES from "../lib/queries/getGenreNames";
 import type { Genre, Genres, Post } from "../types";
 
@@ -62,7 +63,6 @@ if (recentPostCursor) {
 
 const posts = [recentPost, ...otherPosts].filter((p): p is NonNullable<Post> => p !== null);
 const initialCursor = recentPostCursor;
-const FALLBACK_IMAGE = '/blog-placeholder-1.jpg';
 ---
 
 <BaseLayout pageTitle="Home">
