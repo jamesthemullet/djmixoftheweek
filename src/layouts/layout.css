@@ -239,3 +239,102 @@ select {
 	background-size: 0.6rem;
 	height: 2.5rem;
 }
+
+.fav-btn {
+	background: transparent;
+	color: var(--text);
+	border: 2px solid var(--text);
+	height: auto;
+	padding: 0.25rem 0.75rem;
+	font-size: 1rem;
+	margin-bottom: 1rem;
+	transition: background 0.15s, color 0.15s;
+
+	&:hover {
+		background: var(--menu);
+		color: var(--white);
+		border-color: var(--menu);
+	}
+
+	&.fav-btn--active {
+		background: var(--menu);
+		color: var(--white);
+		border-color: var(--menu);
+	}
+
+	&.fav-btn--inline {
+		height: auto;
+		padding: 0.1rem 0.4rem;
+		font-size: 1.1rem;
+		margin: 0 0 0 0.4rem;
+		vertical-align: middle;
+	}
+}
+
+.dj-byline {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: center;
+	margin: 0.5rem 0 1rem;
+
+	.dj-byline__item {
+		display: flex;
+		align-items: center;
+
+		a {
+			color: var(--menu);
+			text-decoration: none;
+			font-weight: 600;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+.your-djs-page {
+	padding: 1rem;
+	width: 100%;
+
+	p {
+		margin-bottom: 1rem;
+
+		a {
+			color: var(--menu);
+		}
+	}
+}
+
+.your-djs-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-top: 1rem;
+
+	li {
+		flex-basis: unset;
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+
+		a {
+			display: inline-block;
+			padding: 0.4rem 1rem;
+			background: var(--menu);
+			color: var(--white);
+			text-decoration: none;
+			font-size: 1rem;
+
+			&:hover {
+				opacity: 0.85;
+			}
+
+			&:focus-visible {
+				outline: 2px solid var(--menu);
+				outline-offset: 2px;
+			}
+		}
+	}
+}

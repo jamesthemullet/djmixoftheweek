@@ -21,6 +21,12 @@ const MOST_RECENT_POST_QUERY = `
             slug
           }
         }
+        dJs {
+          nodes {
+            name
+            slug
+          }
+        }
       }
       pageInfo {
         endCursor
