@@ -294,36 +294,46 @@ select {
 	}
 }
 
-.your-djs-section {
-	width: 100%;
+.your-djs-page {
 	padding: 1rem;
-	background: #f5f3ff;
-	border-left: 4px solid var(--menu);
-	margin-bottom: 1.5rem;
+	width: 100%;
 
-	h2 {
-		margin-bottom: 0.5rem;
+	p {
+		margin-bottom: 1rem;
+
+		a {
+			color: var(--menu);
+		}
 	}
+}
 
-	.your-djs-list {
+.your-djs-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-top: 1rem;
+
+	li {
+		flex-basis: unset;
 		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
+		align-items: center;
+		gap: 0.25rem;
 
-		li {
-			flex-basis: unset;
+		a {
+			display: inline-block;
+			padding: 0.4rem 1rem;
+			background: var(--menu);
+			color: var(--white);
+			text-decoration: none;
+			font-size: 1rem;
 
-			a {
-				display: inline-block;
-				padding: 0.25rem 0.75rem;
-				background: var(--menu);
-				color: var(--white);
-				text-decoration: none;
-				font-size: 0.95rem;
+			&:hover {
+				opacity: 0.85;
+			}
 
-				&:hover {
-					opacity: 0.85;
-				}
+			&:focus-visible {
+				outline: 2px solid var(--menu);
+				outline-offset: 2px;
 			}
 		}
 	}
