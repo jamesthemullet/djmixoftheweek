@@ -74,6 +74,12 @@ const singleResponse = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/graph
                 name
               }
             }
+            dJs {
+              nodes {
+                name
+                slug
+              }
+            }
           }
         }
         `,
@@ -178,6 +184,25 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
     <date>
       Posted: {formattedDate}
     </date>
+    {singlePost.dJs?.nodes && singlePost.dJs.nodes.length > 0 && (
+      <div class="dj-byline">
+        {singlePost.dJs.nodes.map((dj: { name: string; slug: string }) => (
+          <span class="dj-byline__item">
+            <a href={`/dj/${dj.slug}`}>{dj.name}</a>
+            <button
+              x-data
+              @click={`$store.favDJs.toggle(${JSON.stringify(dj.slug)}, ${JSON.stringify(dj.name)})`}
+              :aria-pressed={`$store.favDJs.has(${JSON.stringify(dj.slug)})`}
+              class="fav-btn fav-btn--inline"
+              :class={`{ 'fav-btn--active': $store.favDJs.has(${JSON.stringify(dj.slug)}) }`}
+              :aria-label={`\`\${$store.favDJs.has(${JSON.stringify(dj.slug)}) ? 'Unfavourite' : 'Favourite'} ${dj.name}\``}
+            >
+              <span x-text={`$store.favDJs.has(${JSON.stringify(dj.slug)}) ? '★' : '☆'`} aria-hidden="true">☆</span>
+            </button>
+          </span>
+        ))}
+      </div>
+    )}
     <div set:html={processContent(singlePost.content)} />
     <div set:html={singlePost.soundcloud.soundcloud} />
     <br />

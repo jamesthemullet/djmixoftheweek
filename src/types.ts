@@ -32,6 +32,12 @@ export type Post = {
       slug: string;
     }[];
   };
+  dJs?: {
+    nodes: {
+      name: string;
+      slug: string;
+    }[];
+  };
   ratings?: {
     nodes: {
       name: string;

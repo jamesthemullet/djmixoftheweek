@@ -42,6 +42,15 @@ try {
   opengraphImage={postsByDJ[0]?.seo?.opengraphImage?.sourceUrl || fallbackImage}
 >
   <h1>DJ: {capitaliseAndRemoveHyphens(slug, 'Unknown DJ')}</h1>
+  <button
+    x-data
+    @click={`$store.favDJs.toggle(${JSON.stringify(slug)}, ${JSON.stringify(capitaliseAndRemoveHyphens(slug, 'Unknown DJ'))})`}
+    :aria-pressed={`$store.favDJs.has(${JSON.stringify(slug)})`}
+    class="fav-btn"
+    :class={`{ 'fav-btn--active': $store.favDJs.has(${JSON.stringify(slug)}) }`}
+  >
+    <span x-text={`$store.favDJs.has(${JSON.stringify(slug)}) ? '★ Favourited' : '☆ Favourite'`}>☆ Favourite</span>
+  </button>
 
   {
     postsByDJ.length === 0 ? (
