@@ -64,13 +64,6 @@ export type Nationalities = {
   };
 } | null;
 
-export type Nationality = {
-  id: string;
-  name: string;
-  slug: string;
-  count: number;
-} | null;
-
 export type DJs = {
   dJs: {
     nodes: DJ[];
