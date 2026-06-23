@@ -58,6 +58,19 @@ export type Genre = {
   count: number;
 } | null;
 
+export type Nationalities = {
+  nationalities: {
+    nodes: Nationality[];
+  };
+} | null;
+
+export type Nationality = {
+  id: string;
+  name: string;
+  slug: string;
+  count: number;
+} | null;
+
 export type DJs = {
   dJs: {
     nodes: DJ[];
