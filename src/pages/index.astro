@@ -70,7 +70,7 @@ const isNew = recentPost
 ---
 
 <BaseLayout pageTitle="Home">
-  {isNew && (
+  {isNew && recentPost && (
     <div class="new-mix-banner" x-data="{ dismissed: false }" x-show="!dismissed">
       <span>New mix this week: <strong>{recentPost.title}</strong></span>
       <button class="new-mix-banner__dismiss" @click="dismissed = true" aria-label="Dismiss">✕</button>

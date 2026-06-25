@@ -25,6 +25,7 @@ export type Post = {
     };
   };
   featured_image?: string;
+  date?: string;
   content: string;
   genres: {
     nodes: {
