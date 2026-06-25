@@ -5,6 +5,7 @@ const MOST_RECENT_POST_QUERY = `
         id
         slug
         title
+        date
         featuredImage {
           node {
             mediaDetails {
