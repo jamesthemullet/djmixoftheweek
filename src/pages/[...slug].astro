@@ -207,12 +207,12 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
     <div set:html={singlePost.soundcloud.soundcloud} />
     <br />
     <div set:html={singlePost.mixcloud.mixcloud} />
-    <div class="share-container" x-data={`{ copied: false, title: ${JSON.stringify(singlePost.title)} }`}>
+    <div class="share-container" x-data={`{ copied: false, title: ${JSON.stringify(singlePost.title)}, canNativeShare: !!navigator.share }`}>
       <button
         class="share-button"
-        @click="copied = true; setTimeout(() => copied = false, 2000); navigator.clipboard.writeText(window.location.href).catch(() => {})"
+        @click="canNativeShare ? navigator.share({ title: title, url: window.location.href }) : (copied = true, setTimeout(() => copied = false, 2000), navigator.clipboard.writeText(window.location.href).catch(() => {}))"
         :class="{ 'share-button--copied': copied }"
-        x-text="copied ? 'Copied!' : 'Copy Link'"
+        x-text="canNativeShare ? 'Share' : (copied ? 'Copied!' : 'Copy Link')"
       ></button>
       <a
         class="share-button share-button--whatsapp"
