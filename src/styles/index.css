@@ -1,27 +1,3 @@
-.new-mix-banner {
-	position: sticky;
-	top: 0;
-	z-index: 10;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 1rem;
-	padding: 0.75rem 1rem;
-	background: var(--menu);
-	color: var(--color-text-inverse, #fff);
-}
-
-.new-mix-banner__dismiss {
-	flex-shrink: 0;
-	background: none;
-	border: none;
-	color: inherit;
-	cursor: pointer;
-	font-size: 1rem;
-	line-height: 1;
-	padding: 0.25rem;
-}
-
 .thumbnail-wrapper {
 	position: relative;
 	display: block;
