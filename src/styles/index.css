@@ -1,3 +1,47 @@
+.new-mix-banner {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.75rem 1rem;
+	background: var(--menu);
+	color: var(--color-text-inverse, #fff);
+}
+
+.new-mix-banner__dismiss {
+	flex-shrink: 0;
+	background: none;
+	border: none;
+	color: inherit;
+	cursor: pointer;
+	font-size: 1rem;
+	line-height: 1;
+	padding: 0.25rem;
+}
+
+.thumbnail-wrapper {
+	position: relative;
+	display: block;
+}
+
+.badge-new {
+	position: absolute;
+	top: 0.5rem;
+	left: 0.5rem;
+	background: var(--menu);
+	color: var(--color-text-inverse, #fff);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	padding: 0.2rem 0.5rem;
+	border-radius: 2px;
+	pointer-events: none;
+}
+
 ul {
 	display: flex;
 	flex-direction: column;
