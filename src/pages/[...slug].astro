@@ -20,7 +20,7 @@ const singleResponse = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/graph
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     query: `
-        query SinglePost($id: ID = "${slug}") {
+        query SinglePost($id: ID!) {
           post(idType: SLUG, id: $id) {
             date
             content
@@ -83,6 +83,7 @@ const singleResponse = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/graph
           }
         }
         `,
+    variables: { id: slug },
   }),
 });
 
