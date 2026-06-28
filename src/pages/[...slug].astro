@@ -135,6 +135,19 @@ if (genreSlug) {
   }
 }
 
+const sanitizeEmbed = (html: string, allowedHostname: string): string => {
+  if (!html) return '';
+  const srcMatch = html.match(/src="([^"]+)"/);
+  if (!srcMatch) return '';
+  try {
+    const url = new URL(srcMatch[1]);
+    if (url.hostname !== allowedHostname) return '';
+  } catch {
+    return '';
+  }
+  return html;
+};
+
 const siteUrlStr = String(Astro.site || 'http://localhost:4321');
 
 const processContent = (content: string) => {
@@ -205,9 +218,9 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
       </div>
     )}
     <div set:html={processContent(singlePost.content)} />
-    <div set:html={singlePost.soundcloud.soundcloud} />
+    <div set:html={sanitizeEmbed(singlePost.soundcloud.soundcloud, 'w.soundcloud.com')} />
     <br />
-    <div set:html={singlePost.mixcloud.mixcloud} />
+    <div set:html={sanitizeEmbed(singlePost.mixcloud.mixcloud, 'www.mixcloud.com')} />
     <div class="share-container" x-data={`{ copied: false, title: ${JSON.stringify(singlePost.title)}, canNativeShare: !!navigator.share }`}>
       <button
         class="share-button"
