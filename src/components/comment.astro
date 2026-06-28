@@ -2,6 +2,7 @@
 /** biome-ignore-all lint/correctness/noUnusedVariables: <explanation> */
 /** biome-ignore-all lint/correctness/noUnusedImports: <explanation> */
 
+import sanitizeHtml from "sanitize-html";
 import type { Comment as CommentType } from "../types";
 // Parent Astro File
 import AddComment from "./addComment.astro";
@@ -15,6 +16,11 @@ type Props = {
 };
 
 const { comment, postId, commentId } = Astro.props as Props;
+
+const safeContent = sanitizeHtml(comment.content.rendered, {
+	allowedTags: sanitizeHtml.defaults.allowedTags,
+	allowedAttributes: sanitizeHtml.defaults.allowedAttributes,
+});
 
 const formatDate = (dateString: string): string => {
 	const date = new Date(dateString);
@@ -54,7 +60,7 @@ const formatDate = (dateString: string): string => {
   <p>
     By <strong>{comment.author.node.name}</strong> on {formatDate(comment.date)}:
   </p>
-  <Fragment set:html={comment.content} />
+  <Fragment set:html={safeContent} />
 
   <button class="reply-btn" data-target-id={comment.id} aria-label={`Reply to ${comment.author.node.name}`}> Reply </button>
 

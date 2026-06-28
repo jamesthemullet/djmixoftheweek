@@ -24,12 +24,14 @@
     "@types/alpinejs": "^3.13.11",
     "@types/he": "^1.2.3",
     "@types/node": "^24.10.0",
+    "@types/sanitize-html": "^2.16.1",
     "accented": "^1.2.0",
     "alpinejs": "^3.14.9",
     "astro": "6.1.9",
     "astro-seo": "^1.0.0",
     "he": "^1.2.0",
     "picomatch": "^4.0.4",
+    "sanitize-html": "^2.17.5",
     "yaml": "^2.8.3"
   },
   "devDependencies": {
