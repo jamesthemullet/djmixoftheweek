@@ -19,6 +19,18 @@ jobs:
         run: yarn install
       - name: Run Biome lint
         run: yarn lint
+  knip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+      - name: Install dependencies
+        run: yarn install
+      - name: Run knip
+        run: yarn knip
   typecheck:
     needs: lint
     runs-on: ubuntu-latest
@@ -48,6 +60,7 @@ jobs:
   e2e:
     needs: [lint, typecheck]
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       PUBLIC_API_BASE_URL: https://blog.djmixoftheweek.com
     steps:
@@ -58,8 +71,8 @@ jobs:
           node-version: 24.x
       - name: Install dependencies
         run: yarn install
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+      - name: Install Playwright system deps
+        run: npx playwright install-deps chrome
       - name: Run e2e tests
         run: yarn test:e2e --project=chromium
   axe:

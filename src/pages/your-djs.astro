@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/post.css';
+---
+
+<BaseLayout pageTitle="Your DJs" description="Your favourite DJs on DJ Mix Of The Week">
+  <div
+    x-data
+    class="container your-djs-page"
+  >
+    <h1>Your DJs</h1>
+
+    <div x-show="$store.favDJs && $store.favDJs.items.length > 0" style="display:none">
+      <p>Your favourite DJs. Visit their page to see all their mixes.</p>
+      <ul class="your-djs-list">
+        <template x-for="dj in $store.favDJs.items" :key="dj.slug">
+          <li>
+            <a :href="`/dj/${dj.slug}`">
+              <span x-text="dj.name"></span>
+            </a>
+            <button
+              class="fav-btn fav-btn--inline fav-btn--active"
+              @click="$store.favDJs.toggle(dj.slug, dj.name)"
+              :aria-label="`Unfavourite ${dj.name}`"
+              aria-pressed="true"
+            >
+              <span aria-hidden="true">★</span>
+            </button>
+          </li>
+        </template>
+      </ul>
+    </div>
+
+    <div x-show="!$store.favDJs || $store.favDJs.items.length === 0" style="display:none">
+      <p>You haven't favourited any DJs yet.</p>
+      <p>Visit a <a href="/djs">DJ's page</a> and click the <strong>☆ Favourite</strong> button to save them here.</p>
+    </div>
+  </div>
+</BaseLayout>

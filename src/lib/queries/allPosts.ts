@@ -9,6 +9,18 @@ const ALL_POSTS_QUERY = `
             name
           }
         }
+        featuredImage {
+          node {
+            sourceUrl
+            srcSet
+          }
+        }
+        genres {
+          nodes {
+            name
+            slug
+          }
+        }
       }
       pageInfo {
         hasNextPage

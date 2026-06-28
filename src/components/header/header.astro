@@ -1,37 +1,15 @@
----/** biome-ignore-all lint/correctness/noUnusedVariables: <explanation> */
-
-// import { Image } from 'astro:assets';
-// import logo3 from "../../images/logos/rdaw-logo-3.webp";
+---
 import './header.css';
-import he from 'he';
-import type { PopularPost } from '../../types';
 import Search from '../search/search.astro';
-
-let popularPosts: PopularPost[] = [];
-
-try {
-  const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/wp-json/top-10/v1/popular-posts?post_types=post`);
-  if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
-  popularPosts = await response.json();
-} catch (error) {
-  console.error('Error fetching top posts:', error);
-}
-
-const currentUrl = Astro.site || 'http://localhost:4321';
-
-const decodeHtmlEntities = (text: string) => {
-  return he.decode(text);
-};
 ---
 
 <header>
   <div class="nav-container">
-    <!-- <a class="logo" href="/"><Image src={logo3} alt="A bird." width="100" height="100" /></a> -->
     <h1 class="sr-only">DJ Mix Of The Week</h1>
     <div class="title">
       <a href="/">DJ Mix Of The Week</a>
     </div>
-    <button id="nav-toggle" aria-label="Toggle Navigation Menu"><span></span></button>
+    <button id="nav-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="nav-menu"><span></span></button>
 
     <nav id="nav-menu">
       <a href="/">Home</a>
@@ -39,35 +17,35 @@ const decodeHtmlEntities = (text: string) => {
       <a href="/league-of-mixes">League Of Mixes</a>
       <a href="/genres">Posts By Genre</a>
       <a href="/djs">Posts By DJ</a>
+      <a href="/nationalities">Posts By Nationality</a>
+      <a href="/dj-leaderboard">DJ Leaderboard</a>
+      <a href="/your-djs" x-data :class="{ 'has-favs': $store.favDJs && $store.favDJs.items.length > 0 }">Your DJs</a>
     </nav>
     <section class="header-block search">
       <h2>Search:</h2>
       <Search />
     </section>
-    {
-      popularPosts && popularPosts.length > 0 && (
-        <div class="header-block popular-mixes">
-          <h2>Popular Mixes:</h2>
+    <section
+      class="header-block non-mobile recently-visited"
+      x-data="{ history: [] }"
+      x-init="history = JSON.parse(localStorage.getItem('djmotw_history') || '[]')"
+    >
+      <template x-if="history.length > 0">
+        <div>
+          <h2>Recently visited</h2>
           <ul>
-            {popularPosts.map((post) => (
+            <template x-for="mix in history" :key="mix.slug">
               <li>
-                {post?.title.rendered && (
-                  <a href={`${currentUrl}${post?.slug}`}>
-                    {decodeHtmlEntities(post?.title.rendered)} ({post?.visits})
-                  </a>
-                )}
+                <a :href="`/${mix.slug}`" x-text="mix.title"></a>
               </li>
-            ))}
+            </template>
           </ul>
         </div>
-      )
-    }
-    <section class="header-block non-mobile subscribe">
+      </template>
+    </section>
+<section class="header-block non-mobile subscribe">
       <h2>Be notified of new posts by e-mail</h2>
-      <p>
-        Please note that this feature is experimental - if you sign up you will also receive test
-        messages until I'm satisfied it is working!
-      </p>
+
       <form id="subscribe-form">
         <label for="name">Name:</label>
         <input autocomplete="name" type="text" id="name" required />
@@ -89,9 +67,11 @@ const decodeHtmlEntities = (text: string) => {
 
       if (isOpen) {
         navMenu.style.maxHeight = '';
+        navToggle.setAttribute('aria-expanded', 'false');
         navToggle.focus();
       } else {
         navMenu.style.maxHeight = navMenu.scrollHeight + 'px';
+        navToggle.setAttribute('aria-expanded', 'true');
         const firstLink = navMenu.querySelector<HTMLElement>('a, button');
         firstLink?.focus();
       }

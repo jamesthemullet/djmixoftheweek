@@ -180,6 +180,11 @@
 	}
 }
 
+#nav-menu a.has-favs::after {
+	content: ' ★';
+	font-size: 0.8em;
+}
+
 #nav-menu a:focus-visible {
 	outline: 2px solid var(--white);
 	outline-offset: 2px;
@@ -230,7 +235,8 @@
 	}
 
 	&.popular-mixes,
-	&.search {
+	&.search,
+	&.recently-visited {
 		display: none;
 
 		@media (min-width: 835px) {

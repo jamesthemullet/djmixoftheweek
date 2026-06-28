@@ -1,7 +1,4 @@
 ---
-/** biome-ignore-all lint/correctness/noUnusedImports: <explanation> */
-/** biome-ignore-all lint/correctness/noUnusedVariables: <explanation> */
-
 import Footer from "../components/footer/footer.astro";
 
 const { pageTitle, description, opengraphImage } = Astro.props;
@@ -21,8 +18,8 @@ import { SEO } from "astro-seo";
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    <link rel="preload" as="font" href="/fonts/Oswald-VariableFont_wght.ttf" type="font/ttf" crossorigin />
-    <link rel="preload" as="font" href="/fonts/Knewave-Regular.ttf" type="font/ttf" crossorigin />
+    <link rel="preload" as="font" href="/fonts/Oswald-VariableFont_wght.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="/fonts/Knewave-Regular.woff2" type="font/woff2" crossorigin />
     <link rel="canonical" href={`${import.meta.env.SITE}${Astro.url.pathname}`} />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
@@ -51,7 +48,7 @@ import { SEO } from "astro-seo";
       type="text/partytown"
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-29LKC2P8CY"></script>
-    <script type="text/partytown">
+    <script is:inline type="text/partytown">
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
@@ -66,6 +63,7 @@ import { SEO } from "astro-seo";
     accented();
   }
 </script>
+    <script src="../scripts/fav-djs.ts"></script>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>

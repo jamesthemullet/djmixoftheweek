@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/pages.css";
 import { Image } from "astro:assets";
+import { FALLBACK_IMAGE as fallbackImage } from "../consts";
 import { fetchGraphQL } from "../lib/api";
 import ALL_POSTS_QUERY from "../lib/queries/allPosts";
 import GET_SINGLE_PAGE from "../lib/queries/getSinglePage";
@@ -44,6 +45,27 @@ try {
 	console.error("Error fetching posts:", error);
 	allPosts = [];
 }
+
+const allGenres = Array.from(
+	new Map(
+		allPosts
+			.flatMap((post) => post.genres?.nodes ?? [])
+			.map((g: { slug: string; name: string }) => [g.slug, g])
+	).values()
+).sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
+
+const postsJson = JSON.stringify(
+	allPosts.map((post) => ({
+		slug: post.slug,
+		title: post.title,
+		rating: post.ratings?.nodes[0]?.name ?? null,
+		genres: post.genres?.nodes ?? [],
+		image: post.featuredImage?.node?.sourceUrl ?? null,
+		srcSet: post.featuredImage?.node?.srcSet ?? null,
+	}))
+);
+
+const genresJson = JSON.stringify(allGenres);
 ---
 
 <BaseLayout pageTitle={singlePost?.title} description={singlePost?.seo.opengraphDescription}>
@@ -61,16 +83,103 @@ try {
   <div class="container">
     <h2>{singlePost?.title}</h2>
     <div set:html={singlePost?.content} />
-    <ul class="league-of-mixes">
-      {
-        allPosts.map((post) => (
+
+    <div
+      x-data={`{
+        selectedGenre: '',
+        posts: ${postsJson},
+        genres: ${genresJson},
+        fallback: '${fallbackImage}',
+        get filteredPosts() {
+          return this.selectedGenre
+            ? this.posts.filter(p => p.genres.some(g => g.slug === this.selectedGenre))
+            : this.posts;
+        }
+      }`}
+    >
+      <div class="filter-controls">
+        <label for="genre-filter">Filter by genre:</label>
+        <select id="genre-filter" x-model="selectedGenre">
+          <option value="">All genres</option>
+          <template x-for="genre in genres" :key="genre.slug">
+            <option :value="genre.slug" x-text="genre.name"></option>
+          </template>
+        </select>
+      </div>
+
+      <div class="sort-controls">
+        <button id="btn-list" class="active" aria-pressed="true">List</button>
+        <button id="btn-cards" aria-pressed="false">Cards</button>
+      </div>
+
+      <ul class="league-of-mixes" id="view-list">
+        <template x-for="post in filteredPosts" :key="post.slug">
           <li>
-            <a href={`/${post.slug}`}>
-              {post.title} - {post.ratings?.nodes[0]?.name || 'No rating'}
-            </a>
+            <a :href="`/${post.slug}`" x-text="`${post.title} - ${post.rating || 'No rating'}`"></a>
           </li>
-        ))
-      }
-    </ul>
+        </template>
+      </ul>
+
+      <ul class="league-of-mixes-cards" id="view-cards" hidden>
+        <template x-for="(post, index) in filteredPosts" :key="post.slug">
+          <li class="league-card">
+            <div class="image-container">
+              <a :href="`/${post.slug}`" :aria-label="post.title">
+                <img
+                  :src="post.image || fallback"
+                  :srcset="post.srcSet"
+                  alt=""
+                  sizes="(max-width: 600px) 100vw, 700px"
+                  width="700"
+                  height="466.67"
+                  class="featured-image"
+                  :loading="index < 2 ? 'eager' : 'lazy'"
+                />
+              </a>
+              <span class="rating-badge" x-show="post.rating" x-text="post.rating"></span>
+            </div>
+            <h3>
+              <a :href="`/${post.slug}`" x-text="post.title"></a>
+            </h3>
+            <template x-if="post.genres.length > 0">
+              <ul class="genres">
+                <li>
+                  <template x-for="(genre, i) in post.genres" :key="genre.slug">
+                    <span>
+                      <a :href="`/genre/${genre.slug}`" rel="noopener noreferrer" x-text="genre.name"></a><span x-show="i < post.genres.length - 1">, </span>
+                    </span>
+                  </template>
+                </li>
+              </ul>
+            </template>
+          </li>
+        </template>
+      </ul>
+    </div>
   </div>
 </BaseLayout>
+
+<script>
+  const btnList = document.getElementById('btn-list');
+  const btnCards = document.getElementById('btn-cards');
+  const viewList = document.getElementById('view-list');
+  const viewCards = document.getElementById('view-cards');
+  btnList?.addEventListener('click', () => {
+    viewList?.removeAttribute('hidden');
+    viewCards?.setAttribute('hidden', '');
+    btnList.classList.add('active');
+    btnList.setAttribute('aria-pressed', 'true');
+    btnCards?.classList.remove('active');
+    btnCards?.setAttribute('aria-pressed', 'false');
+  });
+
+  btnCards?.addEventListener('click', () => {
+    viewCards?.removeAttribute('hidden');
+    viewList?.setAttribute('hidden', '');
+    btnCards.classList.add('active');
+    btnCards.setAttribute('aria-pressed', 'true');
+    btnList?.classList.remove('active');
+    btnList?.setAttribute('aria-pressed', 'false');
+  });
+
+</script>

@@ -22,6 +22,12 @@ const OTHER_POSTS_AFTER_FIRST_QUERY = `
             slug
           }
         }
+        dJs {
+          nodes {
+            name
+            slug
+          }
+        }
       }
       pageInfo {
         endCursor
