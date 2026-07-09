@@ -5,6 +5,7 @@ const MOST_RECENT_POST_QUERY = `
         id
         slug
         title
+        date
         featuredImage {
           node {
             mediaDetails {
@@ -16,6 +17,12 @@ const MOST_RECENT_POST_QUERY = `
           }
         }
         genres {
+          nodes {
+            name
+            slug
+          }
+        }
+        dJs {
           nodes {
             name
             slug

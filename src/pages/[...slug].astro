@@ -4,11 +4,10 @@ export const prerender = false;
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/post.css';
 import Comments from '../components/comments.astro';
+import { FALLBACK_IMAGE as fallbackImage } from '../consts';
 import { fetchGraphQL } from '../lib/api';
 import GET_GENRE_BY_SLUG from '../lib/queries/getGenreBySlug';
 import type { Comments as CommentsType, Post } from '../types';
-
-const fallbackImage = '/blog-placeholder-1.jpg';
 
 const { slug } = Astro.params;
 
@@ -21,7 +20,7 @@ const singleResponse = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/graph
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     query: `
-        query SinglePost($id: ID = "${slug}") {
+        query SinglePost($id: ID!) {
           post(idType: SLUG, id: $id) {
             date
             content
@@ -75,9 +74,16 @@ const singleResponse = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/graph
                 name
               }
             }
+            dJs {
+              nodes {
+                name
+                slug
+              }
+            }
           }
         }
         `,
+    variables: { id: slug },
   }),
 });
 
@@ -129,6 +135,19 @@ if (genreSlug) {
   }
 }
 
+const sanitizeEmbed = (html: string, allowedHostname: string): string => {
+  if (!html) return '';
+  const srcMatch = html.match(/src="([^"]+)"/);
+  if (!srcMatch) return '';
+  try {
+    const url = new URL(srcMatch[1]);
+    if (url.hostname !== allowedHostname) return '';
+  } catch {
+    return '';
+  }
+  return html;
+};
+
 const siteUrlStr = String(Astro.site || 'http://localhost:4321');
 
 const processContent = (content: string) => {
@@ -179,17 +198,54 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
     <date>
       Posted: {formattedDate}
     </date>
+    {singlePost.dJs?.nodes && singlePost.dJs.nodes.length > 0 && (
+      <div class="dj-byline">
+        {singlePost.dJs.nodes.map((dj: { name: string; slug: string }) => (
+          <span class="dj-byline__item">
+            <a href={`/dj/${dj.slug}`}>{dj.name}</a>
+            <button
+              x-data
+              @click={`$store.favDJs.toggle(${JSON.stringify(dj.slug)}, ${JSON.stringify(dj.name)})`}
+              :aria-pressed={`$store.favDJs.has(${JSON.stringify(dj.slug)})`}
+              class="fav-btn fav-btn--inline"
+              :class={`{ 'fav-btn--active': $store.favDJs.has(${JSON.stringify(dj.slug)}) }`}
+              :aria-label={`\`\${$store.favDJs.has(${JSON.stringify(dj.slug)}) ? 'Unfavourite' : 'Favourite'} ${dj.name}\``}
+            >
+              <span x-text={`$store.favDJs.has(${JSON.stringify(dj.slug)}) ? '★' : '☆'`} aria-hidden="true">☆</span>
+            </button>
+          </span>
+        ))}
+      </div>
+    )}
     <div set:html={processContent(singlePost.content)} />
-    <div set:html={singlePost.soundcloud.soundcloud} />
+    <div set:html={sanitizeEmbed(singlePost.soundcloud.soundcloud, 'w.soundcloud.com')} />
     <br />
-    <div set:html={singlePost.mixcloud.mixcloud} />
-    <div class="share-container" x-data="{ copied: false }">
+    <div set:html={sanitizeEmbed(singlePost.mixcloud.mixcloud, 'www.mixcloud.com')} />
+    <div class="share-container" x-data={`{ copied: false, title: ${JSON.stringify(singlePost.title)}, canNativeShare: !!navigator.share }`}>
       <button
         class="share-button"
-        @click="navigator.clipboard.writeText(window.location.href).then(() => { copied = true; setTimeout(() => copied = false, 2000) })"
+        @click="canNativeShare ? navigator.share({ title: title, url: window.location.href }) : (copied = true, setTimeout(() => copied = false, 2000), navigator.clipboard.writeText(window.location.href).catch(() => {}))"
         :class="{ 'share-button--copied': copied }"
-        x-text="copied ? 'Copied!' : 'Share This Mix'"
+        x-text="canNativeShare ? 'Share' : (copied ? 'Copied!' : 'Copy Link')"
       ></button>
+      <a
+        class="share-button share-button--whatsapp"
+        :href="'https://wa.me/?text=' + encodeURIComponent(title + ' ' + window.location.href)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >WhatsApp</a>
+<a
+        class="share-button share-button--bluesky"
+        :href="'https://bsky.app/intent/compose?text=' + encodeURIComponent(title + ' ' + window.location.href)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Bluesky</a>
+      <a
+        class="share-button share-button--threads"
+        :href="'https://www.threads.net/intent/post?text=' + encodeURIComponent(title + ' ' + window.location.href)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Threads</a>
     </div>
     <Comments threadedComments={threadedComments} postId={singlePost.postId} />
   </article>
@@ -197,12 +253,12 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
     <section class="more-in-genre container">
       <h2>More {genreName} mixes</h2>
       <ul>
-        {moreMixes.map((post, index) => post && (
+        {moreMixes.map((post) => post && (
           <li class="genres-list">
             <div class="image-container">
               <a href={`/${post.slug}`} aria-label={post.title}>
                 <img
-                  src={post.featuredImage?.node?.sourceUrl || '/blog-placeholder-1.jpg'}
+                  src={post.featuredImage?.node?.sourceUrl || fallbackImage}
                   srcset={post.featuredImage?.node?.srcSet}
                   alt=""
                   sizes="(max-width: 600px) 100vw, 700px"
@@ -224,4 +280,12 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
       </ul>
     </section>
   )}
+<script is:inline define:vars={{ mixSlug: slug, mixTitle: singlePost.title, mixImageUrl: singlePost.featuredImage?.node?.sourceUrl ?? '' }}>
+  const entry = { slug: mixSlug, title: mixTitle, imageUrl: mixImageUrl };
+  const key = 'djmotw_history';
+  const history = JSON.parse(localStorage.getItem(key) || '[]');
+  const filtered = history.filter((m) => m.slug !== mixSlug);
+  filtered.unshift(entry);
+  localStorage.setItem(key, JSON.stringify(filtered.slice(0, 3)));
+</script>
 </BaseLayout>

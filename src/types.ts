@@ -25,8 +25,15 @@ export type Post = {
     };
   };
   featured_image?: string;
+  date?: string;
   content: string;
   genres: {
+    nodes: {
+      name: string;
+      slug: string;
+    }[];
+  };
+  dJs?: {
     nodes: {
       name: string;
       slug: string;
@@ -50,6 +57,12 @@ export type Genre = {
   slug: string;
   posts: Post[];
   count: number;
+} | null;
+
+export type Nationalities = {
+  nationalities: {
+    nodes: Nationality[];
+  };
 } | null;
 
 export type DJs = {

@@ -23,6 +23,12 @@ const MORE_POSTS = `
             slug
           }
         }
+        dJs {
+          nodes {
+            name
+            slug
+          }
+        }
       }
         pageInfo {
           endCursor
