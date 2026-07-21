@@ -28,7 +28,7 @@
     "accented": "^1.2.0",
     "alpinejs": "^3.14.9",
     "sanitize-html": "^2.17.5",
-    "astro": "6.4.8",
+    "astro": "7.1.0",
     "astro-seo": "^1.0.0"
   },
   "devDependencies": {
