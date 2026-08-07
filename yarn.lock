@@ -1109,9 +1109,7 @@
   integrity sha512-6hIU3RQu45B+VNTY4Ru8ppFwjVS/S5qwYyGhBotmjxfEKk41I2DlGtRfGJndZ5+6lneE2pwloqunlOyZuX/XAw==
 
 "@playwright/test@^1.59.1":
-  version "1.59.1"
-  resolved "https://registry.yarnpkg.com/@playwright/test/-/test-1.59.1.tgz#5c4d38eac84a61527af466602ae20277685a02d6"
-  integrity sha512-PG6q63nQg5c9rIi4/Z5lR5IVF7yU5MqmKaPOe0HSc0O2cX1fPi96sUQu5j7eo4gKCkB2AnNGoWt7y4/Xx3Kcqg==
+  version "1.62.1"
   dependencies:
     playwright "1.59.1"
 
@@ -1439,9 +1437,7 @@
     "@types/unist" "*"
 
 "@types/node@^24.10.0":
-  version "24.12.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.12.3.tgz#c7e80a5ac6d7438bca394d95ee982b705b94e460"
-  integrity sha512-8oljBDGun9cIsZRJR6fkihn0TSXJI0UDOOhncYaERq6M0JMDoPLxyscwruJcb4GKS6dvK/d8xebYBg27h/duaQ==
+  version "24.13.3"
   dependencies:
     undici-types "~7.16.0"
 
@@ -1690,9 +1686,7 @@ abbrev@^3.0.0:
   integrity sha512-AO2ac6pjRB3SJmGJo+v5/aK6Omggp6fsLrs6wN9bd35ulu4cCwaAU9+7ZhXjeqHVkaHThLuzH0nZr0YpCDhygg==
 
 accented@^1.2.0:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/accented/-/accented-1.2.6.tgz#d49f526809c377246f698dd1644f654d981cd9e8"
-  integrity sha512-mVr9BDW3TWjQLEE7diRKUoZYvbV5Dh5fDddnxgsVoV5lp+zsNiUZMF/ai9TSi2HobUEx7ujFGgE/AGtJUB3Y1w==
+  version "1.4.0"
   dependencies:
     "@preact/signals-core" "^1.14.1"
     axe-core "^4.11.2"
@@ -2601,9 +2595,7 @@ kleur@^4.1.5:
   integrity sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==
 
 knip@^6.0.0:
-  version "6.12.2"
-  resolved "https://registry.yarnpkg.com/knip/-/knip-6.12.2.tgz#a0e072238b143f7ef82ac0928fff7468a82f6407"
-  integrity sha512-RcZpT1sVziKZgDk1F0hAcp+bq71VJAF8vg1Y9ZLXc1+UXQaMm1rjiUqpJQTIj+lqwmiBQT19/u7ikgazs23cvA==
+  version "6.31.0"
   dependencies:
     fdir "^6.5.0"
     formatly "^0.3.0"
@@ -3332,9 +3324,7 @@ rolldown@~1.2.0:
     "@rolldown/binding-win32-x64-msvc" "1.2.1"
 
 sanitize-html@^2.17.5:
-  version "2.17.5"
-  resolved "https://registry.yarnpkg.com/sanitize-html/-/sanitize-html-2.17.5.tgz#bef1d103773760e1c52a01b1f58178bee9c10556"
-  integrity sha512-ZmU1joGRrvoyctKIiuwUxqR6moLoU2Wk+2bMccN6f7UwhAmwYDvWziqPxRDDN2Qip62NqnIrVrT9akbL6Wretg==
+  version "2.17.6"
   dependencies:
     deepmerge "^4.2.2"
     escape-string-regexp "^4.0.0"
@@ -3724,9 +3714,7 @@ vfile@^6.0.0:
     vfile-message "^4.0.0"
 
 "vite@^6.0.0 || ^7.0.0 || ^8.0.0", vite@^8.0.16:
-  version "8.1.4"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-8.1.4.tgz#3cd711f31de805e5154ab47948349e693314d581"
-  integrity sha512-bTT9PsdWO+MQMNG9ZXIP/qM9wGh37DFxTV/sPq9cFpHr3w4jkgef032PkAL9jAqhk3Nz8NQw3O8n6/xFkqO4QQ==
+  version "8.2.0"
   dependencies:
     lightningcss "^1.32.0"
     picomatch "^4.0.5"
@@ -3755,9 +3743,7 @@ vitefu@^1.1.2:
   integrity sha512-zpKATdUbzbsycPFBN71nS2uzBUQiVnFoOrr2rvqv34S1lcAgMKKkjWleLGeiJlZ8lwCXvtWaRn7R3ZC16SYRuw==
 
 vitest@^4.1.5:
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/vitest/-/vitest-4.1.5.tgz#cda189c0cd9dd1c920be477c0f371b64ec14782a"
-  integrity sha512-9Xx1v3/ih3m9hN+SbfkUyy0JAs72ap3r7joc87XL6jwF0jGg6mFBvQ1SrwaX+h8BlkX6Hz9shdd1uo6AF+ZGpg==
+  version "4.1.10"
   dependencies:
     "@vitest/expect" "4.1.5"
     "@vitest/mocker" "4.1.5"
