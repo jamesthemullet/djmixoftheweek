@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 .vercel
 /test-results
+
+# local claude code settings
+.claude/settings.local.json
