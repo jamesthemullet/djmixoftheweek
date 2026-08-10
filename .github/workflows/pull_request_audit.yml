@@ -10,7 +10,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Use Node.js 18.x
         uses: actions/setup-node@v6
         with:
@@ -22,7 +22,7 @@ jobs:
   knip:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Use Node.js 24.x
         uses: actions/setup-node@v6
         with:
@@ -35,7 +35,7 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Use Node.js 18.x
         uses: actions/setup-node@v6
         with:
@@ -48,7 +48,7 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Use Node.js 24.x
         uses: actions/setup-node@v6
         with:
@@ -64,7 +64,7 @@ jobs:
     env:
       PUBLIC_API_BASE_URL: https://blog.djmixoftheweek.com
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Use Node.js 24.x
         uses: actions/setup-node@v6
         with:
@@ -81,7 +81,7 @@ jobs:
     env:
       GITHUB_API_SECRET: ${{ secrets.PIPELINE_GITHUB_API_SECRET }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Use Node.js 18.x
         uses: actions/setup-node@v6
         with:
