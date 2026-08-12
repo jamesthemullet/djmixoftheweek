@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@astrojs/alpinejs@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@astrojs/alpinejs/-/alpinejs-0.5.0.tgz#55f58af5ec8fe902231e7c28605e2c668323233f"
-  integrity sha512-mORFY/ljzz6LPqkBPBd4v2i6yMhTkySgopIpVyKODEoJegp1PuX2Hri589P1oJzICGHSY8Q28OIyF/50Cf/lMQ==
+"@astrojs/alpinejs@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@astrojs/alpinejs/-/alpinejs-1.0.0.tgz#4344fc6e140d1a35e4d37337d1964d7b0a89d33f"
+  integrity sha512-xmLFD8MBunXCG39nS3dmINQfdhqlDNbHAYyw8n6jfLGL/AFeyYOtz6p1EtXX8NEbGLHk7mUOHoaC3j1WudUYoQ==
 
 "@astrojs/check@0.9.10":
   version "0.9.10"
