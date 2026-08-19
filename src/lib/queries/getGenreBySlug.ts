@@ -22,6 +22,11 @@ const GET_GENRE_BY_SLUG = `
           }
           title
           date
+          ratings {
+            nodes {
+              name
+            }
+          }
           genres {
             nodes {
               name
