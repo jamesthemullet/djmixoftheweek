@@ -22,6 +22,11 @@ const GET_DJ_BY_SLUG = `
           }
           title
           date
+          ratings {
+            nodes {
+              name
+            }
+          }
           genres {
             nodes {
               name

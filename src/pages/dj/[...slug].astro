@@ -4,6 +4,7 @@ export const prerender = false;
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fetchGraphQL } from '../../lib/api';
 import '../../styles/post.css';
+import '../../styles/pages.css';
 import { FALLBACK_IMAGE as fallbackImage } from '../../consts';
 import GET_DJ_BY_SLUG from '../../lib/queries/getDJBySlug';
 import { capitaliseAndRemoveHyphens } from '../../lib/utils';
@@ -34,6 +35,17 @@ try {
   console.error('Error fetching posts by DJ');
 }
 
+const postsJson = JSON.stringify(
+  postsByDJ.map((post) => ({
+    slug: post?.slug,
+    title: post?.title,
+    date: post?.date,
+    rating: post?.ratings?.nodes[0]?.name ?? null,
+    genres: post?.genres.nodes ?? [],
+    image: post?.featuredImage?.node?.sourceUrl ?? null,
+    srcSet: post?.featuredImage?.node?.srcSet ?? null,
+  }))
+);
 ---
 
 <BaseLayout
@@ -63,44 +75,70 @@ try {
         </p>
       </section>
     ) : (
-      <ul>
-        {postsByDJ.map((post, index) => (
-          <li class="genres-list">
-            <div class="image-container">
-              <a href={`/${post?.slug}`}>
-                <img
-                  src={post?.featuredImage?.node?.sourceUrl || fallbackImage}
-                  srcset={post?.featuredImage?.node?.srcSet}
-                  alt=""
-                  sizes="(max-width: 600px) 100vw, 700px"
-                  width={700}
-                  height={466.67}
-                  class="featured-image"
-                  loading={index < 2 ? 'eager' : 'lazy'}
-                />
-                {post?.featuredImage?.node?.caption && (
-                  <figcaption set:html={post.featuredImage.node.caption} />
-                )}
-              </a>
-            </div>
-            <h2>
-              <a href={`/${post?.slug}`}>{post?.title}</a>
-            </h2>
-            <ul class="genres">
-              <li>
-                {post?.genres.nodes.map((genre, index) => (
-                  <span>
-                    <a href={`/genre/${genre.slug}`} rel="noopener noreferrer">
-                      {genre.name}
-                    </a>
-                    {index < post.genres.nodes.length - 1 && ', '}
-                  </span>
-                ))}
-              </li>
-            </ul>
-          </li>
-        ))}
-      </ul>
+      <div
+        x-data={`{
+          sortBy: 'newest',
+          posts: ${postsJson},
+          fallback: '${fallbackImage}',
+          get sortedPosts() {
+            if (this.sortBy === 'rating') {
+              return [...this.posts].sort((a, b) => (Number.parseFloat(b.rating) || 0) - (Number.parseFloat(a.rating) || 0));
+            }
+            return [...this.posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+          }
+        }`}
+      >
+        <div class="sort-controls">
+          <button
+            @click="sortBy = 'rating'"
+            :class="{ active: sortBy === 'rating' }"
+            :aria-pressed="sortBy === 'rating'"
+          >
+            Highest Rated
+          </button>
+          <button
+            @click="sortBy = 'newest'"
+            :class="{ active: sortBy === 'newest' }"
+            :aria-pressed="sortBy === 'newest'"
+          >
+            Newest
+          </button>
+        </div>
+
+        <ul>
+          <template x-for="(post, index) in sortedPosts" :key="post.slug">
+            <li class="genres-list">
+              <div class="image-container">
+                <a :href="`/${post.slug}`">
+                  <img
+                    :src="post.image || fallback"
+                    :srcset="post.srcSet"
+                    alt=""
+                    sizes="(max-width: 600px) 100vw, 700px"
+                    width="700"
+                    height="466.67"
+                    class="featured-image"
+                    :loading="index < 2 ? 'eager' : 'lazy'"
+                  />
+                </a>
+                <span class="rating-badge" x-show="post.rating" x-text="post.rating"></span>
+              </div>
+              <h2>
+                <a :href="`/${post.slug}`" x-text="post.title"></a>
+              </h2>
+              <ul class="genres">
+                <li>
+                  <template x-for="(genre, i) in post.genres" :key="genre.slug">
+                    <span>
+                      <a :href="`/genre/${genre.slug}`" rel="noopener noreferrer" x-text="genre.name"></a><span x-show="i < post.genres.length - 1">, </span>
+                    </span>
+                  </template>
+                </li>
+              </ul>
+            </li>
+          </template>
+        </ul>
+      </div>
     )
   }
 </BaseLayout>
