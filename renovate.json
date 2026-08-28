@@ -14,6 +14,10 @@
     {
       "matchPackageNames": ["sanitize-html"],
       "enabled": false
+    },
+    {
+      "matchPackageNames": ["nanoid"],
+      "enabled": false
     }
   ]
 }
