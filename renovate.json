@@ -1,20 +1,19 @@
 {
-  "extends": [
-    "config:recommended"
-  ],
-  "prConcurrentLimit": 2,
+  "extends": ["config:recommended"],
+  "prConcurrentLimit": 3,
   "prHourlyLimit": 10,
   "timezone": "Europe/London",
   "schedule": ["* 2-5 * * *"],
   "packageRules": [
     {
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
+      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch",
       "minimumReleaseAge": "3 days"
+    },
+    {
+      "matchPackageNames": ["sanitize-html"],
+      "enabled": false
     }
   ]
 }
