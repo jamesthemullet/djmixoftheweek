@@ -12,7 +12,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 ## 1. Test coverage — unit gaps and e2e
 
 - [ ] `src/lib/queries/getDJBySlug.ts` has 0% unit coverage, unlike sibling query files (found: 2026-09-01)
-- [x] `src/lib/queries/getDJsWithRatings.ts` has 0% unit coverage — no assertions on its query string/operation name (found: 2026-09-01) (resolved: 2026-09-02, PR #TBD)
+- [x] `src/lib/queries/getDJsWithRatings.ts` has 0% unit coverage — no assertions on its query string/operation name (found: 2026-09-01) (resolved: 2026-09-02, PR #384)
 - [ ] `src/lib/queries/getNationalityNames.ts` has 0% unit coverage, untested alongside its DJ/genre counterparts (found: 2026-09-01)
 - [ ] `src/lib/constants.ts` has 0% unit coverage (e.g. `FEATURED_IMAGE_SIZE` never asserted/exercised) (found: 2026-09-01)
 - [ ] `src/scripts/load-more.ts` has 0% unit coverage — cursor tracking, `endCursor` update, empty-cursor button-hide behavior, DOM fragment construction, and the `catch` error-recovery path are entirely untested at the unit level (found: 2026-09-01)
