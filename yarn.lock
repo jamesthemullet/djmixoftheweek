@@ -1819,6 +1819,11 @@ csso@^5.0.5:
   dependencies:
     css-tree "~2.2.0"
 
+dayjs@^1.11.7:
+  version "1.11.23"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.23.tgz#b0a363506dde5f36cf5075e42ebe8115165a8c79"
+  integrity sha512-QDTCU0M0MxR3hQfnlDJfwekQiaanm1ubOD231u73WBckQ/fsamwRLiE2GBz6D3a/xF1NgfiDLJjXBa1hYOYTtQ==
+
 debug@4:
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.4.3.tgz#c6ae432d9bd9662582fce08709b038c58e9e3d6a"
@@ -2239,7 +2244,7 @@ html-void-elements@^3.0.0:
   resolved "https://registry.yarnpkg.com/html-void-elements/-/html-void-elements-3.0.0.tgz#fc9dbd84af9e747249034d4d62602def6517f1d7"
   integrity sha512-bEqo66MRXsUGxWHV5IP0PUiAWwoEjba4VCzg0LjFJBpchPaTfyfCKTG6bc5F8ucKec3q5y6qOdGyYTSBEvhCrg==
 
-htmlparser2@^10.1, htmlparser2@^12.0.0, htmlparser2@^8.0.0:
+htmlparser2@^10.1, htmlparser2@^12.0.0:
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-12.0.0.tgz#6a679d0f57c525990f9cbad8a585b320ecc6d198"
   integrity sha512-Tz7u1i95/g2x2jz81+x0FBVhBhY5aRTvD3tXXdFaljuNdzDLJ8UGNRrTcj2cgQvAg3iW/h77Fz15nLW0L0CrZw==
@@ -2362,6 +2367,13 @@ knip@^6.0.0:
     unbash "^4.0.10"
     yaml "^2.9.0"
     zod "^4.4.3"
+
+launder@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/launder/-/launder-1.7.1.tgz#ef7155ab0c3ddec2323089c961d2e9a249aa5b0d"
+  integrity sha512-mU6WRz5EusL9ZZuiZ5SO4Y6C0P9PAUR9iwdb6bzj4KDihm28DiHFw+/yk9DBH4f+Pv1wuzQ4e2jV3oQ7mkIqvw==
+  dependencies:
+    dayjs "^1.11.7"
 
 lightningcss-android-arm64@1.33.0:
   version "1.33.0"
@@ -2961,15 +2973,16 @@ rolldown@~1.2.4:
     "@rolldown/binding-win32-arm64-msvc" "1.2.5"
     "@rolldown/binding-win32-x64-msvc" "1.2.5"
 
-sanitize-html@2.17.0:
-  version "2.17.0"
-  resolved "https://registry.yarnpkg.com/sanitize-html/-/sanitize-html-2.17.0.tgz#a8f66420a6be981d8fe412e3397cc753782598e4"
-  integrity sha512-dLAADUSS8rBwhaevT12yCezvioCA+bmUTPH/u57xKPT8d++voeYE6HeluA/bPbQ15TwDBG2ii+QZIEmYx8VdxA==
+sanitize-html@2.17.7:
+  version "2.17.7"
+  resolved "https://registry.yarnpkg.com/sanitize-html/-/sanitize-html-2.17.7.tgz#b16417c348ea5f99c2451964b6e6621ca6b1da94"
+  integrity sha512-PGtEkc9cbnedU3s9TmzDbpsZ8w086g/0Q8k8/oIO1NLNU3i5k9yn835CrjJSajp1KMmkisbO1qPXxNKO3welAg==
   dependencies:
     deepmerge "^4.2.2"
     escape-string-regexp "^4.0.0"
-    htmlparser2 "^8.0.0"
+    htmlparser2 "^12.0.0"
     is-plain-object "^5.0.0"
+    launder "^1.7.1"
     parse-srcset "^1.0.2"
     postcss "^8.3.11"
 
