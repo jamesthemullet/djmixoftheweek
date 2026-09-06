@@ -36,4 +36,25 @@ describe('fetchGraphQL', () => {
 
     await expect(fetchGraphQL('{ badField }')).rejects.toThrow('GraphQL Error');
   });
+
+  it('rejects when fetch itself rejects (network failure)', async () => {
+    mockFetch.mockRejectedValue(new Error('Network request failed'));
+
+    await expect(fetchGraphQL('{ posts { nodes { id } } }')).rejects.toThrow(
+      'Network request failed',
+    );
+  });
+
+  it('rejects when response.json() throws on malformed JSON', async () => {
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: async () => {
+        throw new SyntaxError('Unexpected token in JSON');
+      },
+    });
+
+    await expect(fetchGraphQL('{ posts { nodes { id } } }')).rejects.toThrow(
+      'Unexpected token in JSON',
+    );
+  });
 });
