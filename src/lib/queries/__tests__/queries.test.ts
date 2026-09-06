@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import ALL_POSTS_QUERY from '../allPosts';
 import GET_ALL_DJS from '../getAllDJs';
 import GET_ALL_NATIONALITIES from '../getAllNationalities';
+import GET_DJ_BY_SLUG from '../getDJBySlug';
 import GET_DJ_NAMES from '../getDJNames';
 import GET_GENRE_BY_SLUG from '../getGenreBySlug';
 import GET_GENRE_NAMES from '../getGenreNames';
@@ -69,6 +70,22 @@ describe('getDJNames query', () => {
     expect(GET_DJ_NAMES).toContain('name');
     expect(GET_DJ_NAMES).toContain('count');
     expect(GET_DJ_NAMES).toContain('slug');
+  });
+});
+
+describe('getDJBySlug query', () => {
+  it('is a non-empty string', () => {
+    expect(typeof GET_DJ_BY_SLUG).toBe('string');
+    expect(GET_DJ_BY_SLUG.trim().length).toBeGreaterThan(0);
+  });
+  it('contains the GetDJBySlug operation name', () => {
+    expect(GET_DJ_BY_SLUG).toContain('GetDJBySlug');
+  });
+  it('uses the $slug variable and requests dJ and posts fields', () => {
+    expect(GET_DJ_BY_SLUG).toContain('$slug');
+    expect(GET_DJ_BY_SLUG).toContain('dJ');
+    expect(GET_DJ_BY_SLUG).toContain('posts');
+    expect(GET_DJ_BY_SLUG).toContain('pageInfo');
   });
 });
 
