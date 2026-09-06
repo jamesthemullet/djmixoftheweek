@@ -8,6 +8,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 
 - 2026-09-01 — initial audit: 62 findings (7 test coverage, 5 accessibility, 3 performance, 12 SEO, 5 responsive/UX, 13 security, 5 README alignment, 21 code quality)
 - 2026-09-01 — resolved: `src/lib/queries/getDJBySlug.ts` unit coverage (test coverage section)
+- 2026-09-05 — resolved test coverage item: `src/lib/api.ts`'s `fetchGraphQL` error paths (fetch rejection, malformed JSON)
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -17,7 +18,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [ ] `src/lib/constants.ts` has 0% unit coverage (e.g. `FEATURED_IMAGE_SIZE` never asserted/exercised) (found: 2026-09-01)
 - [ ] `src/scripts/load-more.ts` has 0% unit coverage — cursor tracking, `endCursor` update, empty-cursor button-hide behavior, DOM fragment construction, and the `catch` error-recovery path are entirely untested at the unit level (found: 2026-09-01)
 - [ ] `src/scripts/fav-djs.ts` has 0% unit coverage — no unit test exercises its logic at all (found: 2026-09-01)
-- [ ] `src/lib/api.ts`'s `fetchGraphQL` has no test for `fetch()` itself rejecting/throwing (network failure) or `response.json()` throwing on malformed JSON (found: 2026-09-01)
+- [x] `src/lib/api.ts`'s `fetchGraphQL` has no test for `fetch()` itself rejecting/throwing (network failure) or `response.json()` throwing on malformed JSON (found: 2026-09-01) (resolved: 2026-09-05, PR #389)
 - [ ] Add e2e spec: clicking a nationality on the nationalities page navigates to that nationality and lists posts (mirroring `genres.spec.ts`) — no spec currently touches `/nationalities` or `/nationality/[slug]` (found: 2026-09-01)
 - [ ] Add e2e spec: load-more button appends posts to the list on a genre page — load-more is currently only tested on the homepage list (found: 2026-09-01)
 - [ ] Add e2e spec: DJ filter select navigates to the selected DJ page — filter-select navigation is currently tested only for the genre filter on the homepage (found: 2026-09-01)
