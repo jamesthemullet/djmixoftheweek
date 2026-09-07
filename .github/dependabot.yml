@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # sanitize-html >2.17.0 pulls in htmlparser2 >=9, which ships as an
+      # ESM-only package ("type": "module"). sanitize-html still requires()
+      # it, which crashes Vercel's CJS Node runtime with ERR_REQUIRE_ESM and
+      # takes down every slug page. Keep both pinned until sanitize-html
+      # switches to a dynamic import().
+      - dependency-name: "sanitize-html"
+      - dependency-name: "htmlparser2"
