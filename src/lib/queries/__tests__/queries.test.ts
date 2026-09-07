@@ -7,6 +7,7 @@ import GET_DJ_NAMES from '../getDJNames';
 import GET_DJS_WITH_RATINGS from '../getDJsWithRatings';
 import GET_GENRE_BY_SLUG from '../getGenreBySlug';
 import GET_GENRE_NAMES from '../getGenreNames';
+import GET_NATIONALITY_NAMES from '../getNationalityNames';
 import GET_SINGLE_PAGE from '../getSinglePage';
 import MORE_POSTS from '../morePosts';
 import MOST_RECENT_POST_QUERY from '../mostRecentPost';
@@ -136,6 +137,23 @@ describe('getGenreNames query', () => {
     expect(GET_GENRE_NAMES).toContain('name');
     expect(GET_GENRE_NAMES).toContain('count');
     expect(GET_GENRE_NAMES).toContain('slug');
+  });
+});
+
+describe('getNationalityNames query', () => {
+  it('is a non-empty string', () => {
+    expect(typeof GET_NATIONALITY_NAMES).toBe('string');
+    expect(GET_NATIONALITY_NAMES.trim().length).toBeGreaterThan(0);
+  });
+  it('contains the GetNationalityNames operation name', () => {
+    expect(GET_NATIONALITY_NAMES).toContain('GetNationalityNames');
+  });
+  it('requests nationalities with id, name, count, and slug', () => {
+    expect(GET_NATIONALITY_NAMES).toContain('nationalities');
+    expect(GET_NATIONALITY_NAMES).toContain('id');
+    expect(GET_NATIONALITY_NAMES).toContain('name');
+    expect(GET_NATIONALITY_NAMES).toContain('count');
+    expect(GET_NATIONALITY_NAMES).toContain('slug');
   });
 });
 
