@@ -8,12 +8,13 @@ audit adds new findings to the bottom of each section and leaves checked items a
 
 - 2026-09-01 — initial audit: 62 findings (7 test coverage, 5 accessibility, 3 performance, 12 SEO, 5 responsive/UX, 13 security, 5 README alignment, 21 code quality)
 - 2026-09-01 — resolved: `src/lib/queries/getDJBySlug.ts` unit coverage (test coverage section)
+- 2026-09-02 — resolved test coverage item 2: added unit coverage for `getDJsWithRatings` query
 - 2026-09-05 — resolved test coverage item: `src/lib/api.ts`'s `fetchGraphQL` error paths (fetch rejection, malformed JSON)
 
 ## 1. Test coverage — unit gaps and e2e
 
 - [x] `src/lib/queries/getDJBySlug.ts` has 0% unit coverage, unlike sibling query files (found: 2026-09-01) (resolved: 2026-09-01, PR #382)
-- [ ] `src/lib/queries/getDJsWithRatings.ts` has 0% unit coverage — no assertions on its query string/operation name (found: 2026-09-01)
+- [x] `src/lib/queries/getDJsWithRatings.ts` has 0% unit coverage — no assertions on its query string/operation name (found: 2026-09-01) (resolved: 2026-09-02, PR #384)
 - [ ] `src/lib/queries/getNationalityNames.ts` has 0% unit coverage, untested alongside its DJ/genre counterparts (found: 2026-09-01)
 - [ ] `src/lib/constants.ts` has 0% unit coverage (e.g. `FEATURED_IMAGE_SIZE` never asserted/exercised) (found: 2026-09-01)
 - [ ] `src/scripts/load-more.ts` has 0% unit coverage — cursor tracking, `endCursor` update, empty-cursor button-hide behavior, DOM fragment construction, and the `catch` error-recovery path are entirely untested at the unit level (found: 2026-09-01)

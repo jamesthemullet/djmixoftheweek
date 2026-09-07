@@ -4,6 +4,7 @@ import GET_ALL_DJS from '../getAllDJs';
 import GET_ALL_NATIONALITIES from '../getAllNationalities';
 import GET_DJ_BY_SLUG from '../getDJBySlug';
 import GET_DJ_NAMES from '../getDJNames';
+import GET_DJS_WITH_RATINGS from '../getDJsWithRatings';
 import GET_GENRE_BY_SLUG from '../getGenreBySlug';
 import GET_GENRE_NAMES from '../getGenreNames';
 import GET_SINGLE_PAGE from '../getSinglePage';
@@ -70,6 +71,22 @@ describe('getDJNames query', () => {
     expect(GET_DJ_NAMES).toContain('name');
     expect(GET_DJ_NAMES).toContain('count');
     expect(GET_DJ_NAMES).toContain('slug');
+  });
+});
+
+describe('getDJsWithRatings query', () => {
+  it('is a non-empty string', () => {
+    expect(typeof GET_DJS_WITH_RATINGS).toBe('string');
+    expect(GET_DJS_WITH_RATINGS.trim().length).toBeGreaterThan(0);
+  });
+  it('contains the GetDJsWithRatings operation name', () => {
+    expect(GET_DJS_WITH_RATINGS).toContain('GetDJsWithRatings');
+  });
+  it('uses the $djsAfter variable and requests dJs, ratings, and pageInfo fields', () => {
+    expect(GET_DJS_WITH_RATINGS).toContain('$djsAfter');
+    expect(GET_DJS_WITH_RATINGS).toContain('dJs');
+    expect(GET_DJS_WITH_RATINGS).toContain('ratings');
+    expect(GET_DJS_WITH_RATINGS).toContain('pageInfo');
   });
 });
 
