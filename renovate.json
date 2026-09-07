@@ -16,6 +16,10 @@
       "enabled": false
     },
     {
+      "matchPackageNames": ["htmlparser2"],
+      "enabled": false
+    },
+    {
       "matchPackageNames": ["nanoid"],
       "enabled": false
     }
