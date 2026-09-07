@@ -23,7 +23,7 @@
     "@astrojs/rss": "4.0.19",
     "@astrojs/vercel": "11.0.10",
     "@types/alpinejs": "^3.13.11",
-    "@types/node": "^24.10.0",
+    "@types/node": "^26.4.1",
     "@types/sanitize-html": "^2.16.1",
     "accented": "^1.2.0",
     "alpinejs": "^3.14.9",
