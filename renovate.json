@@ -1,27 +1,21 @@
 {
-  "extends": ["config:recommended"],
-  "prConcurrentLimit": 3,
+  "extends": [
+    "config:recommended"
+  ],
+  "prConcurrentLimit": 2,
   "prHourlyLimit": 10,
   "timezone": "Europe/London",
   "schedule": ["* 2-5 * * *"],
+  "rebaseWhen": "conflicted",
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch",
       "minimumReleaseAge": "3 days"
-    },
-    {
-      "matchPackageNames": ["sanitize-html"],
-      "enabled": false
-    },
-    {
-      "matchPackageNames": ["htmlparser2"],
-      "enabled": false
-    },
-    {
-      "matchPackageNames": ["nanoid"],
-      "enabled": false
     }
   ]
 }
