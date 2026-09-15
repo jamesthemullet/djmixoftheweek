@@ -18,7 +18,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/lib/queries/getDJsWithRatings.ts` has 0% unit coverage — no assertions on its query string/operation name (found: 2026-09-01) (resolved: 2026-09-02, PR #384)
 - [x] `src/lib/queries/getNationalityNames.ts` has 0% unit coverage, untested alongside its DJ/genre counterparts (found: 2026-09-01)
 - [x] `src/lib/constants.ts` has 0% unit coverage (e.g. `FEATURED_IMAGE_SIZE` never asserted/exercised) (found: 2026-09-01)
-- [x] `src/scripts/load-more.ts` has 0% unit coverage — cursor tracking, `endCursor` update, empty-cursor button-hide behavior, DOM fragment construction, and the `catch` error-recovery path are entirely untested at the unit level (found: 2026-09-01) (resolved: 2026-09-15, PR #TBD)
+- [x] `src/scripts/load-more.ts` has 0% unit coverage — cursor tracking, `endCursor` update, empty-cursor button-hide behavior, DOM fragment construction, and the `catch` error-recovery path are entirely untested at the unit level (found: 2026-09-01) (resolved: 2026-09-15, PR #402)
 - [ ] `src/scripts/fav-djs.ts` has 0% unit coverage — no unit test exercises its logic at all (found: 2026-09-01)
 - [x] `src/lib/api.ts`'s `fetchGraphQL` has no test for `fetch()` itself rejecting/throwing (network failure) or `response.json()` throwing on malformed JSON (found: 2026-09-01) (resolved: 2026-09-05, PR #389)
 - [ ] Add e2e spec: clicking a nationality on the nationalities page navigates to that nationality and lists posts (mirroring `genres.spec.ts`) — no spec currently touches `/nationalities` or `/nationality/[slug]` (found: 2026-09-01)
