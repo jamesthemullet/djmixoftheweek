@@ -1,3 +1,5 @@
+export {};
+
 type FavDJ = { slug: string; name: string };
 
 document.addEventListener('alpine:init', () => {
