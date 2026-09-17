@@ -6,6 +6,7 @@ import '../styles/post.css';
 import Comments from '../components/comments.astro';
 import { FALLBACK_IMAGE as fallbackImage } from '../consts';
 import { fetchGraphQL } from '../lib/api';
+import { addIframeTitle, sanitizeEmbed } from '../lib/embeds';
 import GET_GENRE_BY_SLUG from '../lib/queries/getGenreBySlug';
 import type { Comments as CommentsType, Post } from '../types';
 
@@ -135,19 +136,6 @@ if (genreSlug) {
   }
 }
 
-const sanitizeEmbed = (html: string, allowedHostname: string): string => {
-  if (!html) return '';
-  const srcMatch = html.match(/src="([^"]+)"/);
-  if (!srcMatch) return '';
-  try {
-    const url = new URL(srcMatch[1]);
-    if (url.hostname !== allowedHostname) return '';
-  } catch {
-    return '';
-  }
-  return html;
-};
-
 const siteUrlStr = String(Astro.site || 'http://localhost:4321');
 
 const processContent = (content: string) => {
@@ -155,11 +143,13 @@ const processContent = (content: string) => {
     ? `${siteUrlStr}/`
     : 'https://djmixoftheweek.com/';
 
-  return content
+  const rewritten = content
     .replace(/https:\/\/blog\.djmixoftheweek\.com\//g, destBase)
     .replace(/href="\/\//g, 'href="https://')
     .replace(/blog\.djmixoftheweek\.com/g, destBase.replace(/https?:\/\//, '').replace(/\/$/, ''))
     .replace(/([^:]\/)\/+/g, '$1');
+
+  return addIframeTitle(rewritten, 'Embedded video');
 };
 
 const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
@@ -218,9 +208,9 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
       </div>
     )}
     <div set:html={processContent(singlePost.content)} />
-    <div set:html={sanitizeEmbed(singlePost.soundcloud.soundcloud, 'w.soundcloud.com')} />
+    <div set:html={sanitizeEmbed(singlePost.soundcloud.soundcloud, 'w.soundcloud.com', 'SoundCloud player')} />
     <br />
-    <div set:html={sanitizeEmbed(singlePost.mixcloud.mixcloud, 'www.mixcloud.com')} />
+    <div set:html={sanitizeEmbed(singlePost.mixcloud.mixcloud, 'www.mixcloud.com', 'Mixcloud player')} />
     <div class="share-container" x-data={`{ copied: false, title: ${JSON.stringify(singlePost.title)}, canNativeShare: !!navigator.share }`}>
       <button
         class="share-button"
