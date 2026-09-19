@@ -1,9 +1,15 @@
 ---
+interface Props {
+  inputId?: string;
+}
+
+const { inputId = 'search-input' } = Astro.props;
 ---
 <div x-data="searchComponent()">
   <form @submit.prevent="handleSearch">
+    <label for={inputId} class="sr-only">Search</label>
     <input
-      id="search-input"
+      id={inputId}
       type="text"
       placeholder="Search..."
       x-model="searchTerm"
