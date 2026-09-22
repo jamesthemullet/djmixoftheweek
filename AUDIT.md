@@ -16,6 +16,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-09-18 — resolved accessibility item: `color-contrast` violation on `.share-button--whatsapp`/`--bluesky` in `src/styles/post.css`
 - 2026-09-19 — resolved accessibility item: added a visually-hidden `<label>` for the search input in `src/components/search/search.astro`
 - 2026-09-22 — resolved performance item: null-guarded `genre?.count` in the homepage genre `<select>` (`src/pages/index.astro`)
+- 2026-09-21 — resolved accessibility item: added `role="status" aria-live="polite" aria-atomic="true"` to the comment submit-result message in `src/components/addComment.astro`
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -38,7 +39,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] Mix detail route (e.g. `/al-wootton-crack-mix-607`): axe-core reports a `frame-title` violation (serious) — the SoundCloud/Mixcloud embeds and in-content YouTube iframes lack a `title`/accessible name; fix in `src/pages/[...slug].astro` embed rendering (~lines 220-223) (found: 2026-09-01) (resolved: 2026-09-17, PR #405)
 - [x] Mix detail route: axe-core reports a `color-contrast` violation (serious) on CMS-sourced links and `.share-button--whatsapp` — check contrast of `.share-button--whatsapp`/`--bluesky`/`--threads` in `src/styles/post.css` against the site's purple theme (found: 2026-09-01) (resolved: 2026-09-18, PR #409)
 - [x] `src/components/search/search.astro:6` — the search `<input id="search-input">` has no associated `<label for="search-input">`, only a placeholder (found: 2026-09-01) (resolved: 2026-09-19, PR #412)
-- [ ] `src/components/addComment.astro:32` — the comment submit-result message has no `aria-live` region so screen-reader users aren't told success/failure; mirror the `role="status" aria-live="polite"` pattern already used in `header.astro:56` (found: 2026-09-01)
+- [x] `src/components/addComment.astro:32` — the comment submit-result message has no `aria-live` region so screen-reader users aren't told success/failure; mirror the `role="status" aria-live="polite"` pattern already used in `header.astro:56` (found: 2026-09-01) (resolved: 2026-09-21, PR #413)
 
 ## 3. Performance
 

@@ -29,7 +29,7 @@ const messageColor = "black";
     <textarea name="commentText" id="commentText" required></textarea>
   </div>
   <button class="reply-button" data-button-id={parentId}>Post Reply</button>
-  <p style={`color: ${messageColor};`}>{message}</p>
+  <p style={`color: ${messageColor};`} role="status" aria-live="polite" aria-atomic="true">{message}</p>
 </form>
 
 <script type="module">
