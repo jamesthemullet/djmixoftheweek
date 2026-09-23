@@ -44,7 +44,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 
 ## 3. Performance
 
-- [x] `src/pages/[...slug].astro:221,223` — SoundCloud/Mixcloud embeds are injected via `set:html` with no `loading="lazy"` or click/intersection-observer gating; SoundCloud iframe loads eagerly on every mix page (found: 2026-09-01) (resolved: 2026-09-23, PR #TBD)
+- [x] `src/pages/[...slug].astro:221,223` — SoundCloud/Mixcloud embeds are injected via `set:html` with no `loading="lazy"` or click/intersection-observer gating; SoundCloud iframe loads eagerly on every mix page (found: 2026-09-01) (resolved: 2026-09-23, PR #417)
 - [x] `src/pages/index.astro:117` — `{genre?.name} ({genre?.count})` has no null-guard, so the "Georgia" genre renders as "Georgia ()" in the genre `<select>`; guard with `?? 0` as already done in `genres.astro:40` (found: 2026-09-01) (resolved: 2026-09-22, PR #415)
 
 ## 4. SEO / metadata
