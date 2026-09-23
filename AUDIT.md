@@ -17,6 +17,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-09-19 — resolved accessibility item: added a visually-hidden `<label>` for the search input in `src/components/search/search.astro`
 - 2026-09-22 — resolved performance item: null-guarded `genre?.count` in the homepage genre `<select>` (`src/pages/index.astro`)
 - 2026-09-21 — resolved accessibility item: added `role="status" aria-live="polite" aria-atomic="true"` to the comment submit-result message in `src/components/addComment.astro`
+- 2026-09-23 — resolved performance item: added `loading="lazy"` to SoundCloud/Mixcloud embed iframes in `src/lib/embeds.ts`
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -43,7 +44,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 
 ## 3. Performance
 
-- [ ] `src/pages/[...slug].astro:221,223` — SoundCloud/Mixcloud embeds are injected via `set:html` with no `loading="lazy"` or click/intersection-observer gating; SoundCloud iframe loads eagerly on every mix page (found: 2026-09-01)
+- [x] `src/pages/[...slug].astro:221,223` — SoundCloud/Mixcloud embeds are injected via `set:html` with no `loading="lazy"` or click/intersection-observer gating; SoundCloud iframe loads eagerly on every mix page (found: 2026-09-01) (resolved: 2026-09-23, PR #TBD)
 - [x] `src/pages/index.astro:117` — `{genre?.name} ({genre?.count})` has no null-guard, so the "Georgia" genre renders as "Georgia ()" in the genre `<select>`; guard with `?? 0` as already done in `genres.astro:40` (found: 2026-09-01) (resolved: 2026-09-22, PR #415)
 
 ## 4. SEO / metadata
