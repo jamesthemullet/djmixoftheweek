@@ -17,6 +17,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-09-19 — resolved accessibility item: added a visually-hidden `<label>` for the search input in `src/components/search/search.astro`
 - 2026-09-22 — resolved performance item: null-guarded `genre?.count` in the homepage genre `<select>` (`src/pages/index.astro`)
 - 2026-09-21 — resolved accessibility item: added `role="status" aria-live="polite" aria-atomic="true"` to the comment submit-result message in `src/components/addComment.astro`
+- 2026-09-25 — resolved SEO item: added page-specific `description` props to `index.astro`, `djs.astro`, `genres.astro`, `nationalities.astro`, `dj-leaderboard.astro`
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -49,7 +50,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 ## 4. SEO / metadata
 
 - [ ] `src/pages/genres.astro:20` passes `pageTitle="Home"` to `BaseLayout` — wrong/duplicate title identical to the actual homepage (found: 2026-09-01)
-- [ ] `src/pages/index.astro`, `djs.astro`, `genres.astro`, `nationalities.astro`, `dj-leaderboard.astro` pass no `description` prop to `BaseLayout`, so all fall back to the same generic homepage description (`BaseLayout.astro:27`) (found: 2026-09-01)
+- [x] `src/pages/index.astro`, `djs.astro`, `genres.astro`, `nationalities.astro`, `dj-leaderboard.astro` pass no `description` prop to `BaseLayout`, so all fall back to the same generic homepage description (`BaseLayout.astro:27`) (found: 2026-09-01) (resolved: 2026-09-25, PR #TBD)
 - [ ] `src/pages/about.astro:22` and `src/pages/league-of-mixes.astro:71` read `singlePost?.seo.opengraphDescription` without optional-chaining `.seo`, so a resolved `singlePost` with undefined `.seo` throws instead of degrading to the fallback (found: 2026-09-01)
 - [ ] `src/layouts/BaseLayout.astro:32` OG `image` always falls back to the same `blog-placeholder-1.jpg`; no page in `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, or `nationality/[...slug].astro` passes a real `opengraphImage` (found: 2026-09-01)
 - [ ] No `@astrojs/sitemap` integration is used (not in `package.json`); `src/pages/sitemap.xml.js` hand-rolls the feed instead of producing the conventional sitemap-index/sitemap-0 pair (found: 2026-09-01)
