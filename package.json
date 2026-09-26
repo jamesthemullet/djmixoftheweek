@@ -19,15 +19,15 @@
   },
   "dependencies": {
     "@astrojs/alpinejs": "^1.0.0",
-    "@astrojs/partytown": "2.1.7",
+    "@astrojs/partytown": "2.1.8",
     "@astrojs/rss": "4.0.19",
-    "@astrojs/vercel": "11.0.10",
+    "@astrojs/vercel": "11.0.11",
     "@types/alpinejs": "^3.13.11",
     "@types/node": "^26.4.1",
     "@types/sanitize-html": "^2.16.1",
     "accented": "^1.2.0",
     "alpinejs": "^3.14.9",
-    "astro": "7.3.3",
+    "astro": "7.3.4",
     "astro-seo": "^1.0.0",
     "sanitize-html": "2.17.7"
   },
