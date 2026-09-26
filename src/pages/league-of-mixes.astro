@@ -68,7 +68,7 @@ const postsJson = JSON.stringify(
 const genresJson = JSON.stringify(allGenres);
 ---
 
-<BaseLayout pageTitle={singlePost?.title} description={singlePost?.seo.opengraphDescription}>
+<BaseLayout pageTitle={singlePost?.title} description={singlePost?.seo?.opengraphDescription}>
   {
     singlePost?.featuredImage && (
       <Image
