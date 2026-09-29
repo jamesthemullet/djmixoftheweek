@@ -46,4 +46,15 @@ describe('GET /rss.xml', () => {
     expect(body).toContain('<rss');
     expect(body).not.toContain('<item>');
   });
+
+  it('renders an empty feed instead of throwing when fetchGraphQL rejects', async () => {
+    fetchGraphQLMock.mockRejectedValue(new Error('Failed to parse URL from undefined/graphql'));
+
+    const { GET } = await import('../rss.xml.js');
+    const response = await GET({ site: new URL('https://djmixoftheweek.com/') });
+    const body = await response.text();
+
+    expect(body).toContain('<rss');
+    expect(body).not.toContain('<item>');
+  });
 });

@@ -8,7 +8,12 @@ const SITE_DESCRIPTION =
 const RECENT_POSTS_COUNT = 20;
 
 export async function GET(context) {
-	const data = await fetchGraphQL(GET_RECENT_POSTS, { first: RECENT_POSTS_COUNT });
+	let data;
+	try {
+		data = await fetchGraphQL(GET_RECENT_POSTS, { first: RECENT_POSTS_COUNT });
+	} catch (error) {
+		console.error('Error fetching recent posts for RSS feed:', error);
+	}
 	const posts = data?.posts?.nodes ?? [];
 
 	return rss({
