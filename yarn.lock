@@ -1085,7 +1085,7 @@
   dependencies:
     playwright "1.63.0"
 
-"@preact/signals-core@^1.14.3":
+"@preact/signals-core@^1.14.4":
   version "1.14.4"
   resolved "https://registry.yarnpkg.com/@preact/signals-core/-/signals-core-1.14.4.tgz#d3588cbda237fcb3c8a8e478f6cc370653609eb7"
   integrity sha512-HNB6HYeYKhQbJ1aKl+YRjrS4+QWHLKX6qKoUsfS/m0vqzsVaEBiZiaKbG/e+NKk2ch5ALQr/ihWaMHxiCuuWHA==
@@ -1534,13 +1534,13 @@ abbrev@^3.0.0:
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-3.0.1.tgz#8ac8b3b5024d31464fe2a5feeea9f4536bf44025"
   integrity sha512-AO2ac6pjRB3SJmGJo+v5/aK6Omggp6fsLrs6wN9bd35ulu4cCwaAU9+7ZhXjeqHVkaHThLuzH0nZr0YpCDhygg==
 
-accented@^1.2.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/accented/-/accented-1.4.0.tgz#9cfb63ab0e7837bf46e5d4516ca53d874963ce83"
-  integrity sha512-wmkxcL1/6grE22pai6Sj2al5FQPxvYW+BIxSI8hNvja5XHYGQVlUdeqZm9Wa2wF0Vqic3pEIDnERAXE+YdVNFw==
+accented@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/accented/-/accented-1.5.0.tgz#1a40a06fbefca537ad635f893934aebb73181ac5"
+  integrity sha512-dNMzJsZA8N0J8U43fbH0ytgIyq0oZQX1xvxTPX3N+GZHE1bX+vsC8k4+BhbYm2foUheMLaBrAtfpAshjHwfeig==
   dependencies:
-    "@preact/signals-core" "^1.14.3"
-    axe-core "^4.12.1"
+    "@preact/signals-core" "^1.14.4"
+    axe-core "~4.13.0"
 
 acorn-import-attributes@^1.9.5:
   version "1.9.5"
@@ -1709,7 +1709,7 @@ async-sema@^3.1.1:
   resolved "https://registry.yarnpkg.com/async-sema/-/async-sema-3.1.1.tgz#e527c08758a0f8f6f9f15f799a173ff3c40ea808"
   integrity sha512-tLRNUXati5MFePdAk8dw7Qt7DpxPB60ofAgn8WRhW6a2rcimZnYBP9oxHiv0OHy+Wz7kPMG+t4LGdt31+4EmGg==
 
-axe-core@^4.12.1:
+axe-core@~4.13.0:
   version "4.13.0"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.13.0.tgz#f868ecb1bd61d982321760e51d841ab497ab86d0"
   integrity sha512-UzGt8zg7Ny8djbYMhxl2zuEevVa7r2gJjYY5Lwr1xM7+XU2nd6CkIWFTVcCIbAP63vSz71NaVyyuSk9lHKcy0A==
