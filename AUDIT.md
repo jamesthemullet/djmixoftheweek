@@ -18,6 +18,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-09-22 — resolved performance item: null-guarded `genre?.count` in the homepage genre `<select>` (`src/pages/index.astro`)
 - 2026-09-21 — resolved accessibility item: added `role="status" aria-live="polite" aria-atomic="true"` to the comment submit-result message in `src/components/addComment.astro`
 - 2026-09-23 — resolved performance item: added `loading="lazy"` to SoundCloud/Mixcloud embed iframes in `src/lib/embeds.ts`
+- 2026-09-28 — resolved SEO item: added `public/robots.txt` referencing `/sitemap.xml`
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -55,7 +56,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [ ] `src/layouts/BaseLayout.astro:32` OG `image` always falls back to the same `blog-placeholder-1.jpg`; no page in `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, or `nationality/[...slug].astro` passes a real `opengraphImage` (found: 2026-09-01)
 - [ ] No `@astrojs/sitemap` integration is used (not in `package.json`); `src/pages/sitemap.xml.js` hand-rolls the feed instead of producing the conventional sitemap-index/sitemap-0 pair (found: 2026-09-01)
 - [ ] `src/pages/sitemap.xml.js` static-pages list omits `/djs`, `/nationalities`, `/your-djs`, `/dj-leaderboard`, and all dynamic `dj/*`, `genre/*`, `nationality/*` routes (found: 2026-09-01)
-- [ ] No `public/robots.txt` exists anywhere in the repo, so there's no reference pointing crawlers at `/sitemap.xml` (found: 2026-09-01)
+- [x] No `public/robots.txt` exists anywhere in the repo, so there's no reference pointing crawlers at `/sitemap.xml` (found: 2026-09-01) (resolved: 2026-09-28, PR #423)
 - [ ] `src/pages/rss.xml.js` calls `getCollection("blog")` against a local `astro:content` collection that has no actual entries (`src/content/blog/` doesn't exist) — the RSS feed is disconnected from the real WordPress GraphQL content and renders empty with placeholder title/description (found: 2026-09-01)
 - [ ] `src/components/header/header.astro` renders three `<h2>` elements ("Search:", "Recently visited", "Be notified of new posts by e-mail") between the sr-only site `<h1>` and the page's own `<h1>`, producing an out-of-order H1 → H2 → H2 → H2 → H1 pattern (found: 2026-09-01)
 - [ ] `src/pages/league-of-mixes.astro:84` uses `<h2>{singlePost?.title}</h2>` for its main content title instead of an `<h1>` — this page has no real page-level `<h1>` (found: 2026-09-01)
