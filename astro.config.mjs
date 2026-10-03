@@ -16,6 +16,8 @@ export default defineConfig({
 		webAnalytics: { enabled: true },
 	}),
 	site: siteUrl,
+	// The dev toolbar injects its own <h1>s (via shadow DOM) which break e2e heading locators
+	devToolbar: { enabled: !process.env.PLAYWRIGHT },
 	integrations: [
 		partytown({
 			config: {
