@@ -13,5 +13,6 @@ export default defineConfig({
     url: 'http://localhost:4322',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
+    env: { PLAYWRIGHT: 'true' },
   },
 });
