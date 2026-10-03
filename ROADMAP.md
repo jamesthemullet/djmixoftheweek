@@ -23,22 +23,14 @@ doesn't dead-end after one mix.
    reusing data already fetched for the `dj/`, `genre/`, `nationality/` pages.
 2. Component rendering the related-mixes list on the mix page (`[...slug].astro`).
 
-### 2. Your DJs digest — *Retention*
-`your-djs.astro` already lets a user track DJs they follow. Surface a simple "new mixes from
-your DJs" banner on the homepage rather than requiring a visit to that page to find out.
-
-1. Query: mixes published since a user's last visit, filtered to their followed DJs — pure
-   function + tests.
-2. Banner component on the homepage rendering the result.
-
-### 3. League of Mixes filters — *Engagement*
+### 2. League of Mixes filters — *Engagement*
 `league-of-mixes.astro` ranks mixes but has no way to narrow by genre or nationality — improving
 an existing page rather than building a new one.
 
 1. Extend the league query to accept a genre/nationality filter param — pure function + tests.
 2. Filter controls added to the existing league UI.
 
-### 4. Mix structured data — *Acquisition*
+### 3. Mix structured data — *Acquisition*
 MusicPlaylist/CreativeWork structured data on every mix page so search engines understand mix
 content (DJ, genre, date) directly.
 
@@ -46,7 +38,7 @@ content (DJ, genre, date) directly.
 
 ## Next (this quarter — moderate new build)
 
-### 5. Genre/nationality guide pages — *Acquisition, SEO*
+### 4. Genre/nationality guide pages — *Acquisition, SEO*
 Static "Best [Genre] mixes" landing pages generated from data already in League of Mixes,
 targeting search terms the site can already answer.
 
@@ -54,7 +46,7 @@ targeting search terms the site can already answer.
    data layer.
 2. Static page template reusing the existing genre page layout, internal-linking into mix pages.
 
-### 6. Weekly mix email — *Retention, Acquisition*
+### 5. Weekly mix email — *Retention, Acquisition*
 A weekly digest of new mixes matching a user's followed DJs/genres — the site's first outbound
 channel.
 
@@ -67,7 +59,7 @@ channel.
 
 ## Later (bigger bets — new infra)
 
-### 7. User mix submissions — *Engagement, Retention*
+### 6. User mix submissions — *Engagement, Retention*
 Let users submit a mix link for review/inclusion, moderated before going live.
 
 1. Migration/data store: a `submissions` table or content collection with a status
