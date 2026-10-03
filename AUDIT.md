@@ -17,6 +17,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-09-19 — resolved accessibility item: added a visually-hidden `<label>` for the search input in `src/components/search/search.astro`
 - 2026-09-22 — resolved performance item: null-guarded `genre?.count` in the homepage genre `<select>` (`src/pages/index.astro`)
 - 2026-09-21 — resolved accessibility item: added `role="status" aria-live="polite" aria-atomic="true"` to the comment submit-result message in `src/components/addComment.astro`
+- 2026-09-27 — resolved SEO item: `src/pages/sitemap.xml.js` now includes `/djs`, `/nationalities`, `/your-djs`, `/dj-leaderboard`, and dynamic `dj/*`, `genre/*`, `nationality/*` routes
 - 2026-09-26 — resolved SEO item: added optional chaining on `singlePost?.seo?.opengraphDescription` in `src/pages/about.astro` and `src/pages/league-of-mixes.astro`
 - 2026-09-25 — resolved SEO item: added page-specific `description` props to `index.astro`, `djs.astro`, `genres.astro`, `nationalities.astro`, `dj-leaderboard.astro`
 - 2026-09-24 — resolved SEO item: `src/pages/genres.astro` now passes `pageTitle="Genres"` to `BaseLayout` instead of the wrong duplicate `"Home"` title
@@ -58,7 +59,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/pages/genres.astro:20` passes `pageTitle="Home"` to `BaseLayout` — wrong/duplicate title identical to the actual homepage (found: 2026-09-01) (resolved: 2026-09-24, PR #418)
 - [ ] `src/layouts/BaseLayout.astro:32` OG `image` always falls back to the same `blog-placeholder-1.jpg`; no page in `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, or `nationality/[...slug].astro` passes a real `opengraphImage` (found: 2026-09-01)
 - [ ] No `@astrojs/sitemap` integration is used (not in `package.json`); `src/pages/sitemap.xml.js` hand-rolls the feed instead of producing the conventional sitemap-index/sitemap-0 pair (found: 2026-09-01)
-- [ ] `src/pages/sitemap.xml.js` static-pages list omits `/djs`, `/nationalities`, `/your-djs`, `/dj-leaderboard`, and all dynamic `dj/*`, `genre/*`, `nationality/*` routes (found: 2026-09-01)
+- [x] `src/pages/sitemap.xml.js` static-pages list omits `/djs`, `/nationalities`, `/your-djs`, `/dj-leaderboard`, and all dynamic `dj/*`, `genre/*`, `nationality/*` routes (found: 2026-09-01) (resolved: 2026-09-27, PR #422)
 - [x] No `public/robots.txt` exists anywhere in the repo, so there's no reference pointing crawlers at `/sitemap.xml` (found: 2026-09-01) (resolved: 2026-09-28, PR #423)
 - [ ] `src/pages/rss.xml.js` calls `getCollection("blog")` against a local `astro:content` collection that has no actual entries (`src/content/blog/` doesn't exist) — the RSS feed is disconnected from the real WordPress GraphQL content and renders empty with placeholder title/description (found: 2026-09-01)
 - [ ] `src/components/header/header.astro` renders three `<h2>` elements ("Search:", "Recently visited", "Be notified of new posts by e-mail") between the sr-only site `<h1>` and the page's own `<h1>`, producing an out-of-order H1 → H2 → H2 → H2 → H1 pattern (found: 2026-09-01)
