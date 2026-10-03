@@ -19,15 +19,15 @@
   },
   "dependencies": {
     "@astrojs/alpinejs": "^1.0.0",
-    "@astrojs/partytown": "2.1.7",
+    "@astrojs/partytown": "2.1.8",
     "@astrojs/rss": "4.0.19",
-    "@astrojs/vercel": "11.0.10",
+    "@astrojs/vercel": "11.0.11",
     "@types/alpinejs": "^3.13.11",
     "@types/node": "^26.4.1",
     "@types/sanitize-html": "^2.16.1",
     "accented": "^1.2.0",
     "alpinejs": "^3.14.9",
-    "astro": "7.3.3",
+    "astro": "7.3.5",
     "astro-seo": "^1.0.0",
     "sanitize-html": "2.17.7"
   },
@@ -44,13 +44,10 @@
   },
   "resolutions": {
     "fontkitten": "1.0.3",
-    "path-to-regexp": "8.4.2",
-    "lodash": "^4.17.23",
+    "path-to-regexp": "6.3.0",
     "picomatch": "^4.0.4",
     "yaml": "^2.8.3",
     "fast-uri": "^4.0.0",
-    "astro/vite": "^8.0.13",
-    "vitest/vite": "^8.0.16",
     "htmlparser2": "^8.0.0"
   }
 }
