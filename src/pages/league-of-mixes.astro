@@ -68,7 +68,7 @@ const postsJson = JSON.stringify(
 const genresJson = JSON.stringify(allGenres);
 ---
 
-<BaseLayout pageTitle={singlePost?.title} description={singlePost?.seo.opengraphDescription}>
+<BaseLayout pageTitle={singlePost?.title} description={singlePost?.seo?.opengraphDescription}>
   {
     singlePost?.featuredImage && (
       <Image
@@ -81,7 +81,7 @@ const genresJson = JSON.stringify(allGenres);
     )
   }
   <div class="container">
-    <h2>{singlePost?.title}</h2>
+    <h1>{singlePost?.title}</h1>
     <div set:html={singlePost?.content} />
 
     <div

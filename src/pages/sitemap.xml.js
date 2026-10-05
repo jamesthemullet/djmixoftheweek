@@ -1,5 +1,11 @@
+import { fetchGraphQL } from "../lib/api";
+import GET_DJ_NAMES from "../lib/queries/getDJNames";
+import GET_GENRE_NAMES from "../lib/queries/getGenreNames";
+import GET_NATIONALITY_NAMES from "../lib/queries/getNationalityNames";
+
 export async function GET() {
   const siteUrl = "https://djmixoftheweek.com";
+  const today = new Date().toISOString().split("T")[0];
 
   let posts = [];
 
@@ -27,12 +33,49 @@ export async function GET() {
     console.error("Error fetching posts for sitemap:", error);
   }
 
+  let djs = [];
+  try {
+    let after;
+    while (true) {
+      const data = await fetchGraphQL(GET_DJ_NAMES, { after });
+      const page = data?.dJs;
+      if (page?.nodes) djs = djs.concat(page.nodes);
+      if (page?.pageInfo?.hasNextPage) {
+        after = page.pageInfo.endCursor ?? undefined;
+      } else {
+        break;
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching DJs for sitemap:", error);
+  }
+
+  let genres = [];
+  try {
+    const data = await fetchGraphQL(GET_GENRE_NAMES);
+    genres = data?.genres?.nodes || [];
+  } catch (error) {
+    console.error("Error fetching genres for sitemap:", error);
+  }
+
+  let nationalities = [];
+  try {
+    const data = await fetchGraphQL(GET_NATIONALITY_NAMES);
+    nationalities = data?.nationalities?.nodes || [];
+  } catch (error) {
+    console.error("Error fetching nationalities for sitemap:", error);
+  }
+
   // Static pages
   const staticPages = [
-    { url: "", lastmod: new Date().toISOString().split("T")[0] },
-    { url: "about", lastmod: new Date().toISOString().split("T")[0] },
-    { url: "genres", lastmod: new Date().toISOString().split("T")[0] },
-    { url: "league-of-mixes", lastmod: new Date().toISOString().split("T")[0] },
+    { url: "", lastmod: today },
+    { url: "about", lastmod: today },
+    { url: "genres", lastmod: today },
+    { url: "league-of-mixes", lastmod: today },
+    { url: "djs", lastmod: today },
+    { url: "nationalities", lastmod: today },
+    { url: "your-djs", lastmod: today },
+    { url: "dj-leaderboard", lastmod: today },
   ];
 
   // Dynamic post pages
@@ -41,7 +84,7 @@ export async function GET() {
     try {
       lastmod = new Date(post.modified).toISOString().split("T")[0];
     } catch {
-      lastmod = new Date().toISOString().split("T")[0];
+      lastmod = today;
     }
 
     return {
@@ -50,7 +93,16 @@ export async function GET() {
     };
   });
 
-  const allPages = [...staticPages, ...postPages];
+  // Dynamic taxonomy pages
+  const djPages = djs.filter((dj) => dj?.slug).map((dj) => ({ url: `dj/${dj.slug}`, lastmod: today }));
+  const genrePages = genres
+    .filter((genre) => genre?.slug)
+    .map((genre) => ({ url: `genre/${genre.slug}`, lastmod: today }));
+  const nationalityPages = nationalities
+    .filter((nationality) => nationality?.slug)
+    .map((nationality) => ({ url: `nationality/${nationality.slug}`, lastmod: today }));
+
+  const allPages = [...staticPages, ...postPages, ...djPages, ...genrePages, ...nationalityPages];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
