@@ -24,6 +24,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-09-23 — resolved performance item: added `loading="lazy"` to SoundCloud/Mixcloud embed iframes in `src/lib/embeds.ts`
 - 2026-09-28 — resolved SEO item: added `public/robots.txt` referencing `/sitemap.xml`
 - 2026-10-04 — resolved SEO item: `src/pages/league-of-mixes.astro` main content title now uses `<h1>` instead of `<h2>`, matching `about.astro`'s pattern and giving the page a real page-level heading
+- 2026-10-05 — resolved responsive/UX item: `src/pages/djs.astro` DJ list links now use an absolute `/dj/{slug}` href instead of a relative `dj/{slug}` href
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -68,7 +69,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 
 ## 5. Responsive / UX
 
-- [ ] `src/pages/djs.astro` DJ list links use relative `href="dj/al-wootton"` (no leading slash) rather than `/dj/al-wootton` like `[...slug].astro`'s DJ byline — fragile if this link markup is ever reused from a nested route (found: 2026-09-01)
+- [x] `src/pages/djs.astro` DJ list links use relative `href="dj/al-wootton"` (no leading slash) rather than `/dj/al-wootton` like `[...slug].astro`'s DJ byline — fragile if this link markup is ever reused from a nested route (found: 2026-09-01) (resolved: 2026-10-05, PR #TBD)
 - [ ] Manual mobile-viewport (≈375px) screenshot pass of genre/DJ/nationality/search routes was not completed in this audit (tooling limitation) — recommend a manual check to confirm the `header.css` `max-width:835px` hamburger-nav breakpoint renders correctly (found: 2026-09-01)
 
 ## 6. Security

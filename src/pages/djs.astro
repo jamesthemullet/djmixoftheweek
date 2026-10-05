@@ -43,7 +43,7 @@ const sortedDJs = djNodes
         sortedDJs?.map((dj) => (
           <li>
             <h2>
-              <a href={`dj/${dj?.slug}`} rel="noopener noreferrer">
+              <a href={`/dj/${dj?.slug}`} rel="noopener noreferrer">
                 <Fragment set:html={dj?.name} />
               </a>
             </h2>
