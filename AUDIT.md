@@ -69,7 +69,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 
 ## 5. Responsive / UX
 
-- [x] `src/pages/djs.astro` DJ list links use relative `href="dj/al-wootton"` (no leading slash) rather than `/dj/al-wootton` like `[...slug].astro`'s DJ byline — fragile if this link markup is ever reused from a nested route (found: 2026-09-01) (resolved: 2026-10-05, PR #TBD)
+- [x] `src/pages/djs.astro` DJ list links use relative `href="dj/al-wootton"` (no leading slash) rather than `/dj/al-wootton` like `[...slug].astro`'s DJ byline — fragile if this link markup is ever reused from a nested route (found: 2026-09-01) (resolved: 2026-10-05, PR #435)
 - [ ] Manual mobile-viewport (≈375px) screenshot pass of genre/DJ/nationality/search routes was not completed in this audit (tooling limitation) — recommend a manual check to confirm the `header.css` `max-width:835px` hamburger-nav breakpoint renders correctly (found: 2026-09-01)
 
 ## 6. Security
