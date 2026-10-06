@@ -8,6 +8,7 @@ import { FALLBACK_IMAGE as fallbackImage } from '../consts';
 import { fetchGraphQL } from '../lib/api';
 import { addIframeTitle, sanitizeEmbed } from '../lib/embeds';
 import GET_GENRE_BY_SLUG from '../lib/queries/getGenreBySlug';
+import { sanitizePostContent } from '../lib/sanitize';
 import type { Comments as CommentsType, Post } from '../types';
 
 const { slug } = Astro.params;
@@ -149,7 +150,7 @@ const processContent = (content: string) => {
     .replace(/blog\.djmixoftheweek\.com/g, destBase.replace(/https?:\/\//, '').replace(/\/$/, ''))
     .replace(/([^:]\/)\/+/g, '$1');
 
-  return addIframeTitle(rewritten, 'Embedded video');
+  return addIframeTitle(sanitizePostContent(rewritten), 'Embedded video');
 };
 
 const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
