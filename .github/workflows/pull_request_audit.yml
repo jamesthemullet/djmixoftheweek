@@ -98,6 +98,7 @@ jobs:
         with:
           chrome-version: ${{ env.CHROMIUM_VERSION }}
           install-chromedriver: true
+          install-dependencies: true
       - name: Check chromedriver 🚗
         run: |
           echo "Chrome version: ${{ steps.setup-chrome.outputs.chrome-version }}"
@@ -107,4 +108,4 @@ jobs:
       - name: Run axe
         run: |
           yarn add @axe-core/cli
-          npx axe --chrome-path "${{ steps.setup-chrome.outputs.chrome-path }}" --chromedriver-path "${{ steps.setup-chrome.outputs.chromedriver-path }}" http://localhost:4321/ --load-delay=1500 --exit
+          npx axe --chrome-options="no-sandbox,disable-dev-shm-usage" --chrome-path "${{ steps.setup-chrome.outputs.chrome-path }}" --chromedriver-path "${{ steps.setup-chrome.outputs.chromedriver-path }}" http://localhost:4321/ --load-delay=1500 --exit
