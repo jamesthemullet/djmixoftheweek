@@ -26,6 +26,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-09-29 — resolved SEO item: `rss.xml.js` now fetches real posts over the WordPress GraphQL API instead of an empty local `astro:content` collection
 - 2026-10-04 — resolved SEO item: `src/pages/league-of-mixes.astro` main content title now uses `<h1>` instead of `<h2>`, matching `about.astro`'s pattern and giving the page a real page-level heading
 - 2026-10-06 — resolved security item: `src/pages/[...slug].astro`'s `processContent` now sanitizes WP post HTML via a new `sanitizePostContent` helper (`src/lib/sanitize.ts`) before `set:html`, instead of relying only on URL-rewriting
+- 2026-10-07 — resolved test coverage item: added an integration test asserting `GET /rss.xml` produces well-formed XML (parsed via `jsdom`'s `DOMParser`) with one `<item>` per post, in order
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -41,7 +42,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [ ] Add e2e spec: DJ filter select navigates to the selected DJ page — filter-select navigation is currently tested only for the genre filter on the homepage (found: 2026-09-01)
 - [ ] Add e2e spec: nationality filter select navigates to the selected nationality page (found: 2026-09-01)
 - [ ] Add e2e spec: search returns matching results and navigates to the selected post — `src/components/search/search.astro` has no e2e spec at all (found: 2026-09-01)
-- [ ] Add e2e spec: GET /rss.xml returns valid RSS XML with expected post entries — no e2e/integration spec currently covers `src/pages/rss.xml.js` (found: 2026-09-01)
+- [x] Add e2e spec: GET /rss.xml returns valid RSS XML with expected post entries — no e2e/integration spec currently covers `src/pages/rss.xml.js` (found: 2026-09-01) (resolved: 2026-10-07, PR #TBD)
 
 ## 2. Accessibility
 
