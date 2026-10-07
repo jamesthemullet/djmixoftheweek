@@ -42,7 +42,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [ ] Add e2e spec: DJ filter select navigates to the selected DJ page — filter-select navigation is currently tested only for the genre filter on the homepage (found: 2026-09-01)
 - [ ] Add e2e spec: nationality filter select navigates to the selected nationality page (found: 2026-09-01)
 - [ ] Add e2e spec: search returns matching results and navigates to the selected post — `src/components/search/search.astro` has no e2e spec at all (found: 2026-09-01)
-- [x] Add e2e spec: GET /rss.xml returns valid RSS XML with expected post entries — no e2e/integration spec currently covers `src/pages/rss.xml.js` (found: 2026-09-01) (resolved: 2026-10-07, PR #TBD)
+- [x] Add e2e spec: GET /rss.xml returns valid RSS XML with expected post entries — no e2e/integration spec currently covers `src/pages/rss.xml.js` (found: 2026-09-01) (resolved: 2026-10-07, PR #437)
 
 ## 2. Accessibility
 
