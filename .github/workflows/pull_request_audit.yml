@@ -97,16 +97,15 @@ jobs:
         uses: browser-actions/setup-chrome@v2
         with:
           chrome-version: ${{ env.CHROMIUM_VERSION }}
-      - name: Install chromedriver 🚗
+          install-chromedriver: true
+          install-dependencies: true
+      - name: Check chromedriver 🚗
         run: |
-          echo "Installing chromedriver version: $CHROMIUM_VERSION"
-          yarn add chromedriver@$CHROMIUM_VERSION
-          echo "chromedriver version: $(chromedriver --version)"
+          echo "Chrome version: ${{ steps.setup-chrome.outputs.chrome-version }}"
+          echo "chromedriver version: ${{ steps.setup-chrome.outputs.chromedriver-version }}"
       - run: yarn run build
       - run: yarn dev & npx wait-on http://localhost:4321
       - name: Run axe
         run: |
           yarn add @axe-core/cli
-          CHROMIUM_VERSION=$(google-chrome --version | cut -d' ' -f3 | cut -d'.' -f1)
-          yarn add chromedriver@$CHROMIUM_VERSION
-          npx axe --chromedriver-path $(yarn bin)/chromedriver http://localhost:4321/ --load-delay=1500 --exit
+          npx axe --chrome-options="no-sandbox,disable-dev-shm-usage" --chrome-path "${{ steps.setup-chrome.outputs.chrome-path }}" --chromedriver-path "${{ steps.setup-chrome.outputs.chromedriver-path }}" http://localhost:4321/ --load-delay=1500 --exit
