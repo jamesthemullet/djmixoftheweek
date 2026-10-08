@@ -180,7 +180,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
 
     {
       singlePost?.featuredImage?.node?.caption && (
-        <figcaption set:html={singlePost.featuredImage.node.caption} />
+        <figcaption set:html={sanitizePostContent(singlePost.featuredImage.node.caption)} />
       )
     }
   </div>
@@ -259,7 +259,7 @@ const formattedDate = new Date(singlePost.date).toLocaleDateString('en-GB', {
                   loading="lazy"
                 />
                 {post.featuredImage?.node?.caption && (
-                  <figcaption set:html={post.featuredImage.node.caption} />
+                  <figcaption set:html={sanitizePostContent(post.featuredImage.node.caption)} />
                 )}
               </a>
             </div>
