@@ -8,6 +8,7 @@ import GET_DJS_WITH_RATINGS from '../getDJsWithRatings';
 import GET_GENRE_BY_SLUG from '../getGenreBySlug';
 import GET_GENRE_NAMES from '../getGenreNames';
 import GET_NATIONALITY_NAMES from '../getNationalityNames';
+import GET_RECENT_POSTS_QUERY from '../getRecentPosts';
 import GET_SINGLE_PAGE from '../getSinglePage';
 import MORE_POSTS from '../morePosts';
 import MOST_RECENT_POST_QUERY from '../mostRecentPost';
@@ -203,6 +204,23 @@ describe('mostRecentPost query', () => {
     expect(MOST_RECENT_POST_QUERY).toContain('title');
     expect(MOST_RECENT_POST_QUERY).toContain('featuredImage');
     expect(MOST_RECENT_POST_QUERY).toContain('genres');
+  });
+});
+
+describe('getRecentPosts query', () => {
+  it('is a non-empty string', () => {
+    expect(typeof GET_RECENT_POSTS_QUERY).toBe('string');
+    expect(GET_RECENT_POSTS_QUERY.trim().length).toBeGreaterThan(0);
+  });
+  it('contains the GetRecentPosts operation name', () => {
+    expect(GET_RECENT_POSTS_QUERY).toContain('GetRecentPosts');
+  });
+  it('uses the $first variable and requests slug, title, date, and content fields', () => {
+    expect(GET_RECENT_POSTS_QUERY).toContain('$first');
+    expect(GET_RECENT_POSTS_QUERY).toContain('slug');
+    expect(GET_RECENT_POSTS_QUERY).toContain('title');
+    expect(GET_RECENT_POSTS_QUERY).toContain('date');
+    expect(GET_RECENT_POSTS_QUERY).toContain('content');
   });
 });
 
