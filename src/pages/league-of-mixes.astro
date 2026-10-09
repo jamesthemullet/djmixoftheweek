@@ -6,6 +6,7 @@ import { FALLBACK_IMAGE as fallbackImage } from "../consts";
 import { fetchGraphQL } from "../lib/api";
 import ALL_POSTS_QUERY from "../lib/queries/allPosts";
 import GET_SINGLE_PAGE from "../lib/queries/getSinglePage";
+import { sanitizePostContent } from "../lib/sanitize";
 import type { Post } from "../types";
 
 const variables = { id: "407" };
@@ -82,7 +83,7 @@ const genresJson = JSON.stringify(allGenres);
   }
   <div class="container">
     <h1>{singlePost?.title}</h1>
-    <div set:html={singlePost?.content} />
+    <div set:html={singlePost?.content && sanitizePostContent(singlePost.content)} />
 
     <div
       x-data={`{
