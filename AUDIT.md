@@ -28,6 +28,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-05 — resolved responsive/UX item: `src/pages/djs.astro` DJ list links now use an absolute `/dj/{slug}` href instead of a relative `dj/{slug}` href
 - 2026-10-06 — resolved security item: `src/pages/[...slug].astro`'s `processContent` now sanitizes WP post HTML via a new `sanitizePostContent` helper (`src/lib/sanitize.ts`) before `set:html`, instead of relying only on URL-rewriting
 - 2026-10-07 — resolved test coverage item: added an integration test asserting `GET /rss.xml` produces well-formed XML (parsed via `jsdom`'s `DOMParser`) with one `<item>` per post, in order
+- 2026-10-09 — resolved SEO item: fixed the header's out-of-order heading hierarchy by demoting the site-chrome `<h1>` in `header.astro` to a `<p>` and giving the homepage (`index.astro`) its own visually-hidden `<h1>`, so every page now has exactly one `<h1>`
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -67,7 +68,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/pages/sitemap.xml.js` static-pages list omits `/djs`, `/nationalities`, `/your-djs`, `/dj-leaderboard`, and all dynamic `dj/*`, `genre/*`, `nationality/*` routes (found: 2026-09-01) (resolved: 2026-09-27, PR #422)
 - [x] No `public/robots.txt` exists anywhere in the repo, so there's no reference pointing crawlers at `/sitemap.xml` (found: 2026-09-01) (resolved: 2026-09-28, PR #423)
 - [x] `src/pages/rss.xml.js` calls `getCollection("blog")` against a local `astro:content` collection that has no actual entries (`src/content/blog/` doesn't exist) — the RSS feed is disconnected from the real WordPress GraphQL content and renders empty with placeholder title/description (found: 2026-09-01) (resolved: 2026-09-29, PR #425)
-- [ ] `src/components/header/header.astro` renders three `<h2>` elements ("Search:", "Recently visited", "Be notified of new posts by e-mail") between the sr-only site `<h1>` and the page's own `<h1>`, producing an out-of-order H1 → H2 → H2 → H2 → H1 pattern (found: 2026-09-01)
+- [x] `src/components/header/header.astro` renders three `<h2>` elements ("Search:", "Recently visited", "Be notified of new posts by e-mail") between the sr-only site `<h1>` and the page's own `<h1>`, producing an out-of-order H1 → H2 → H2 → H2 → H1 pattern (found: 2026-09-01) (resolved: 2026-10-09, PR #444)
 - [x] `src/pages/league-of-mixes.astro:84` uses `<h2>{singlePost?.title}</h2>` for its main content title instead of an `<h1>` — this page has no real page-level `<h1>` (found: 2026-09-01) (resolved: 2026-10-04, PR #432)
 
 ## 5. Responsive / UX
