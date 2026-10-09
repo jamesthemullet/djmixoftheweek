@@ -4,6 +4,7 @@ import '../styles/pages.css';
 import { Image } from 'astro:assets';
 import { fetchGraphQL } from '../lib/api';
 import GET_SINGLE_PAGE from '../lib/queries/getSinglePage';
+import { sanitizePostContent } from '../lib/sanitize';
 import type { Post } from '../types';
 
 const variables = { id: '2' };
@@ -33,6 +34,6 @@ try {
   }
   <div class="container">
     <h1>{singlePost?.title}</h1>
-    <div set:html={singlePost?.content} />
+    <div set:html={singlePost?.content && sanitizePostContent(singlePost.content)} />
   </div>
 </BaseLayout>
