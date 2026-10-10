@@ -8,9 +8,25 @@ export const addIframeLazyLoading = (html: string): string =>
     /\bloading\s*=/i.test(tag) ? tag : tag.replace(/^<iframe/i, `<iframe loading="lazy"`)
   );
 
+const ALLOWED_IFRAME_ATTRS = new Set([
+  'src',
+  'width',
+  'height',
+  'frameborder',
+  'scrolling',
+  'allow',
+  'allowfullscreen',
+  'title',
+  'loading',
+]);
+
 export const sanitizeEmbed = (html: string, allowedHostname: string, title: string): string => {
   if (!html) return '';
-  const srcMatch = html.match(/src="([^"]+)"/);
+  const iframeMatch = html.match(/<iframe\b([^>]*)>/i);
+  if (!iframeMatch) return '';
+  const attrsString = iframeMatch[1];
+
+  const srcMatch = attrsString.match(/\bsrc\s*=\s*"([^"]*)"/i);
   if (!srcMatch) return '';
   try {
     const url = new URL(srcMatch[1]);
@@ -18,5 +34,13 @@ export const sanitizeEmbed = (html: string, allowedHostname: string, title: stri
   } catch {
     return '';
   }
-  return addIframeLazyLoading(addIframeTitle(html, title));
+
+  // Rebuild the tag from an attribute allowlist so WP-sourced attributes
+  // (e.g. onload=) never reach the page unescaped.
+  const attrPairs = [...attrsString.matchAll(/([a-zA-Z0-9-]+)\s*=\s*"([^"]*)"/g)]
+    .filter(([, name]) => ALLOWED_IFRAME_ATTRS.has(name.toLowerCase()))
+    .map(([, name, value]) => `${name}="${value}"`);
+
+  const rebuiltTag = `<iframe ${attrPairs.join(' ')}></iframe>`;
+  return addIframeLazyLoading(addIframeTitle(rebuiltTag, title));
 };
