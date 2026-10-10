@@ -79,7 +79,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 ## 6. Security
 
 - [x] `src/pages/[...slug].astro:220` renders `processContent(singlePost.content)` via `set:html` with no HTML sanitization (only string `.replace()` URL-rewriting) — full WP post HTML injected unescaped, unlike `comment.astro` which sanitizes with `sanitize-html` (found: 2026-09-01) (resolved: 2026-10-06, PR #436)
-- [x] `src/pages/[...slug].astro:221,223` (`sanitizeEmbed`) validates only the iframe `src` hostname and returns the entire matched `<iframe>` HTML unescaped — other injected attributes (e.g. `onload=`) in the WP-sourced embed string would pass through untouched (found: 2026-09-01) (resolved: 2026-10-10, PR #TBD)
+- [x] `src/pages/[...slug].astro:221,223` (`sanitizeEmbed`) validates only the iframe `src` hostname and returns the entire matched `<iframe>` HTML unescaped — other injected attributes (e.g. `onload=`) in the WP-sourced embed string would pass through untouched (found: 2026-09-01) (resolved: 2026-10-10, PR #445)
 - [ ] `src/pages/[...slug].astro:192` and `src/pages/nationality/[...slug].astro:104` render `featuredImage.node.caption` via `set:html` with no sanitization at all (found: 2026-09-01)
 - [ ] `src/pages/about.astro:36` and `src/pages/league-of-mixes.astro:85` render `singlePost?.content` via `set:html` with no sanitization at all (found: 2026-09-01)
 - [ ] `src/pages/dj-leaderboard.astro:101`, `src/pages/genres.astro:38`, `src/pages/nationalities.astro:37` use Alpine `x-html="dj.name"`/`"genre.name"`/`"nationality.name"` for plain taxonomy-name strings — unnecessary XSS surface where `x-text` would suffice (found: 2026-09-01)
