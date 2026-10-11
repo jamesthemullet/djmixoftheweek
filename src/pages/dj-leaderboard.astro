@@ -101,7 +101,7 @@ const djStatsJson = JSON.stringify(djStats);
           <template x-for="dj in sortedDJs" :key="dj.id">
             <tr>
               <td>
-                <a :href="`/dj/${dj.slug}`" rel="noopener noreferrer" x-html="dj.name"></a>
+                <a :href="`/dj/${dj.slug}`" rel="noopener noreferrer" x-text="dj.name"></a>
               </td>
               <td x-text="dj.avgRating !== null ? dj.avgRating.toFixed(2) : '—'"></td>
               <td x-text="dj.totalPosts"></td>
