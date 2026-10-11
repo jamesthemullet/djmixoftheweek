@@ -25,8 +25,12 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-09-28 — resolved SEO item: added `public/robots.txt` referencing `/sitemap.xml`
 - 2026-09-29 — resolved SEO item: `rss.xml.js` now fetches real posts over the WordPress GraphQL API instead of an empty local `astro:content` collection
 - 2026-10-04 — resolved SEO item: `src/pages/league-of-mixes.astro` main content title now uses `<h1>` instead of `<h2>`, matching `about.astro`'s pattern and giving the page a real page-level heading
+- 2026-10-05 — resolved responsive/UX item: `src/pages/djs.astro` DJ list links now use an absolute `/dj/{slug}` href instead of a relative `dj/{slug}` href
 - 2026-10-06 — resolved security item: `src/pages/[...slug].astro`'s `processContent` now sanitizes WP post HTML via a new `sanitizePostContent` helper (`src/lib/sanitize.ts`) before `set:html`, instead of relying only on URL-rewriting
 - 2026-10-08 — resolved security item: `featuredImage.node.caption` now passed through `sanitizePostContent` before `set:html` in `src/pages/[...slug].astro` (both render sites) and `src/pages/nationality/[...slug].astro`
+- 2026-10-07 — resolved test coverage item: added an integration test asserting `GET /rss.xml` produces well-formed XML (parsed via `jsdom`'s `DOMParser`) with one `<item>` per post, in order
+- 2026-10-10 — resolved security item: `sanitizeEmbed` (`src/lib/embeds.ts`) now rebuilds the SoundCloud/Mixcloud `<iframe>` tag from an attribute allowlist instead of passing the WP-sourced HTML through unescaped, so injected attributes like `onload=` are stripped
+- 2026-10-11 — resolved security item: replaced Alpine `x-html` with `x-text` for plain taxonomy-name strings in `dj-leaderboard.astro`, `genres.astro`, `nationalities.astro`
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -42,7 +46,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [ ] Add e2e spec: DJ filter select navigates to the selected DJ page — filter-select navigation is currently tested only for the genre filter on the homepage (found: 2026-09-01)
 - [ ] Add e2e spec: nationality filter select navigates to the selected nationality page (found: 2026-09-01)
 - [ ] Add e2e spec: search returns matching results and navigates to the selected post — `src/components/search/search.astro` has no e2e spec at all (found: 2026-09-01)
-- [ ] Add e2e spec: GET /rss.xml returns valid RSS XML with expected post entries — no e2e/integration spec currently covers `src/pages/rss.xml.js` (found: 2026-09-01)
+- [x] Add e2e spec: GET /rss.xml returns valid RSS XML with expected post entries — no e2e/integration spec currently covers `src/pages/rss.xml.js` (found: 2026-09-01) (resolved: 2026-10-07, PR #437)
 
 ## 2. Accessibility
 
@@ -71,16 +75,16 @@ audit adds new findings to the bottom of each section and leaves checked items a
 
 ## 5. Responsive / UX
 
-- [ ] `src/pages/djs.astro` DJ list links use relative `href="dj/al-wootton"` (no leading slash) rather than `/dj/al-wootton` like `[...slug].astro`'s DJ byline — fragile if this link markup is ever reused from a nested route (found: 2026-09-01)
+- [x] `src/pages/djs.astro` DJ list links use relative `href="dj/al-wootton"` (no leading slash) rather than `/dj/al-wootton` like `[...slug].astro`'s DJ byline — fragile if this link markup is ever reused from a nested route (found: 2026-09-01) (resolved: 2026-10-05, PR #435)
 - [ ] Manual mobile-viewport (≈375px) screenshot pass of genre/DJ/nationality/search routes was not completed in this audit (tooling limitation) — recommend a manual check to confirm the `header.css` `max-width:835px` hamburger-nav breakpoint renders correctly (found: 2026-09-01)
 
 ## 6. Security
 
 - [x] `src/pages/[...slug].astro:220` renders `processContent(singlePost.content)` via `set:html` with no HTML sanitization (only string `.replace()` URL-rewriting) — full WP post HTML injected unescaped, unlike `comment.astro` which sanitizes with `sanitize-html` (found: 2026-09-01) (resolved: 2026-10-06, PR #436)
-- [ ] `src/pages/[...slug].astro:221,223` (`sanitizeEmbed`) validates only the iframe `src` hostname and returns the entire matched `<iframe>` HTML unescaped — other injected attributes (e.g. `onload=`) in the WP-sourced embed string would pass through untouched (found: 2026-09-01)
-- [x] `src/pages/[...slug].astro:192` and `src/pages/nationality/[...slug].astro:104` render `featuredImage.node.caption` via `set:html` with no sanitization at all (found: 2026-09-01) (resolved: 2026-10-08, PR #441)
+- [x] `src/pages/[...slug].astro:221,223` (`sanitizeEmbed`) validates only the iframe `src` hostname and returns the entire matched `<iframe>` HTML unescaped — other injected attributes (e.g. `onload=`) in the WP-sourced embed string would pass through untouched (found: 2026-09-01) (resolved: 2026-10-10, PR #445)
+- [x] `src/pages/[...slug].astro:192` and `src/pages/nationality/[...slug].astro:104` render `featuredImage.node.caption` via `set:html` with no sanitization at all (found: 2026-09-01)
 - [ ] `src/pages/about.astro:36` and `src/pages/league-of-mixes.astro:85` render `singlePost?.content` via `set:html` with no sanitization at all (found: 2026-09-01)
-- [ ] `src/pages/dj-leaderboard.astro:101`, `src/pages/genres.astro:38`, `src/pages/nationalities.astro:37` use Alpine `x-html="dj.name"`/`"genre.name"`/`"nationality.name"` for plain taxonomy-name strings — unnecessary XSS surface where `x-text` would suffice (found: 2026-09-01)
+- [x] `src/pages/dj-leaderboard.astro:101`, `src/pages/genres.astro:38`, `src/pages/nationalities.astro:37` use Alpine `x-html="dj.name"`/`"genre.name"`/`"nationality.name"` for plain taxonomy-name strings — unnecessary XSS surface where `x-text` would suffice (found: 2026-09-01) (resolved: 2026-10-11, PR #447)
 - [ ] `src/components/addComment.astro` submits comments directly to the public WP GraphQL `createComment` mutation with no CSRF token, rate limiting, or CAPTCHA — a genuine public mutation surface exposed to spam/abuse (found: 2026-09-01)
 - [ ] `yarn audit` reports a moderate advisory in `sanitize-html@2.17.0` (CVE-2026-53606); `renovate.json` explicitly disables updates for `sanitize-html` and `nanoid`, so this and future CVEs in it won't be auto-patched (found: 2026-09-01)
 - [ ] CSP `script-src` in `vercel.json` includes `'unsafe-inline' 'unsafe-eval'`, substantially weakening XSS mitigation for the `set:html`/`x-html` gaps above (found: 2026-09-01)

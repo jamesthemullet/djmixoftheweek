@@ -37,7 +37,7 @@ const nationalitiesJson = JSON.stringify(allNationalities?.nationalities.nodes ?
         <template x-for="nationality in sortedNationalities" :key="nationality.id">
           <li>
             <h2>
-              <a :href="`nationality/${nationality.slug}`" rel="noopener noreferrer" x-html="nationality.name"></a>
+              <a :href="`nationality/${nationality.slug}`" rel="noopener noreferrer" x-text="nationality.name"></a>
             </h2>
             <span class="genre-count" x-text="`${nationality.count ?? 0} mix${(nationality.count ?? 0) !== 1 ? 'es' : ''}`"></span>
           </li>

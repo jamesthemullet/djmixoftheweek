@@ -38,7 +38,7 @@ const genresJson = JSON.stringify(allGenres?.genres.nodes ?? []);
         <template x-for="genre in sortedGenres" :key="genre.id">
           <li>
             <h2>
-              <a :href="`genre/${genre.slug}`" rel="noopener noreferrer" x-html="genre.name"></a>
+              <a :href="`genre/${genre.slug}`" rel="noopener noreferrer" x-text="genre.name"></a>
             </h2>
             <span class="genre-count" x-text="`${genre.count ?? 0} mix${(genre.count ?? 0) !== 1 ? 'es' : ''}`"></span>
           </li>

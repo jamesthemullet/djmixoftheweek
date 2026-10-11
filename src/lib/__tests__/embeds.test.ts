@@ -62,6 +62,10 @@ describe('sanitizeEmbed', () => {
     expect(sanitizeEmbed('<iframe></iframe>', 'w.soundcloud.com', 'SoundCloud player')).toBe('');
   });
 
+  it('returns an empty string when there is no iframe tag at all', () => {
+    expect(sanitizeEmbed('<p>no embed here</p>', 'w.soundcloud.com', 'SoundCloud player')).toBe('');
+  });
+
   it('returns an empty string when the src hostname is not allowed', () => {
     const html = '<iframe src="https://evil.example.com/embed"></iframe>';
     expect(sanitizeEmbed(html, 'w.soundcloud.com', 'SoundCloud player')).toBe('');
@@ -90,6 +94,22 @@ describe('sanitizeEmbed', () => {
     const html = '<iframe loading="eager" src="https://w.soundcloud.com/player/?url=123"></iframe>';
     expect(sanitizeEmbed(html, 'w.soundcloud.com', 'SoundCloud player')).toBe(
       '<iframe title="SoundCloud player" loading="eager" src="https://w.soundcloud.com/player/?url=123"></iframe>'
+    );
+  });
+
+  it('strips disallowed attributes such as onload from an allowed embed', () => {
+    const html =
+      '<iframe src="https://w.soundcloud.com/player/?url=123" onload="alert(1)" onerror="evil()"></iframe>';
+    expect(sanitizeEmbed(html, 'w.soundcloud.com', 'SoundCloud player')).toBe(
+      '<iframe loading="lazy" title="SoundCloud player" src="https://w.soundcloud.com/player/?url=123"></iframe>'
+    );
+  });
+
+  it('preserves allowed presentational attributes on an allowed embed', () => {
+    const html =
+      '<iframe width="100%" height="166" frameborder="no" scrolling="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=123"></iframe>';
+    expect(sanitizeEmbed(html, 'w.soundcloud.com', 'SoundCloud player')).toBe(
+      '<iframe loading="lazy" title="SoundCloud player" width="100%" height="166" frameborder="no" scrolling="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=123"></iframe>'
     );
   });
 });
