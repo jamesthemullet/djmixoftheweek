@@ -31,6 +31,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-07 — resolved test coverage item: added an integration test asserting `GET /rss.xml` produces well-formed XML (parsed via `jsdom`'s `DOMParser`) with one `<item>` per post, in order
 - 2026-10-10 — resolved security item: `sanitizeEmbed` (`src/lib/embeds.ts`) now rebuilds the SoundCloud/Mixcloud `<iframe>` tag from an attribute allowlist instead of passing the WP-sourced HTML through unescaped, so injected attributes like `onload=` are stripped
 - 2026-10-11 — resolved security item: replaced Alpine `x-html` with `x-text` for plain taxonomy-name strings in `dj-leaderboard.astro`, `genres.astro`, `nationalities.astro`
+- 2026-10-12 — resolved code quality item: `src/components/comment.astro`'s `Props` now declared as `interface Props` instead of `type Props`, matching `addComment.astro`/`comments.astro`
 - 2026-10-13 — resolved README alignment items: added `dj-leaderboard` and `your-djs` to README's Features list
 - 2026-10-14 — resolved code quality item: `fetchGraphQL` (`src/lib/api.ts`) is now generic (`<T = any>`) returning `Promise<T>` instead of a hardcoded `Promise<any>`, so call sites can opt into real typing
 
@@ -107,7 +108,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [ ] `src/pages/[...slug].astro:131` — `genreData` from `fetchGraphQL` is an untyped inline shape instead of `Genre` (found: 2026-09-01)
 - [ ] `src/pages/index.astro:19-20,47` — three `fetchGraphQL` calls with no result typing (found: 2026-09-01)
 - [ ] `src/pages/nationality/[...slug].astro:51` — `matching.posts.nodes as Post[]` is an unsafe cast masking an untyped upstream response instead of typing the fetch itself (found: 2026-09-01)
-- [ ] `src/components/comment.astro:11` declares `Props` as `type` while `addComment.astro:2`/`comments.astro:2` use `interface Props` — inconsistent convention (found: 2026-09-01)
+- [x] `src/components/comment.astro:11` declares `Props` as `type` while `addComment.astro:2`/`comments.astro:2` use `interface Props` — inconsistent convention (found: 2026-09-01) (resolved: 2026-10-12, PR #449)
 - [ ] `src/pages/dj/[...slug].astro` and `src/pages/genre/[...slug].astro` are ~95% duplicated (fetch-loop pagination, sort UI, template markup, x-data JSON building) — candidate for a shared component/layout (found: 2026-09-01)
 - [ ] `src/lib/queries/getDJBySlug.ts:7-46` and `src/lib/queries/getGenreBySlug.ts:7-46` duplicate an identical `posts { nodes {...} pageInfo {...} }` selection set verbatim — candidate for a shared GraphQL fragment (found: 2026-09-01)
 - [ ] `src/lib/queries/morePosts.ts`, `mostRecentPost.ts`, `otherPostsAfterFirst.ts` all repeat the same `posts.nodes` field selection, differing only by pagination args (found: 2026-09-01)

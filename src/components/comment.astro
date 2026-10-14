@@ -8,11 +8,11 @@ import type { Comment as CommentType } from "../types";
 import AddComment from "./addComment.astro";
 import CommentItem from "./comment.astro";
 
-type Props = {
+interface Props {
 	comment: CommentType;
 	postId: string;
 	commentId: string;
-};
+}
 
 const { comment, postId, commentId } = Astro.props as Props;
 
