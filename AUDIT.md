@@ -100,7 +100,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 
 ## 8. Code quality
 
-- [x] `src/lib/api.ts:1` — `fetchGraphQL` return type is `Promise<any>`, so every call site loses type safety for the GraphQL response (found: 2026-09-01) (resolved: 2026-10-14, PR #TBD)
+- [x] `src/lib/api.ts:1` — `fetchGraphQL` return type is `Promise<any>`, so every call site loses type safety for the GraphQL response (found: 2026-09-01) (resolved: 2026-10-14, PR #452)
 - [ ] `src/pages/about.astro:14` and `src/pages/league-of-mixes.astro:15` destructure `fetchGraphQL(GET_SINGLE_PAGE, ...)` results with no type annotation (found: 2026-09-01)
 - [ ] `src/pages/genres.astro:12` — `allGenres` fetch result is untyped; should use `Genres` from `src/types.ts` (found: 2026-09-01)
 - [ ] `src/pages/nationalities.astro:12` — `allNationalities` fetch result is untyped; should use `Nationalities` type (found: 2026-09-01)
