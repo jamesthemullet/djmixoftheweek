@@ -1,4 +1,4 @@
-export async function fetchGraphQL(query: string, variables: Record<string, unknown> = {}): Promise<any> {
+export async function fetchGraphQL<T = any>(query: string, variables: Record<string, unknown> = {}): Promise<T> {
 	const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/graphql`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },

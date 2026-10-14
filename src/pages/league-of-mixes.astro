@@ -25,7 +25,7 @@ let endCursor = null;
 
 try {
 	while (hasNextPage) {
-		const { posts } = await fetchGraphQL(ALL_POSTS_QUERY, {
+		const { posts }: { posts: any } = await fetchGraphQL(ALL_POSTS_QUERY, {
 			first: 100,
 			after: endCursor,
 		});

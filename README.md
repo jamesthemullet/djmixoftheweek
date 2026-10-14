@@ -6,6 +6,8 @@ A site for discovering and browsing DJ mixes, built with [Astro](https://astro.b
 
 - Browse mixes by DJ, genre, and nationality
 - League of mixes rankings
+- DJ leaderboard ranked by average mix rating
+- Favourite DJs and view them on a dedicated "Your DJs" page
 - RSS feed
 - SEO-friendly with sitemap and OpenGraph data
 
