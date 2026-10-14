@@ -32,6 +32,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-10 — resolved security item: `sanitizeEmbed` (`src/lib/embeds.ts`) now rebuilds the SoundCloud/Mixcloud `<iframe>` tag from an attribute allowlist instead of passing the WP-sourced HTML through unescaped, so injected attributes like `onload=` are stripped
 - 2026-10-11 — resolved security item: replaced Alpine `x-html` with `x-text` for plain taxonomy-name strings in `dj-leaderboard.astro`, `genres.astro`, `nationalities.astro`
 - 2026-10-13 — resolved README alignment items: added `dj-leaderboard` and `your-djs` to README's Features list
+- 2026-10-14 — resolved code quality item: `fetchGraphQL` (`src/lib/api.ts`) is now generic (`<T = any>`) returning `Promise<T>` instead of a hardcoded `Promise<any>`, so call sites can opt into real typing
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -99,7 +100,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 
 ## 8. Code quality
 
-- [ ] `src/lib/api.ts:1` — `fetchGraphQL` return type is `Promise<any>`, so every call site loses type safety for the GraphQL response (found: 2026-09-01)
+- [x] `src/lib/api.ts:1` — `fetchGraphQL` return type is `Promise<any>`, so every call site loses type safety for the GraphQL response (found: 2026-09-01) (resolved: 2026-10-14, PR #452)
 - [ ] `src/pages/about.astro:14` and `src/pages/league-of-mixes.astro:15` destructure `fetchGraphQL(GET_SINGLE_PAGE, ...)` results with no type annotation (found: 2026-09-01)
 - [ ] `src/pages/genres.astro:12` — `allGenres` fetch result is untyped; should use `Genres` from `src/types.ts` (found: 2026-09-01)
 - [ ] `src/pages/nationalities.astro:12` — `allNationalities` fetch result is untyped; should use `Nationalities` type (found: 2026-09-01)
