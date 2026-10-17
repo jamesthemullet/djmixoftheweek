@@ -9,7 +9,7 @@ import type { Nationalities } from '../types';
 let allNationalities: Nationalities = null;
 
 try {
-  allNationalities = await fetchGraphQL(GET_NATIONALITY_NAMES);
+  allNationalities = await fetchGraphQL<Nationalities>(GET_NATIONALITY_NAMES);
 } catch (error) {
   console.error('Error fetching all nationalities:', error);
 }
