@@ -21,7 +21,7 @@
     "@astrojs/alpinejs": "^1.0.0",
     "@astrojs/partytown": "2.1.8",
     "@astrojs/rss": "4.0.19",
-    "@astrojs/vercel": "11.0.13",
+    "@astrojs/vercel": "11.0.14",
     "@types/alpinejs": "^3.13.11",
     "@types/node": "^26.4.1",
     "@types/sanitize-html": "^2.16.1",
