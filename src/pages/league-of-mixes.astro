@@ -12,7 +12,7 @@ const variables = { id: "407" };
 let singlePost: Post = null;
 
 try {
-	const { page } = await fetchGraphQL(GET_SINGLE_PAGE, variables);
+	const { page } = await fetchGraphQL<{ page: Post }>(GET_SINGLE_PAGE, variables);
 	singlePost = page;
 } catch (error) {
 	console.error("Error fetching GraphQL data:", error);
