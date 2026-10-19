@@ -38,6 +38,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-16 — resolved code quality item: `src/pages/genres.astro`'s `allGenres` fetch now passes `Genres` as the explicit type argument to `fetchGraphQL<Genres>(...)` instead of relying on the pre-declared variable annotation alone
 - 2026-10-17 — resolved code quality item: `src/pages/nationalities.astro`'s `allNationalities` fetch now passes `Nationalities` as the explicit type argument to `fetchGraphQL<Nationalities>(...)` instead of relying on the pre-declared variable annotation alone
 - 2026-10-18 — resolved code quality item: `src/pages/[...slug].astro`'s `genreData` fetch now passes an explicit `fetchGraphQL<{ genre: { posts: { nodes: Post[] } } | null }>(...)` type argument instead of relying on an untyped inline response shape
+- 2026-10-19 — resolved code quality item: `src/pages/index.astro`'s three `fetchGraphQL` calls (most recent post, genre names, other posts after first) now pass explicit type arguments instead of relying on untyped `any` responses
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -110,7 +111,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/pages/genres.astro:12` — `allGenres` fetch result is untyped; should use `Genres` from `src/types.ts` (found: 2026-09-01) (resolved: 2026-10-16, PR #454)
 - [x] `src/pages/nationalities.astro:12` — `allNationalities` fetch result is untyped; should use `Nationalities` type (found: 2026-09-01) (resolved: 2026-10-17, PR #456)
 - [x] `src/pages/[...slug].astro:131` — `genreData` from `fetchGraphQL` is an untyped inline shape instead of `Genre` (found: 2026-09-01) (resolved: 2026-10-18, PR #458)
-- [ ] `src/pages/index.astro:19-20,47` — three `fetchGraphQL` calls with no result typing (found: 2026-09-01)
+- [x] `src/pages/index.astro:19-20,47` — three `fetchGraphQL` calls with no result typing (found: 2026-09-01) (resolved: 2026-10-19, PR #459)
 - [ ] `src/pages/nationality/[...slug].astro:51` — `matching.posts.nodes as Post[]` is an unsafe cast masking an untyped upstream response instead of typing the fetch itself (found: 2026-09-01)
 - [x] `src/components/comment.astro:11` declares `Props` as `type` while `addComment.astro:2`/`comments.astro:2` use `interface Props` — inconsistent convention (found: 2026-09-01) (resolved: 2026-10-12, PR #449)
 - [ ] `src/pages/dj/[...slug].astro` and `src/pages/genre/[...slug].astro` are ~95% duplicated (fetch-loop pagination, sort UI, template markup, x-data JSON building) — candidate for a shared component/layout (found: 2026-09-01)
