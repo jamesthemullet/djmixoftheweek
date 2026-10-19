@@ -111,7 +111,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/pages/genres.astro:12` — `allGenres` fetch result is untyped; should use `Genres` from `src/types.ts` (found: 2026-09-01) (resolved: 2026-10-16, PR #454)
 - [x] `src/pages/nationalities.astro:12` — `allNationalities` fetch result is untyped; should use `Nationalities` type (found: 2026-09-01) (resolved: 2026-10-17, PR #456)
 - [x] `src/pages/[...slug].astro:131` — `genreData` from `fetchGraphQL` is an untyped inline shape instead of `Genre` (found: 2026-09-01) (resolved: 2026-10-18, PR #458)
-- [x] `src/pages/index.astro:19-20,47` — three `fetchGraphQL` calls with no result typing (found: 2026-09-01) (resolved: 2026-10-19, PR #TBD)
+- [x] `src/pages/index.astro:19-20,47` — three `fetchGraphQL` calls with no result typing (found: 2026-09-01) (resolved: 2026-10-19, PR #459)
 - [ ] `src/pages/nationality/[...slug].astro:51` — `matching.posts.nodes as Post[]` is an unsafe cast masking an untyped upstream response instead of typing the fetch itself (found: 2026-09-01)
 - [x] `src/components/comment.astro:11` declares `Props` as `type` while `addComment.astro:2`/`comments.astro:2` use `interface Props` — inconsistent convention (found: 2026-09-01) (resolved: 2026-10-12, PR #449)
 - [ ] `src/pages/dj/[...slug].astro` and `src/pages/genre/[...slug].astro` are ~95% duplicated (fetch-loop pagination, sort UI, template markup, x-data JSON building) — candidate for a shared component/layout (found: 2026-09-01)
