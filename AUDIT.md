@@ -39,6 +39,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-17 — resolved code quality item: `src/pages/nationalities.astro`'s `allNationalities` fetch now passes `Nationalities` as the explicit type argument to `fetchGraphQL<Nationalities>(...)` instead of relying on the pre-declared variable annotation alone
 - 2026-10-18 — resolved code quality item: `src/pages/[...slug].astro`'s `genreData` fetch now passes an explicit `fetchGraphQL<{ genre: { posts: { nodes: Post[] } } | null }>(...)` type argument instead of relying on an untyped inline response shape
 - 2026-10-19 — resolved code quality item: `src/pages/index.astro`'s three `fetchGraphQL` calls (most recent post, genre names, other posts after first) now pass explicit type arguments instead of relying on untyped `any` responses
+- 2026-10-20 — resolved SEO item: OG image finding was stale — `dj/[...slug].astro`, `genre/[...slug].astro`, and `nationality/[...slug].astro` already pass a real `opengraphImage` to `BaseLayout`; checked off, no code change needed
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -73,7 +74,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/pages/about.astro:22` and `src/pages/league-of-mixes.astro:71` read `singlePost?.seo.opengraphDescription` without optional-chaining `.seo`, so a resolved `singlePost` with undefined `.seo` throws instead of degrading to the fallback (found: 2026-09-01) (resolved: 2026-09-26, PR #421)
 - [x] `src/pages/index.astro`, `djs.astro`, `genres.astro`, `nationalities.astro`, `dj-leaderboard.astro` pass no `description` prop to `BaseLayout`, so all fall back to the same generic homepage description (`BaseLayout.astro:27`) (found: 2026-09-01) (resolved: 2026-09-25, PR #420)
 - [x] `src/pages/genres.astro:20` passes `pageTitle="Home"` to `BaseLayout` — wrong/duplicate title identical to the actual homepage (found: 2026-09-01) (resolved: 2026-09-24, PR #418)
-- [ ] `src/layouts/BaseLayout.astro:32` OG `image` always falls back to the same `blog-placeholder-1.jpg`; no page in `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, or `nationality/[...slug].astro` passes a real `opengraphImage` (found: 2026-09-01)
+- [x] `src/layouts/BaseLayout.astro:32` OG `image` always falls back to the same `blog-placeholder-1.jpg`; no page in `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, or `nationality/[...slug].astro` passes a real `opengraphImage` (found: 2026-09-01) (resolved: 2026-10-20, PR #460 — stale finding: all three pages already request `seo.opengraphImage.sourceUrl` in their GraphQL queries and pass it to `BaseLayout`'s `opengraphImage` prop, falling back to `fallbackImage` only when WordPress has no real image)
 - [ ] No `@astrojs/sitemap` integration is used (not in `package.json`); `src/pages/sitemap.xml.js` hand-rolls the feed instead of producing the conventional sitemap-index/sitemap-0 pair (found: 2026-09-01)
 - [x] `src/pages/sitemap.xml.js` static-pages list omits `/djs`, `/nationalities`, `/your-djs`, `/dj-leaderboard`, and all dynamic `dj/*`, `genre/*`, `nationality/*` routes (found: 2026-09-01) (resolved: 2026-09-27, PR #422)
 - [x] No `public/robots.txt` exists anywhere in the repo, so there's no reference pointing crawlers at `/sitemap.xml` (found: 2026-09-01) (resolved: 2026-09-28, PR #423)
