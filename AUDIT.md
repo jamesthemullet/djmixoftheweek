@@ -101,7 +101,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 
 ## 7. README / feature alignment
 
-- [x] README claims an "RSS feed" feature, but `src/pages/rss.xml.js` is wired to an empty local `getCollection("blog")` rather than the site's real GraphQL mix data, so it outputs the default Astro-starter title/description with zero items (found: 2026-09-01) (resolved: 2026-10-21, PR #TBD — stale finding: `rss.xml.js` already fetches real posts over the WordPress GraphQL API via `GET_RECENT_POSTS` since PR #425, with the real site title/description; checked off, no code change needed)
+- [x] README claims an "RSS feed" feature, but `src/pages/rss.xml.js` is wired to an empty local `getCollection("blog")` rather than the site's real GraphQL mix data, so it outputs the default Astro-starter title/description with zero items (found: 2026-09-01) (resolved: 2026-10-21, PR #461 — stale finding: `rss.xml.js` already fetches real posts over the WordPress GraphQL API via `GET_RECENT_POSTS` since PR #425, with the real site title/description; checked off, no code change needed)
 - [ ] README claims "SEO-friendly with sitemap and OpenGraph data" but `src/pages/sitemap.xml.js`'s static-pages list omits several live routes (`djs`, `genres` subpages, `nationalities`, `dj-leaderboard`, `your-djs`, `dj/[slug]`, `nationality/[slug]`) (found: 2026-09-01)
 - [x] `src/pages/dj-leaderboard.astro` (a DJ leaderboard/average-rating page, distinct from "league of mixes") is live and working but not mentioned in README's Features list (found: 2026-09-01) (resolved: 2026-10-13, PR #451)
 - [x] `src/pages/your-djs.astro` is live and working but not mentioned in README's Features list (found: 2026-09-01) (resolved: 2026-10-13, PR #451)
