@@ -42,6 +42,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-20 — resolved SEO item: OG image finding was stale — `dj/[...slug].astro`, `genre/[...slug].astro`, and `nationality/[...slug].astro` already pass a real `opengraphImage` to `BaseLayout`; checked off, no code change needed
 - 2026-10-21 — resolved README alignment item: RSS feed finding was stale — `src/pages/rss.xml.js` already fetches real posts via `GET_RECENT_POSTS`/`fetchGraphQL` (fixed by PR #425) and uses the real site title/description, matching README's "RSS feed" claim; checked off, no code change needed
 - 2026-10-22 — resolved README alignment item: sitemap-routes finding was stale — `src/pages/sitemap.xml.js`'s static-pages list and dynamic `djPages`/`genrePages`/`nationalityPages` arrays already cover every route the finding named (fixed by PR #422); checked off, no code change needed
+- 2026-10-22 — resolved code quality item: `src/pages/nationality/[...slug].astro`'s `fetchGraphQL` call for nationalities now passes an explicit `{ nationalities: { nodes: NationalityNode[] } }` type argument, removing the unsafe `matching.posts.nodes as Post[]` cast
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -115,7 +116,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/pages/nationalities.astro:12` — `allNationalities` fetch result is untyped; should use `Nationalities` type (found: 2026-09-01) (resolved: 2026-10-17, PR #456)
 - [x] `src/pages/[...slug].astro:131` — `genreData` from `fetchGraphQL` is an untyped inline shape instead of `Genre` (found: 2026-09-01) (resolved: 2026-10-18, PR #458)
 - [x] `src/pages/index.astro:19-20,47` — three `fetchGraphQL` calls with no result typing (found: 2026-09-01) (resolved: 2026-10-19, PR #459)
-- [ ] `src/pages/nationality/[...slug].astro:51` — `matching.posts.nodes as Post[]` is an unsafe cast masking an untyped upstream response instead of typing the fetch itself (found: 2026-09-01)
+- [x] `src/pages/nationality/[...slug].astro:51` — `matching.posts.nodes as Post[]` is an unsafe cast masking an untyped upstream response instead of typing the fetch itself (found: 2026-09-01) (resolved: 2026-10-22, PR #TBD)
 - [x] `src/components/comment.astro:11` declares `Props` as `type` while `addComment.astro:2`/`comments.astro:2` use `interface Props` — inconsistent convention (found: 2026-09-01) (resolved: 2026-10-12, PR #449)
 - [ ] `src/pages/dj/[...slug].astro` and `src/pages/genre/[...slug].astro` are ~95% duplicated (fetch-loop pagination, sort UI, template markup, x-data JSON building) — candidate for a shared component/layout (found: 2026-09-01)
 - [ ] `src/lib/queries/getDJBySlug.ts:7-46` and `src/lib/queries/getGenreBySlug.ts:7-46` duplicate an identical `posts { nodes {...} pageInfo {...} }` selection set verbatim — candidate for a shared GraphQL fragment (found: 2026-09-01)
