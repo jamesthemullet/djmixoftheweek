@@ -41,6 +41,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-19 — resolved code quality item: `src/pages/index.astro`'s three `fetchGraphQL` calls (most recent post, genre names, other posts after first) now pass explicit type arguments instead of relying on untyped `any` responses
 - 2026-10-20 — resolved SEO item: OG image finding was stale — `dj/[...slug].astro`, `genre/[...slug].astro`, and `nationality/[...slug].astro` already pass a real `opengraphImage` to `BaseLayout`; checked off, no code change needed
 - 2026-10-21 — resolved README alignment item: RSS feed finding was stale — `src/pages/rss.xml.js` already fetches real posts via `GET_RECENT_POSTS`/`fetchGraphQL` (fixed by PR #425) and uses the real site title/description, matching README's "RSS feed" claim; checked off, no code change needed
+- 2026-10-22 — resolved README alignment item: sitemap-routes finding was stale — `src/pages/sitemap.xml.js`'s static-pages list and dynamic `djPages`/`genrePages`/`nationalityPages` arrays already cover every route the finding named (fixed by PR #422); checked off, no code change needed
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -102,7 +103,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 ## 7. README / feature alignment
 
 - [x] README claims an "RSS feed" feature, but `src/pages/rss.xml.js` is wired to an empty local `getCollection("blog")` rather than the site's real GraphQL mix data, so it outputs the default Astro-starter title/description with zero items (found: 2026-09-01) (resolved: 2026-10-21, PR #461 — stale finding: `rss.xml.js` already fetches real posts over the WordPress GraphQL API via `GET_RECENT_POSTS` since PR #425, with the real site title/description; checked off, no code change needed)
-- [ ] README claims "SEO-friendly with sitemap and OpenGraph data" but `src/pages/sitemap.xml.js`'s static-pages list omits several live routes (`djs`, `genres` subpages, `nationalities`, `dj-leaderboard`, `your-djs`, `dj/[slug]`, `nationality/[slug]`) (found: 2026-09-01)
+- [x] README claims "SEO-friendly with sitemap and OpenGraph data" but `src/pages/sitemap.xml.js`'s static-pages list omits several live routes (`djs`, `genres` subpages, `nationalities`, `dj-leaderboard`, `your-djs`, `dj/[slug]`, `nationality/[slug]`) (found: 2026-09-01) (resolved: 2026-10-22, PR #465 — stale finding: `src/pages/sitemap.xml.js`'s `staticPages` already lists `djs`, `genres`, `nationalities`, `dj-leaderboard`, `your-djs`, and the fetched `djPages`/`genrePages`/`nationalityPages`/`postPages` arrays already cover `dj/[slug]`, `genre/[slug]`, `nationality/[slug]`, and post routes — fixed by PR #422; checked off, no code change needed)
 - [x] `src/pages/dj-leaderboard.astro` (a DJ leaderboard/average-rating page, distinct from "league of mixes") is live and working but not mentioned in README's Features list (found: 2026-09-01) (resolved: 2026-10-13, PR #451)
 - [x] `src/pages/your-djs.astro` is live and working but not mentioned in README's Features list (found: 2026-09-01) (resolved: 2026-10-13, PR #451)
 
