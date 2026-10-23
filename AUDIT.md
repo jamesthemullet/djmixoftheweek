@@ -42,6 +42,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-20 — resolved SEO item: OG image finding was stale — `dj/[...slug].astro`, `genre/[...slug].astro`, and `nationality/[...slug].astro` already pass a real `opengraphImage` to `BaseLayout`; checked off, no code change needed
 - 2026-10-21 — resolved README alignment item: RSS feed finding was stale — `src/pages/rss.xml.js` already fetches real posts via `GET_RECENT_POSTS`/`fetchGraphQL` (fixed by PR #425) and uses the real site title/description, matching README's "RSS feed" claim; checked off, no code change needed
 - 2026-10-22 — resolved README alignment item: sitemap-routes finding was stale — `src/pages/sitemap.xml.js`'s static-pages list and dynamic `djPages`/`genrePages`/`nationalityPages` arrays already cover every route the finding named (fixed by PR #422); checked off, no code change needed
+- 2026-10-23 — resolved security item: `sanitize-html`/`nanoid` CVE finding was stale — `sanitize-html` is already `2.18.1`, `renovate.json` has no package-specific ignore for either package, and `yarn audit` reports 0 vulnerabilities; checked off, no code change needed
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -97,7 +98,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [ ] `src/pages/about.astro:36` and `src/pages/league-of-mixes.astro:85` render `singlePost?.content` via `set:html` with no sanitization at all (found: 2026-09-01)
 - [x] `src/pages/dj-leaderboard.astro:101`, `src/pages/genres.astro:38`, `src/pages/nationalities.astro:37` use Alpine `x-html="dj.name"`/`"genre.name"`/`"nationality.name"` for plain taxonomy-name strings — unnecessary XSS surface where `x-text` would suffice (found: 2026-09-01) (resolved: 2026-10-11, PR #447)
 - [ ] `src/components/addComment.astro` submits comments directly to the public WP GraphQL `createComment` mutation with no CSRF token, rate limiting, or CAPTCHA — a genuine public mutation surface exposed to spam/abuse (found: 2026-09-01)
-- [ ] `yarn audit` reports a moderate advisory in `sanitize-html@2.17.0` (CVE-2026-53606); `renovate.json` explicitly disables updates for `sanitize-html` and `nanoid`, so this and future CVEs in it won't be auto-patched (found: 2026-09-01)
+- [x] `yarn audit` reports a moderate advisory in `sanitize-html@2.17.0` (CVE-2026-53606); `renovate.json` explicitly disables updates for `sanitize-html` and `nanoid`, so this and future CVEs in it won't be auto-patched (found: 2026-09-01) (resolved: 2026-10-23, PR #PENDING — stale finding: `sanitize-html` is already at `2.18.1` via Renovate's own non-major grouping rule, `renovate.json` has no package-specific ignore for `sanitize-html` or `nanoid`, and `yarn audit` currently reports 0 vulnerabilities; checked off, no code change needed)
 - [ ] CSP `script-src` in `vercel.json` includes `'unsafe-inline' 'unsafe-eval'`, substantially weakening XSS mitigation for the `set:html`/`x-html` gaps above (found: 2026-09-01)
 
 ## 7. README / feature alignment
