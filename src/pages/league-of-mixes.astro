@@ -4,6 +4,7 @@ import "../styles/pages.css";
 import { Image } from "astro:assets";
 import { FALLBACK_IMAGE as fallbackImage } from "../consts";
 import { fetchGraphQL } from "../lib/api";
+import { DEFAULT_PAGE_SIZE } from "../lib/constants";
 import ALL_POSTS_QUERY from "../lib/queries/allPosts";
 import GET_SINGLE_PAGE from "../lib/queries/getSinglePage";
 import type { Post } from "../types";
@@ -26,7 +27,7 @@ let endCursor = null;
 try {
 	while (hasNextPage) {
 		const { posts }: { posts: any } = await fetchGraphQL(ALL_POSTS_QUERY, {
-			first: 100,
+			first: DEFAULT_PAGE_SIZE,
 			after: endCursor,
 		});
 

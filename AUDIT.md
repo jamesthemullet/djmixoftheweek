@@ -42,6 +42,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-20 — resolved SEO item: OG image finding was stale — `dj/[...slug].astro`, `genre/[...slug].astro`, and `nationality/[...slug].astro` already pass a real `opengraphImage` to `BaseLayout`; checked off, no code change needed
 - 2026-10-21 — resolved README alignment item: RSS feed finding was stale — `src/pages/rss.xml.js` already fetches real posts via `GET_RECENT_POSTS`/`fetchGraphQL` (fixed by PR #425) and uses the real site title/description, matching README's "RSS feed" claim; checked off, no code change needed
 - 2026-10-22 — resolved README alignment item: sitemap-routes finding was stale — `src/pages/sitemap.xml.js`'s static-pages list and dynamic `djPages`/`genrePages`/`nationalityPages` arrays already cover every route the finding named (fixed by PR #422); checked off, no code change needed
+- 2026-10-24 — resolved code quality item: added a `DEFAULT_PAGE_SIZE` constant (`src/lib/constants.ts`) and replaced the inlined `postsFirst: 100`/`first: 100` literals across `src/pages/dj/[...slug].astro`, `src/pages/genre/[...slug].astro`, `src/pages/league-of-mixes.astro`, and 8 `src/lib/queries/*.ts` files with it
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -120,7 +121,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [ ] `src/pages/dj/[...slug].astro` and `src/pages/genre/[...slug].astro` are ~95% duplicated (fetch-loop pagination, sort UI, template markup, x-data JSON building) — candidate for a shared component/layout (found: 2026-09-01)
 - [ ] `src/lib/queries/getDJBySlug.ts:7-46` and `src/lib/queries/getGenreBySlug.ts:7-46` duplicate an identical `posts { nodes {...} pageInfo {...} }` selection set verbatim — candidate for a shared GraphQL fragment (found: 2026-09-01)
 - [ ] `src/lib/queries/morePosts.ts`, `mostRecentPost.ts`, `otherPostsAfterFirst.ts` all repeat the same `posts.nodes` field selection, differing only by pagination args (found: 2026-09-01)
-- [ ] `postsFirst: 100`/`first: 100` is inlined across 10+ call sites in `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, and multiple `src/lib/queries/*.ts` files — should be a named `DEFAULT_PAGE_SIZE` constant (found: 2026-09-01)
+- [x] `postsFirst: 100`/`first: 100` is inlined across 10+ call sites in `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, and multiple `src/lib/queries/*.ts` files — should be a named `DEFAULT_PAGE_SIZE` constant (found: 2026-09-01) (resolved: 2026-10-24, PR #TBD)
 - [ ] `'/404'` redirect string is repeated 5 times across `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, `nationality/[...slug].astro`, `[...slug].astro` — should be a named constant (found: 2026-09-01)
 - [ ] `` `${import.meta.env.PUBLIC_API_BASE_URL}/graphql` `` is duplicated in `src/lib/api.ts:2` and re-implemented directly in `src/components/comments.astro:62`, bypassing the `fetchGraphQL` helper and its error handling (found: 2026-09-01)
 - [ ] `src/components/footer/footer.astro:49` and `src/components/header/header.astro:88` both hand-roll an identical `fetch` to `/wp-json/custom/v1/subscribe` — candidate for a shared helper (found: 2026-09-01)
