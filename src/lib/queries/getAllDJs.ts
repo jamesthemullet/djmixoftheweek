@@ -1,6 +1,8 @@
+import { DEFAULT_PAGE_SIZE } from '../constants';
+
 const GET_ALL_DJS = `
   query GetAllDJs($after: String) {
-    dJs(first: 100, after: $after) {
+    dJs(first: ${DEFAULT_PAGE_SIZE}, after: $after) {
       nodes {
         slug
       }

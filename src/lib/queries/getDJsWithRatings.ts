@@ -1,12 +1,14 @@
+import { DEFAULT_PAGE_SIZE } from '../constants';
+
 const GET_DJS_WITH_RATINGS = `
   query GetDJsWithRatings($djsAfter: String) {
-    dJs(first: 100, after: $djsAfter) {
+    dJs(first: ${DEFAULT_PAGE_SIZE}, after: $djsAfter) {
       nodes {
         id
         name
         count
         slug
-        posts(first: 100) {
+        posts(first: ${DEFAULT_PAGE_SIZE}) {
           nodes {
             ratings {
               nodes {
