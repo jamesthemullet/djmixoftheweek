@@ -1,11 +1,10 @@
+import POST_LIST_FIELDS from "./postListFields";
+
 const MORE_POSTS = `
   query GetOtherPosts($first: Int, $after: String) {
     posts(first: $first, after: $after) {
       nodes {
-        id
-        slug
-        title
-        date
+        ${POST_LIST_FIELDS}
         featuredImage {
           node {
             mediaDetails {
@@ -15,18 +14,6 @@ const MORE_POSTS = `
               }
             }
             sourceUrl
-          }
-        }
-        genres {
-          nodes {
-            name
-            slug
-          }
-        }
-        dJs {
-          nodes {
-            name
-            slug
           }
         }
       }
