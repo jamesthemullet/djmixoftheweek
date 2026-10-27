@@ -43,6 +43,8 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-21 — resolved README alignment item: RSS feed finding was stale — `src/pages/rss.xml.js` already fetches real posts via `GET_RECENT_POSTS`/`fetchGraphQL` (fixed by PR #425) and uses the real site title/description, matching README's "RSS feed" claim; checked off, no code change needed
 - 2026-10-22 — resolved README alignment item: sitemap-routes finding was stale — `src/pages/sitemap.xml.js`'s static-pages list and dynamic `djPages`/`genrePages`/`nationalityPages` arrays already cover every route the finding named (fixed by PR #422); checked off, no code change needed
 - 2026-10-25 — resolved code quality item: extracted the duplicated `posts { nodes {...} pageInfo {...} }` selection set from `getDJBySlug.ts`/`getGenreBySlug.ts` into a shared `src/lib/queries/postFields.ts` field-selection constant, interpolated into both query strings
+- 2026-10-23 — resolved security item: `sanitize-html`/`nanoid` CVE finding was stale — `sanitize-html` is already `2.18.1`, `renovate.json` has no package-specific ignore for either package, and `yarn audit` reports 0 vulnerabilities; checked off, no code change needed
+- 2026-10-22 — resolved code quality item: `src/pages/nationality/[...slug].astro`'s `fetchGraphQL` call for nationalities now passes an explicit `{ nationalities: { nodes: NationalityNode[] } }` type argument, removing the unsafe `matching.posts.nodes as Post[]` cast
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -98,7 +100,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [ ] `src/pages/about.astro:36` and `src/pages/league-of-mixes.astro:85` render `singlePost?.content` via `set:html` with no sanitization at all (found: 2026-09-01)
 - [x] `src/pages/dj-leaderboard.astro:101`, `src/pages/genres.astro:38`, `src/pages/nationalities.astro:37` use Alpine `x-html="dj.name"`/`"genre.name"`/`"nationality.name"` for plain taxonomy-name strings — unnecessary XSS surface where `x-text` would suffice (found: 2026-09-01) (resolved: 2026-10-11, PR #447)
 - [ ] `src/components/addComment.astro` submits comments directly to the public WP GraphQL `createComment` mutation with no CSRF token, rate limiting, or CAPTCHA — a genuine public mutation surface exposed to spam/abuse (found: 2026-09-01)
-- [ ] `yarn audit` reports a moderate advisory in `sanitize-html@2.17.0` (CVE-2026-53606); `renovate.json` explicitly disables updates for `sanitize-html` and `nanoid`, so this and future CVEs in it won't be auto-patched (found: 2026-09-01)
+- [x] `yarn audit` reports a moderate advisory in `sanitize-html@2.17.0` (CVE-2026-53606); `renovate.json` explicitly disables updates for `sanitize-html` and `nanoid`, so this and future CVEs in it won't be auto-patched (found: 2026-09-01) (resolved: 2026-10-23, PR #470 — stale finding: `sanitize-html` is already at `2.18.1` via Renovate's own non-major grouping rule, `renovate.json` has no package-specific ignore for `sanitize-html` or `nanoid`, and `yarn audit` currently reports 0 vulnerabilities; checked off, no code change needed)
 - [ ] CSP `script-src` in `vercel.json` includes `'unsafe-inline' 'unsafe-eval'`, substantially weakening XSS mitigation for the `set:html`/`x-html` gaps above (found: 2026-09-01)
 
 ## 7. README / feature alignment
@@ -116,7 +118,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/pages/nationalities.astro:12` — `allNationalities` fetch result is untyped; should use `Nationalities` type (found: 2026-09-01) (resolved: 2026-10-17, PR #456)
 - [x] `src/pages/[...slug].astro:131` — `genreData` from `fetchGraphQL` is an untyped inline shape instead of `Genre` (found: 2026-09-01) (resolved: 2026-10-18, PR #458)
 - [x] `src/pages/index.astro:19-20,47` — three `fetchGraphQL` calls with no result typing (found: 2026-09-01) (resolved: 2026-10-19, PR #459)
-- [ ] `src/pages/nationality/[...slug].astro:51` — `matching.posts.nodes as Post[]` is an unsafe cast masking an untyped upstream response instead of typing the fetch itself (found: 2026-09-01)
+- [x] `src/pages/nationality/[...slug].astro:51` — `matching.posts.nodes as Post[]` is an unsafe cast masking an untyped upstream response instead of typing the fetch itself (found: 2026-09-01) (resolved: 2026-10-22, PR #466)
 - [x] `src/components/comment.astro:11` declares `Props` as `type` while `addComment.astro:2`/`comments.astro:2` use `interface Props` — inconsistent convention (found: 2026-09-01) (resolved: 2026-10-12, PR #449)
 - [ ] `src/pages/dj/[...slug].astro` and `src/pages/genre/[...slug].astro` are ~95% duplicated (fetch-loop pagination, sort UI, template markup, x-data JSON building) — candidate for a shared component/layout (found: 2026-09-01)
 - [x] `src/lib/queries/getDJBySlug.ts:7-46` and `src/lib/queries/getGenreBySlug.ts:7-46` duplicate an identical `posts { nodes {...} pageInfo {...} }` selection set verbatim — candidate for a shared GraphQL fragment (found: 2026-09-01) (resolved: 2026-10-25, PR #472)

@@ -18,38 +18,41 @@ if (!slug) {
 
 let postsByNationality: Post[] = [];
 
+type PageInfo = { hasNextPage?: boolean; endCursor?: string | null };
+
+type NationalityNode = NonNullable<Nationality> & {
+  posts: NonNullable<Nationality>['posts'] & { pageInfo?: PageInfo };
+};
+
 try {
   const pageSize = 100;
   let postsAfter: string | undefined;
-  let foundNationalityNode: Nationality | null = null;
+  let foundNationalityNode: NationalityNode | null = null;
 
-  type PageInfo = { hasNextPage?: boolean; endCursor?: string | null };
-
-  const getPageInfo = (node: Nationality | null, nodes: unknown[]): PageInfo | undefined => {
-    const n = node as unknown as { posts?: { pageInfo?: PageInfo } } | undefined;
-    if (n?.posts?.pageInfo) return n.posts.pageInfo;
-    const first = nodes[0] as unknown as { posts?: { pageInfo?: PageInfo } } | undefined;
-    return first?.posts?.pageInfo;
-  };
+  const getPageInfo = (
+    node: NationalityNode | null,
+    nodes: NationalityNode[]
+  ): PageInfo | undefined => node?.posts?.pageInfo ?? nodes[0]?.posts?.pageInfo;
 
   while (true) {
-    const response = await fetchGraphQL(GET_ALL_NATIONALITIES, {
-      postsFirst: pageSize,
-      postsAfter,
-    });
+    const response = await fetchGraphQL<{ nationalities: { nodes: NationalityNode[] } }>(
+      GET_ALL_NATIONALITIES,
+      {
+        postsFirst: pageSize,
+        postsAfter,
+      }
+    );
 
     const nationalityNodes = response?.nationalities?.nodes || [];
     if (!foundNationalityNode) {
       foundNationalityNode =
-        nationalityNodes.find((nationality: Nationality) => nationality?.slug === slug) || null;
+        nationalityNodes.find((nationality) => nationality?.slug === slug) || null;
     }
 
     if (foundNationalityNode) {
-      const matching = nationalityNodes.find(
-        (nationality: Nationality) => nationality?.slug === slug
-      );
+      const matching = nationalityNodes.find((nationality) => nationality?.slug === slug);
       if (matching?.posts?.nodes) {
-        postsByNationality = postsByNationality.concat(matching.posts.nodes as Post[]);
+        postsByNationality = postsByNationality.concat(matching.posts.nodes);
       }
     }
 
