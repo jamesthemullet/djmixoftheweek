@@ -1,3 +1,5 @@
+import POST_FIELDS from "./postFields";
+
 const GET_GENRE_BY_SLUG = `
   query GetGenreBySlug($slug: ID!, $postsFirst: Int = 100, $postsAfter: String) {
     genre(id: $slug, idType: SLUG) {
@@ -6,38 +8,7 @@ const GET_GENRE_BY_SLUG = `
       slug
       posts(first: $postsFirst, after: $postsAfter) {
         nodes {
-          slug
-          featuredImage {
-            node {
-              caption
-              id
-              sourceUrl
-              altText
-              srcSet
-              mediaDetails {
-                height
-                width
-              }
-            }
-          }
-          title
-          date
-          ratings {
-            nodes {
-              name
-            }
-          }
-          genres {
-            nodes {
-              name
-              slug
-            }
-          }
-          seo {
-            opengraphImage {
-              sourceUrl
-            }
-          }
+          ${POST_FIELDS}
         }
         pageInfo {
           hasNextPage
