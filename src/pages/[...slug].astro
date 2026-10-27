@@ -4,7 +4,7 @@ export const prerender = false;
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/post.css';
 import Comments from '../components/comments.astro';
-import { FALLBACK_IMAGE as fallbackImage } from '../consts';
+import { FALLBACK_IMAGE as fallbackImage, NOT_FOUND_REDIRECT } from '../consts';
 import { fetchGraphQL } from '../lib/api';
 import { addIframeTitle, sanitizeEmbed } from '../lib/embeds';
 import GET_GENRE_BY_SLUG from '../lib/queries/getGenreBySlug';
@@ -14,7 +14,7 @@ import type { Comments as CommentsType, Post } from '../types';
 const { slug } = Astro.params;
 
 if (!slug) {
-  return Astro.redirect('/404');
+  return Astro.redirect(NOT_FOUND_REDIRECT);
 }
 
 const singleResponse = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/graphql`, {
@@ -94,7 +94,7 @@ const { data } = await singleResponse.json();
 const singlePost = data?.post;
 
 if (!singlePost) {
-  return Astro.redirect('/404');
+  return Astro.redirect(NOT_FOUND_REDIRECT);
 }
 
 const organiseComments = (comments: CommentsType) => {
