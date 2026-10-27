@@ -2,3 +2,4 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const FALLBACK_IMAGE = '/blog-placeholder-1.jpg';
+export const NOT_FOUND_REDIRECT = '/404';

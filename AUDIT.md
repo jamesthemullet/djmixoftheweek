@@ -44,6 +44,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-22 — resolved README alignment item: sitemap-routes finding was stale — `src/pages/sitemap.xml.js`'s static-pages list and dynamic `djPages`/`genrePages`/`nationalityPages` arrays already cover every route the finding named (fixed by PR #422); checked off, no code change needed
 - 2026-10-23 — resolved security item: `sanitize-html`/`nanoid` CVE finding was stale — `sanitize-html` is already `2.18.1`, `renovate.json` has no package-specific ignore for either package, and `yarn audit` reports 0 vulnerabilities; checked off, no code change needed
 - 2026-10-22 — resolved code quality item: `src/pages/nationality/[...slug].astro`'s `fetchGraphQL` call for nationalities now passes an explicit `{ nationalities: { nodes: NationalityNode[] } }` type argument, removing the unsafe `matching.posts.nodes as Post[]` cast
+- 2026-10-27 — resolved code quality item: added `NOT_FOUND_REDIRECT` constant to `src/consts.ts`, replacing 5 inlined `'/404'` literals across `[...slug].astro`, `dj/[...slug].astro`, `genre/[...slug].astro`, `nationality/[...slug].astro`
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -123,7 +124,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [ ] `src/lib/queries/getDJBySlug.ts:7-46` and `src/lib/queries/getGenreBySlug.ts:7-46` duplicate an identical `posts { nodes {...} pageInfo {...} }` selection set verbatim — candidate for a shared GraphQL fragment (found: 2026-09-01)
 - [ ] `src/lib/queries/morePosts.ts`, `mostRecentPost.ts`, `otherPostsAfterFirst.ts` all repeat the same `posts.nodes` field selection, differing only by pagination args (found: 2026-09-01)
 - [ ] `postsFirst: 100`/`first: 100` is inlined across 10+ call sites in `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, and multiple `src/lib/queries/*.ts` files — should be a named `DEFAULT_PAGE_SIZE` constant (found: 2026-09-01)
-- [ ] `'/404'` redirect string is repeated 5 times across `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, `nationality/[...slug].astro`, `[...slug].astro` — should be a named constant (found: 2026-09-01)
+- [x] `'/404'` redirect string is repeated 5 times across `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, `nationality/[...slug].astro`, `[...slug].astro` — should be a named constant (found: 2026-09-01) (resolved: 2026-10-27, PR #476)
 - [ ] `` `${import.meta.env.PUBLIC_API_BASE_URL}/graphql` `` is duplicated in `src/lib/api.ts:2` and re-implemented directly in `src/components/comments.astro:62`, bypassing the `fetchGraphQL` helper and its error handling (found: 2026-09-01)
 - [ ] `src/components/footer/footer.astro:49` and `src/components/header/header.astro:88` both hand-roll an identical `fetch` to `/wp-json/custom/v1/subscribe` — candidate for a shared helper (found: 2026-09-01)
 - [ ] `src/components/comments.astro:86,91` sets `message.style.color = 'red' | 'green'` via inline JS instead of toggling a CSS status class (found: 2026-09-01)
