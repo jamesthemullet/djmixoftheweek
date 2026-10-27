@@ -1,6 +1,8 @@
+import { DEFAULT_PAGE_SIZE } from '../constants';
+
 const GET_ALL_NATIONALITIES = `
-  query GetAllNationalities($postsFirst: Int = 100, $postsAfter: String) {
-    nationalities(first: 100) {
+  query GetAllNationalities($postsFirst: Int = ${DEFAULT_PAGE_SIZE}, $postsAfter: String) {
+    nationalities(first: ${DEFAULT_PAGE_SIZE}) {
       nodes {
         id
         name

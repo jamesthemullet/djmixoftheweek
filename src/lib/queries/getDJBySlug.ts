@@ -1,7 +1,8 @@
+import { DEFAULT_PAGE_SIZE } from "../constants";
 import POST_FIELDS from "./postFields";
 
 const GET_DJ_BY_SLUG = `
-  query GetDJBySlug($slug: ID!, $postsFirst: Int = 100, $postsAfter: String) {
+  query GetDJBySlug($slug: ID!, $postsFirst: Int = ${DEFAULT_PAGE_SIZE}, $postsAfter: String) {
     dJ(id: $slug, idType: SLUG) {
       id
       name

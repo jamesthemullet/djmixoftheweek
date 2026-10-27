@@ -1,6 +1,8 @@
+import { DEFAULT_PAGE_SIZE } from '../constants';
+
 const GET_NATIONALITY_NAMES = `
   query GetNationalityNames {
-    nationalities(first: 100) {
+    nationalities(first: ${DEFAULT_PAGE_SIZE}) {
       nodes {
         id
         name
