@@ -5,7 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fetchGraphQL } from '../../lib/api';
 import '../../styles/post.css';
 import '../../styles/pages.css';
-import { FALLBACK_IMAGE as fallbackImage } from '../../consts';
+import { FALLBACK_IMAGE as fallbackImage, NOT_FOUND_REDIRECT } from '../../consts';
 import GET_DJ_BY_SLUG from '../../lib/queries/getDJBySlug';
 import { capitaliseAndRemoveHyphens } from '../../lib/utils';
 import type { Post } from '../../types';
@@ -13,7 +13,7 @@ import type { Post } from '../../types';
 const { slug } = Astro.params;
 
 if (!slug) {
-  return Astro.redirect('/404');
+  return Astro.redirect(NOT_FOUND_REDIRECT);
 }
 
 let postsByDJ: Post[] = [];
