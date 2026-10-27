@@ -1,11 +1,10 @@
+import POST_LIST_FIELDS from "./postListFields";
+
 const MOST_RECENT_POST_QUERY = `
   query GetMostRecentPost {
     posts(first: 1) {
       nodes {
-        id
-        slug
-        title
-        date
+        ${POST_LIST_FIELDS}
         featuredImage {
           node {
             mediaDetails {
@@ -14,18 +13,6 @@ const MOST_RECENT_POST_QUERY = `
                 name
               }
             }
-          }
-        }
-        genres {
-          nodes {
-            name
-            slug
-          }
-        }
-        dJs {
-          nodes {
-            name
-            slug
           }
         }
       }
