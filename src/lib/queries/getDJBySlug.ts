@@ -1,4 +1,5 @@
-import { DEFAULT_PAGE_SIZE } from '../constants';
+import { DEFAULT_PAGE_SIZE } from "../constants";
+import POST_FIELDS from "./postFields";
 
 const GET_DJ_BY_SLUG = `
   query GetDJBySlug($slug: ID!, $postsFirst: Int = ${DEFAULT_PAGE_SIZE}, $postsAfter: String) {
@@ -8,38 +9,7 @@ const GET_DJ_BY_SLUG = `
       slug
       posts(first: $postsFirst, after: $postsAfter) {
         nodes {
-          slug
-          featuredImage {
-            node {
-              caption
-              id
-              sourceUrl
-              altText
-              srcSet
-              mediaDetails {
-                height
-                width
-              }
-            }
-          }
-          title
-          date
-          ratings {
-            nodes {
-              name
-            }
-          }
-          genres {
-            nodes {
-              name
-              slug
-            }
-          }
-          seo {
-            opengraphImage {
-              sourceUrl
-            }
-          }
+          ${POST_FIELDS}
         }
         pageInfo {
           hasNextPage
