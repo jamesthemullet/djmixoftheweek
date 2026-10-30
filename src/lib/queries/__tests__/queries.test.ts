@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import ADD_COMMENT from '../addComment';
 import ALL_POSTS_QUERY from '../allPosts';
 import GET_ALL_DJS from '../getAllDJs';
 import GET_ALL_NATIONALITIES from '../getAllNationalities';
@@ -13,6 +14,21 @@ import GET_SINGLE_PAGE from '../getSinglePage';
 import MORE_POSTS from '../morePosts';
 import MOST_RECENT_POST_QUERY from '../mostRecentPost';
 import OTHER_POSTS_AFTER_FIRST_QUERY from '../otherPostsAfterFirst';
+
+describe('addComment query', () => {
+  it('is a non-empty string', () => {
+    expect(typeof ADD_COMMENT).toBe('string');
+    expect(ADD_COMMENT.trim().length).toBeGreaterThan(0);
+  });
+  it('contains the AddComment operation name', () => {
+    expect(ADD_COMMENT).toContain('AddComment');
+  });
+  it('uses the $input variable and requests createComment success', () => {
+    expect(ADD_COMMENT).toContain('$input');
+    expect(ADD_COMMENT).toContain('createComment');
+    expect(ADD_COMMENT).toContain('success');
+  });
+});
 
 describe('allPosts query', () => {
   it('is a non-empty string', () => {
