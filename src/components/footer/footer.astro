@@ -38,6 +38,8 @@ import './footer.css';
   <p>DJ Mix Of The Week</p>
 
   <script>
+    import { subscribeToNewsletter } from '../../lib/subscribe';
+
     const form = document.getElementById('footer-subscribe-form');
     const responseMessage = document.getElementById('footer-response-message')!;
 
@@ -46,21 +48,7 @@ import './footer.css';
       const name = (document.getElementById('footer-name') as HTMLInputElement).value;
       const email = (document.getElementById('footer-email') as HTMLInputElement).value;
 
-      const res = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/wp-json/custom/v1/subscribe`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, name }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        responseMessage.textContent = data.message;
-      } else {
-        responseMessage.textContent = `Error: ${data.message || 'Something went wrong'}`;
-      }
+      responseMessage.textContent = await subscribeToNewsletter(name, email);
     });
   </script>
 </footer>
