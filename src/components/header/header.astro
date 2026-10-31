@@ -58,6 +58,8 @@ import Search from '../search/search.astro';
   </div>
 
   <script>
+    import { subscribeToNewsletter } from '../../lib/subscribe';
+
     const navToggle = document.getElementById('nav-toggle') as HTMLElement;
     const navMenu = document.getElementById('nav-menu') as HTMLElement;
 
@@ -85,21 +87,7 @@ import Search from '../search/search.astro';
       const name = (document.getElementById('name') as HTMLInputElement).value;
       const email = (document.getElementById('email') as HTMLInputElement).value;
 
-      const res = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/wp-json/custom/v1/subscribe`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, name }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        responseMessage.textContent = data.message;
-      } else {
-        responseMessage.textContent = `Error: ${data.message || 'Something went wrong'}`;
-      }
+      responseMessage.textContent = await subscribeToNewsletter(name, email);
     });
   </script>
 </header>
