@@ -50,6 +50,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-30 — resolved code quality item: `src/components/comments.astro`'s submit handler now calls the shared `fetchGraphQL` helper with a new `ADD_COMMENT` query constant (`src/lib/queries/addComment.ts`) instead of re-implementing the `/graphql` POST request directly
 - 2026-10-31 — resolved code quality item: extracted the duplicated `/wp-json/custom/v1/subscribe` `fetch` from `header.astro`/`footer.astro` into a shared `subscribeToNewsletter` helper (`src/lib/subscribe.ts`)
 - 2026-10-24 — resolved code quality item: added a `DEFAULT_PAGE_SIZE` constant (`src/lib/constants.ts`) and replaced the inlined `postsFirst: 100`/`first: 100` literals across `src/pages/dj/[...slug].astro`, `src/pages/genre/[...slug].astro`, `src/pages/league-of-mixes.astro`, and 8 `src/lib/queries/*.ts` files with it
+- 2026-11-03 — resolved code quality item: `src/components/comments.astro`'s submit handler now toggles `.comment-form__message--success`/`--error` CSS classes (defined in `src/styles/comments.css`) instead of setting `message.style.color` inline
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -132,7 +133,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `'/404'` redirect string is repeated 5 times across `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, `nationality/[...slug].astro`, `[...slug].astro` — should be a named constant (found: 2026-09-01) (resolved: 2026-10-27, PR #476)
 - [x] `` `${import.meta.env.PUBLIC_API_BASE_URL}/graphql` `` is duplicated in `src/lib/api.ts:2` and re-implemented directly in `src/components/comments.astro:62`, bypassing the `fetchGraphQL` helper and its error handling (found: 2026-09-01) (resolved: 2026-10-30, PR #480)
 - [x] `src/components/footer/footer.astro:49` and `src/components/header/header.astro:88` both hand-roll an identical `fetch` to `/wp-json/custom/v1/subscribe` — candidate for a shared helper (found: 2026-09-01) (resolved: 2026-10-31, PR #481)
-- [ ] `src/components/comments.astro:86,91` sets `message.style.color = 'red' | 'green'` via inline JS instead of toggling a CSS status class (found: 2026-09-01)
+- [x] `src/components/comments.astro:86,91` sets `message.style.color = 'red' | 'green'` via inline JS instead of toggling a CSS status class (found: 2026-09-01) (resolved: 2026-11-03, PR #484)
 - [ ] `src/consts.ts:4-5` — `SITE_TITLE = "Astro Blog"` and `SITE_DESCRIPTION = "Welcome to my website!"` are unedited Astro-starter boilerplate, still live in `src/pages/rss.xml.js:8-9`, producing a wrong site title/description in the RSS feed (found: 2026-09-01)
 - [ ] `src/components/comment.astro:2-3` — `biome-ignore-all` comments left with placeholder text `<explanation>` rather than a real justification or the underlying issue being fixed (found: 2026-09-01)
 - [ ] `knip.json:7` — `ignoreBinaries: ["wait-on", "axe"]` is flagged by `yarn knip`'s own "Configuration hints" as unnecessary and should be removed (found: 2026-09-01)

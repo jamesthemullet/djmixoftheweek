@@ -64,3 +64,11 @@
 	border-left: 3px solid var(--menu);
 	border-radius: 4px;
 }
+
+.comment-form__message--success {
+	color: #1b5e20;
+}
+
+.comment-form__message--error {
+	color: #b00020;
+}
