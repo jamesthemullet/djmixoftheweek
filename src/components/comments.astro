@@ -74,13 +74,15 @@ const { threadedComments, postId } = Astro.props as Props;
 
         if (message) {
           message.textContent = 'Comment submitted! Awaiting moderation.';
-          message.style.color = 'green';
+          message.classList.remove('comment-form__message--error');
+          message.classList.add('comment-form__message--success');
         }
         form.reset();
       } catch (error) {
         if (message) {
           message.textContent = `Failed to submit comment: ${extractGraphQLErrorMessage(error)}`;
-          message.style.color = 'red';
+          message.classList.remove('comment-form__message--success');
+          message.classList.add('comment-form__message--error');
         }
       }
     });
