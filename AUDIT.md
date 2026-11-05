@@ -51,6 +51,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-31 — resolved code quality item: extracted the duplicated `/wp-json/custom/v1/subscribe` `fetch` from `header.astro`/`footer.astro` into a shared `subscribeToNewsletter` helper (`src/lib/subscribe.ts`)
 - 2026-10-24 — resolved code quality item: added a `DEFAULT_PAGE_SIZE` constant (`src/lib/constants.ts`) and replaced the inlined `postsFirst: 100`/`first: 100` literals across `src/pages/dj/[...slug].astro`, `src/pages/genre/[...slug].astro`, `src/pages/league-of-mixes.astro`, and 8 `src/lib/queries/*.ts` files with it
 - 2026-11-03 — resolved code quality item: `src/components/comments.astro`'s submit handler now toggles `.comment-form__message--success`/`--error` CSS classes (defined in `src/styles/comments.css`) instead of setting `message.style.color` inline
+- 2026-11-05 — resolved code quality item: removed the unnecessary `ignoreBinaries: ["wait-on", "axe"]` entry from `knip.json`
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -136,5 +137,5 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/components/comments.astro:86,91` sets `message.style.color = 'red' | 'green'` via inline JS instead of toggling a CSS status class (found: 2026-09-01) (resolved: 2026-11-03, PR #484)
 - [ ] `src/consts.ts:4-5` — `SITE_TITLE = "Astro Blog"` and `SITE_DESCRIPTION = "Welcome to my website!"` are unedited Astro-starter boilerplate, still live in `src/pages/rss.xml.js:8-9`, producing a wrong site title/description in the RSS feed (found: 2026-09-01)
 - [ ] `src/components/comment.astro:2-3` — `biome-ignore-all` comments left with placeholder text `<explanation>` rather than a real justification or the underlying issue being fixed (found: 2026-09-01)
-- [ ] `knip.json:7` — `ignoreBinaries: ["wait-on", "axe"]` is flagged by `yarn knip`'s own "Configuration hints" as unnecessary and should be removed (found: 2026-09-01)
+- [x] `knip.json:7` — `ignoreBinaries: ["wait-on", "axe"]` is flagged by `yarn knip`'s own "Configuration hints" as unnecessary and should be removed (found: 2026-09-01) (resolved: 2026-11-05, PR #TBD)
 - [ ] `src/pages/your-djs.astro:13` and `:34` inline `style="display:none"` for Alpine `x-show` gating instead of a shared `.hidden`/utility class (found: 2026-09-01)
