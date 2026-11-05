@@ -137,5 +137,5 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/components/comments.astro:86,91` sets `message.style.color = 'red' | 'green'` via inline JS instead of toggling a CSS status class (found: 2026-09-01) (resolved: 2026-11-03, PR #484)
 - [ ] `src/consts.ts:4-5` — `SITE_TITLE = "Astro Blog"` and `SITE_DESCRIPTION = "Welcome to my website!"` are unedited Astro-starter boilerplate, still live in `src/pages/rss.xml.js:8-9`, producing a wrong site title/description in the RSS feed (found: 2026-09-01)
 - [ ] `src/components/comment.astro:2-3` — `biome-ignore-all` comments left with placeholder text `<explanation>` rather than a real justification or the underlying issue being fixed (found: 2026-09-01)
-- [x] `knip.json:7` — `ignoreBinaries: ["wait-on", "axe"]` is flagged by `yarn knip`'s own "Configuration hints" as unnecessary and should be removed (found: 2026-09-01) (resolved: 2026-11-05, PR #TBD)
+- [x] `knip.json:7` — `ignoreBinaries: ["wait-on", "axe"]` is flagged by `yarn knip`'s own "Configuration hints" as unnecessary and should be removed (found: 2026-09-01) (resolved: 2026-11-05, PR #486)
 - [ ] `src/pages/your-djs.astro:13` and `:34` inline `style="display:none"` for Alpine `x-show` gating instead of a shared `.hidden`/utility class (found: 2026-09-01)
