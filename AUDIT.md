@@ -52,6 +52,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-24 — resolved code quality item: added a `DEFAULT_PAGE_SIZE` constant (`src/lib/constants.ts`) and replaced the inlined `postsFirst: 100`/`first: 100` literals across `src/pages/dj/[...slug].astro`, `src/pages/genre/[...slug].astro`, `src/pages/league-of-mixes.astro`, and 8 `src/lib/queries/*.ts` files with it
 - 2026-11-03 — resolved code quality item: `src/components/comments.astro`'s submit handler now toggles `.comment-form__message--success`/`--error` CSS classes (defined in `src/styles/comments.css`) instead of setting `message.style.color` inline
 - 2026-11-04 — resolved code quality item: `src/consts.ts` boilerplate `SITE_TITLE`/`SITE_DESCRIPTION` finding was stale — already removed, `rss.xml.js` has its own real local constants; checked off, no code change needed
+- 2026-11-07 — resolved code quality item: `src/pages/your-djs.astro`'s inline `style="display:none"` on the two `x-show` divs replaced with Alpine's `x-cloak` attribute plus a shared `[x-cloak] { display: none !important; }` rule in `src/layouts/layout.css`
 
 ## 1. Test coverage — unit gaps and e2e
 
@@ -138,4 +139,4 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/consts.ts:4-5` — `SITE_TITLE = "Astro Blog"` and `SITE_DESCRIPTION = "Welcome to my website!"` are unedited Astro-starter boilerplate, still live in `src/pages/rss.xml.js:8-9`, producing a wrong site title/description in the RSS feed (found: 2026-09-01) (resolved: 2026-11-04, PR #485 — stale finding: `src/consts.ts` no longer defines `SITE_TITLE`/`SITE_DESCRIPTION` at all, and `src/pages/rss.xml.js` defines its own local `SITE_TITLE = "DJ Mix Of The Week"`/real `SITE_DESCRIPTION` constants since commit `b32d495`; `rss.test.ts` already asserts the boilerplate string is absent; checked off, no code change needed)
 - [ ] `src/components/comment.astro:2-3` — `biome-ignore-all` comments left with placeholder text `<explanation>` rather than a real justification or the underlying issue being fixed (found: 2026-09-01)
 - [ ] `knip.json:7` — `ignoreBinaries: ["wait-on", "axe"]` is flagged by `yarn knip`'s own "Configuration hints" as unnecessary and should be removed (found: 2026-09-01)
-- [ ] `src/pages/your-djs.astro:13` and `:34` inline `style="display:none"` for Alpine `x-show` gating instead of a shared `.hidden`/utility class (found: 2026-09-01)
+- [x] `src/pages/your-djs.astro:13` and `:34` inline `style="display:none"` for Alpine `x-show` gating instead of a shared `.hidden`/utility class (found: 2026-09-01) (resolved: 2026-11-07, PR #490)
