@@ -52,6 +52,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - 2026-10-24 — resolved code quality item: added a `DEFAULT_PAGE_SIZE` constant (`src/lib/constants.ts`) and replaced the inlined `postsFirst: 100`/`first: 100` literals across `src/pages/dj/[...slug].astro`, `src/pages/genre/[...slug].astro`, `src/pages/league-of-mixes.astro`, and 8 `src/lib/queries/*.ts` files with it
 - 2026-11-03 — resolved code quality item: `src/components/comments.astro`'s submit handler now toggles `.comment-form__message--success`/`--error` CSS classes (defined in `src/styles/comments.css`) instead of setting `message.style.color` inline
 - 2026-11-05 — resolved code quality item: removed the unnecessary `ignoreBinaries: ["wait-on", "axe"]` entry from `knip.json`
+- 2026-11-09 — resolved code quality item: extracted the duplicated sort-controls/post-list markup shared by `src/pages/dj/[...slug].astro` and `src/pages/genre/[...slug].astro` into a new `src/components/SortablePostList.astro` component
 - 2026-11-04 — resolved code quality item: `src/consts.ts` boilerplate `SITE_TITLE`/`SITE_DESCRIPTION` finding was stale — already removed, `rss.xml.js` has its own real local constants; checked off, no code change needed
 
 ## 1. Test coverage — unit gaps and e2e
@@ -128,7 +129,7 @@ audit adds new findings to the bottom of each section and leaves checked items a
 - [x] `src/pages/index.astro:19-20,47` — three `fetchGraphQL` calls with no result typing (found: 2026-09-01) (resolved: 2026-10-19, PR #459)
 - [x] `src/pages/nationality/[...slug].astro:51` — `matching.posts.nodes as Post[]` is an unsafe cast masking an untyped upstream response instead of typing the fetch itself (found: 2026-09-01) (resolved: 2026-10-22, PR #466)
 - [x] `src/components/comment.astro:11` declares `Props` as `type` while `addComment.astro:2`/`comments.astro:2` use `interface Props` — inconsistent convention (found: 2026-09-01) (resolved: 2026-10-12, PR #449)
-- [ ] `src/pages/dj/[...slug].astro` and `src/pages/genre/[...slug].astro` are ~95% duplicated (fetch-loop pagination, sort UI, template markup, x-data JSON building) — candidate for a shared component/layout (found: 2026-09-01)
+- [x] `src/pages/dj/[...slug].astro` and `src/pages/genre/[...slug].astro` are ~95% duplicated (fetch-loop pagination, sort UI, template markup, x-data JSON building) — candidate for a shared component/layout (found: 2026-09-01) (resolved: 2026-11-09, PR #TBD)
 - [x] `src/lib/queries/getDJBySlug.ts:7-46` and `src/lib/queries/getGenreBySlug.ts:7-46` duplicate an identical `posts { nodes {...} pageInfo {...} }` selection set verbatim — candidate for a shared GraphQL fragment (found: 2026-09-01)
 - [x] `src/lib/queries/morePosts.ts`, `mostRecentPost.ts`, `otherPostsAfterFirst.ts` all repeat the same `posts.nodes` field selection, differing only by pagination args (found: 2026-09-01) (resolved: 2026-10-26, PR #473)
 - [x] `postsFirst: 100`/`first: 100` is inlined across 10+ call sites in `src/pages/dj/[...slug].astro`, `genre/[...slug].astro`, and multiple `src/lib/queries/*.ts` files — should be a named `DEFAULT_PAGE_SIZE` constant (found: 2026-09-01) (resolved: 2026-10-24, PR #471)
