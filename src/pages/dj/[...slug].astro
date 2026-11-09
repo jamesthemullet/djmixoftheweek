@@ -1,6 +1,7 @@
 ---
 export const prerender = false;
 
+import SortablePostList from '../../components/SortablePostList.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fetchGraphQL } from '../../lib/api';
 import '../../styles/post.css';
@@ -76,70 +77,7 @@ const postsJson = JSON.stringify(
         </p>
       </section>
     ) : (
-      <div
-        x-data={`{
-          sortBy: 'newest',
-          posts: ${postsJson},
-          fallback: '${fallbackImage}',
-          get sortedPosts() {
-            if (this.sortBy === 'rating') {
-              return [...this.posts].sort((a, b) => (Number.parseFloat(b.rating) || 0) - (Number.parseFloat(a.rating) || 0));
-            }
-            return [...this.posts].sort((a, b) => new Date(b.date) - new Date(a.date));
-          }
-        }`}
-      >
-        <div class="sort-controls">
-          <button
-            x-on:click="sortBy = 'rating'"
-            x-bind:class="{ active: sortBy === 'rating' }"
-            x-bind:aria-pressed="sortBy === 'rating'"
-          >
-            Highest Rated
-          </button>
-          <button
-            x-on:click="sortBy = 'newest'"
-            x-bind:class="{ active: sortBy === 'newest' }"
-            x-bind:aria-pressed="sortBy === 'newest'"
-          >
-            Newest
-          </button>
-        </div>
-
-        <ul>
-          <template x-for="(post, index) in sortedPosts" x-bind:key="post.slug">
-            <li class="genres-list">
-              <div class="image-container">
-                <a x-bind:href="`/${post.slug}`">
-                  <img
-                    x-bind:src="post.image || fallback"
-                    x-bind:srcset="post.srcSet"
-                    alt=""
-                    sizes="(max-width: 600px) 100vw, 700px"
-                    width="700"
-                    height="466.67"
-                    class="featured-image"
-                    x-bind:loading="index < 2 ? 'eager' : 'lazy'"
-                  />
-                </a>
-                <span class="rating-badge" x-show="post.rating" x-text="post.rating"></span>
-              </div>
-              <h2>
-                <a x-bind:href="`/${post.slug}`" x-text="post.title"></a>
-              </h2>
-              <ul class="genres">
-                <li>
-                  <template x-for="(genre, i) in post.genres" x-bind:key="genre.slug">
-                    <span>
-                      <a x-bind:href="`/genre/${genre.slug}`" rel="noopener noreferrer" x-text="genre.name"></a><span x-show="i < post.genres.length - 1">, </span>
-                    </span>
-                  </template>
-                </li>
-              </ul>
-            </li>
-          </template>
-        </ul>
-      </div>
+      <SortablePostList postsJson={postsJson} fallbackImage={fallbackImage} />
     )
   }
 </BaseLayout>
