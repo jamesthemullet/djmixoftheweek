@@ -4,7 +4,7 @@
     "interface": true,
     "type": true
   },
-  "ignoreBinaries": ["wait-on", "axe"],
   "entry": ["src/pages/**/*.astro", "src/scripts/**/*.ts"],
-  "tags": ["-lintignore"]
+  "tags": ["-lintignore"],
+  "ignoreDependencies": ["@emnapi/core", "@emnapi/runtime"]
 }
