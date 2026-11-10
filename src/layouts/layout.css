@@ -294,6 +294,10 @@ select {
 	}
 }
 
+[x-cloak] {
+	display: none !important;
+}
+
 .your-djs-page {
 	padding: 1rem;
 	width: 100%;
