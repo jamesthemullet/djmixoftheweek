@@ -2,6 +2,7 @@
 
 import alpinejs from "@astrojs/alpinejs";
 import partytown from "@astrojs/partytown";
+import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 import { defineConfig } from "astro/config";
 
@@ -25,5 +26,6 @@ export default defineConfig({
 			},
 		}),
 		alpinejs(),
+		sitemap(),
 	],
 });
