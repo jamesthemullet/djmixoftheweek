@@ -22,7 +22,7 @@
     "@astrojs/partytown": "2.1.9",
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "^3.7.5",
-    "@astrojs/vercel": "11.0.21",
+    "@astrojs/vercel": "11.0.22",
     "@types/alpinejs": "^3.13.11",
     "@types/node": "^26.4.1",
     "@types/sanitize-html": "^2.16.1",
