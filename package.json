@@ -38,7 +38,7 @@
     "@biomejs/biome": "2.6.7",
     "@emnapi/core": "^1.11.3",
     "@emnapi/runtime": "^1.11.3",
-    "@playwright/test": "^1.59.1",
+    "@playwright/test": "^1.65.1",
     "@types/jsdom": "^30.0.0",
     "@vitest/coverage-v8": "^5.0.0",
     "jsdom": "^31.0.0",
